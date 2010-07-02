@@ -1,0 +1,13 @@
+build
+obj
+bin
+deploy
+deploy/*
+src/CommonAssemblyInfo.cs
+_ReSharper.*
+*.csproj.user
+*.resharper.user
+*.ReSharper.user
+*.suo
+*.cache
+~$*
