@@ -15,6 +15,17 @@ namespace TikaOnDotNet
 			_cut = new TextExtractor();
 		}
 
+
+		[Test]
+		public void should_extract_contained_filenames_from_zips()
+		{
+			var textExtractionResult = _cut.Extract("tika.zip");
+
+			textExtractionResult.Text.ShouldContain("Tika.docx");
+			textExtractionResult.Text.ShouldContain("Tika.pptx");
+			textExtractionResult.Text.ShouldContain("tika.xlsx");
+		}
+
 		[Test]
 		public void should_extract_from_jpg()
 		{
