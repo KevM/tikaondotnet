@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using SpecUnit;
 
@@ -15,13 +16,33 @@ namespace TikaOnDotNet
 		}
 
 		[Test]
+		public void should_extract_from_jpg()
+		{
+			var textExtractionResult = _cut.Extract("apache.jpg");
+
+			textExtractionResult.Text.ShouldBeEmpty();
+
+			textExtractionResult.Metadata["Software"].ShouldContain("Paint.NET");
+
+			Console.WriteLine(textExtractionResult);
+		}
+
+		[Test]
+		public void should_extract_from_rtf()
+		{
+			var textExtractionResult = _cut.Extract("Tika.rtf");
+
+			textExtractionResult.Text.ShouldContain("pack of pickled almonds");
+		}
+
+		[Test]
 		public void should_extract_from_pdf()
 		{
 			var textExtractionResult = _cut.Extract("Tika.pdf");
 
 			textExtractionResult.Text.ShouldContain("pack of pickled almonds");
 		}
-
+		
 		[Test]
 		public void should_extract_from_docx()
 		{
