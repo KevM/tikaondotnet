@@ -86,8 +86,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="tika-app-0.7">
-      <HintPath>..\..\..\..\utilities\tika-0.7\tika-app-0.7.dll</HintPath>
+    <Reference Include="tika-app-0.8">
+      <HintPath>..\lib\tika-app-0.8.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
