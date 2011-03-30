@@ -39,6 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Core.dll</HintPath>
     </Reference>
+    <Reference Include="IKVM.OpenJDK.Jdbc">
+      <HintPath>..\lib\IKVM.OpenJDK.Jdbc.dll</HintPath>
+    </Reference>
     <Reference Include="IKVM.OpenJDK.Media, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Media.dll</HintPath>
@@ -86,8 +89,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="tika-app-0.8">
-      <HintPath>..\lib\tika-app-0.8.dll</HintPath>
+    <Reference Include="tika-app-0.9">
+      <HintPath>..\lib\tika-app-0.9.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

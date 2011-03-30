@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using java.io;
 using java.lang;
-using java.net;
 using javax.xml.transform;
 using javax.xml.transform.sax;
 using javax.xml.transform.stream;
+using org.apache.tika.io;
 using org.apache.tika.metadata;
 using org.apache.tika.parser;
 using Exception = System.Exception;
@@ -49,8 +49,8 @@ namespace TikaOnDotNet
 			try
 			{
 				var file = new File(filePath);
-				URL url = file.toURI().toURL();
-				using (InputStream inputStream = MetadataHelper.getInputStream(url, metadata))
+				var url = file.toURI().toURL();
+				using (InputStream inputStream = TikaInputStream.get(url, metadata))
 				{
 					parser.parse(inputStream, getTransformerHandler(), metadata, parseContext);
 					inputStream.close();
