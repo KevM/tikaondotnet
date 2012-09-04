@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Tikaondotnet : How to use Tika on .Net via IKVM" />
+    <meta name="description" content="Tikaondotnet : Tika on .Net via IKVM" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -16,15 +16,15 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/KevM/tikaondotnet">Fork Me on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/KevM/tikaondotnet">View on GitHub</a>
 
           <h1 id="project_title">Tikaondotnet</h1>
-          <h2 id="project_tagline">How to use Tika on .Net via IKVM</h2>
+          <h2 id="project_tagline">Tika on .Net via IKVM</h2>
 
-          <section id="downloads">
-            <a class="zip_download_link" href="https://github.com/KevM/tikaondotnet/zipball/master">Download this project as a .zip file</a>
-            <a class="tar_download_link" href="https://github.com/KevM/tikaondotnet/tarball/master">Download this project as a tar.gz file</a>
-          </section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/KevM/tikaondotnet/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/KevM/tikaondotnet/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
     </div>
 
@@ -33,13 +33,33 @@
       <section id="main_content" class="inner">
         <h3>Tika On DotNet</h3>
 
-<p>This project is a wrapper around the wonderful <a href="http://tika.apache.org/">Tika</a> library written in Java making it usable by .Net applications.</p>
+<blockquote>
+<p>The Apache <a href="http://tika.apache.org/">Tika™</a>  toolkit detects and extracts metadata and structured text content from various documents using existing parser libraries.</p>
+</blockquote>
 
-<p>This may sound scary and heretical but did you know it is possible to leverage Java libraries from .Net applications with no TCP sockets or web services getting caught in the crossfire? <a href="http://www.ikvm.net/">IKVM</a> baby!</p>
+<h4>What is this?</h4>
 
-<p>For more details checkout <a href="http://www.dovetailsoftware.com/blogs/kmiller/archive/2010/07/02/using-the-tika-java-library-in-your-net-application-with-ikvm">this blog post</a> from <a href="https://github.com/KevM" class="user-mention">@KevM</a></p>
+<p>This project contains all the .Net <a href="https://github.com/KevM/tikaondotnet/tree/master/lib">assemblies</a> necessary to use the wonderful <a href="http://tika.apache.org/">Tika</a> library in your .Net applications.</p>
+
+<p>Tika is a Apache Foundation open source project written in Java. It may sound scary but it is possible to leverage Java libraries from .Net applications without any TCP sockets or web services getting caught in the crossfire using <a href="http://www.ikvm.net/">IKVM</a>. I've done the hard work for you and built the .Net version of Tika for you and bundled the supporting IKVM runtime libraies. </p>
+
+<h4>Tests</h4>
+
+<p>A basic set of unit tests are present in this project to verify that Tika is working. These tests extract text from test documents. The following rich document types are tested:</p>
+
+<ul>
+<li>Adobe PDF - .pdf</li>
+<li>Microsoft Word - .doc and .docx</li>
+<li>Microsoft Excel - .xls and .xlsx</li>
+<li>Microsoft PowerPoint - .ppt and .pptx</li>
+<li>Rich Text Format - .rtf</li>
+<li>Zip files - .zip (only a listing of the filenames in the .zip file are extracted)</li>
+<li>JPEG - .jpg (image metadata)</li>
+</ul><p>For more details on how this is accomplished checkout <a href="http://www.dovetailsoftware.com/blogs/kmiller/archive/2010/07/02/using-the-tika-java-library-in-your-net-application-with-ikvm">this blog post</a> from <a href="https://github.com/KevM" class="user-mention">@KevM</a></p>
 
 <h3>Cloning</h3>
+
+<p>You can use your favorite git client to clone this repository. Please do!</p>
 
 <pre><code>$ git clone git@github.com:KevM/tikaondotnet.git
 $ cd tikadotnet
