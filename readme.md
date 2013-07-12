@@ -1,22 +1,39 @@
-Using Tika on .Net
-==================
+Developers Guid to Tika on .NET
+===============================
 
-This project is a simple example showing how to use the Java [Tika][1] library within a .Net application (via [IKVM][2]) to do text extraction from rich documents.
+This project is a simple wrapper around the very excellent and robust [Tika](http://tika.apache.org/) text extraction Java library. 
 
-##Building##
+##Building TikaOnDotNet##
 
-There is build automation provided via a Ruby rake file. You need to have [Ruby] [3] installed and in your path.
+This project uses [rake](http://rake.rubyforge.org/) for build automation. 
 
-###Dependencies###
-Note : There is a dependency on the albacore gem.
+1.[Install Ruby](http://rubyinstaller.org/)
+2. Install Rake ```gem install rake```
+3. ```rake```
 
-`gem install albacore`
+If successful this should have built and run the Tika text extraction integration tests.
 
+To ensure you have all the required gems installed [Bundler](http://bundler.io/) is used and should be automatically installed and setup the first time you rake the project. To manage our Nuget dependencies we are using a tool called [Ripple}(http://darthfubumvc.github.io/ripple/ripple/gettingstarted/overview/) but you should hopefully not have to worry about that. 
 
-###To Build and Run Tests###
+##Building the Tika-App .NET Assembly##
 
-`rake`
+To accomplish this the **tika-app-{version}.jar** is transpiled into a .Net assembly using the [IKVM](http://www.ikvm.net/) compiler. 
 
-[1]: http://tika.apache.org/
-[2]: http://www.ikvm.net/
-[3]: http://rubyinstaller.org/
+```
+ikvmc.exe -target:library -assembly:tika-app tika-app-{version}.jar
+```
+
+The result of this process is a .NET assembly ```tika-app.dll``` which is stored in this repo's [lib directory](https://github.com/KevM/tikaondotnet/tree/master/lib).
+
+The Tika app .jar file can be downloaded from the [Tika Download page](http://tika.apache.org/download.html).
+
+##Updating the IKVM Nuget dependency##
+
+```
+ripple update -n IKVM -p TikaOnDotNet -v {version}
+```
+
+##Releasing TikaOnDotNet##
+
+There is a handy ```release.bat``` which will create a release build and package the nuget. The resulting nuget package will be in the **artifacts** directory.
+
