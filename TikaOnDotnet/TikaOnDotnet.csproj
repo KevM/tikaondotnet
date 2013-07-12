@@ -35,49 +35,49 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IKVM.OpenJDK.Core, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.Core, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Jdbc">
       <HintPath>..\lib\IKVM.OpenJDK.Jdbc.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Media, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.Media, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Media.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Security, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.Security, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Security.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.SwingAWT, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.SwingAWT, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.SwingAWT.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Text, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.Text, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Text.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Util, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.Util, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.Util.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.XML.API, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.XML.API, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.XML.API.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.XML.Parse, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.XML.Parse, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.XML.Parse.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.Transform">
       <HintPath>..\lib\IKVM.OpenJDK.XML.Transform.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.XML.XPath, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.OpenJDK.XML.XPath, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.OpenJDK.XML.XPath.dll</HintPath>
     </Reference>
-    <Reference Include="IKVM.Runtime, Version=0.42.0.6, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+    <Reference Include="IKVM.Runtime, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\IKVM.Runtime.dll</HintPath>
     </Reference>
@@ -89,8 +89,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="tika-app-0.9">
-      <HintPath>..\lib\tika-app-0.9.dll</HintPath>
+    <Reference Include="tika-app-1.4">
+      <HintPath>..\lib\tika-app-1.4.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
