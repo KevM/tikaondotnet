@@ -1,0 +1,1 @@
+rake config=release && rake ripple:package && start artifacts
