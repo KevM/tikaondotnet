@@ -33,8 +33,6 @@ namespace TikaOnDotNet.Tests
 			textExtractionResult.Text.Trim().ShouldBeEmpty();
 
 			textExtractionResult.Metadata["Software"].ShouldContain("Paint.NET");
-
-			Console.WriteLine(textExtractionResult);
 		}
 
 		[Test]
