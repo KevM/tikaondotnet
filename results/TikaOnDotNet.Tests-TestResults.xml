@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="c:\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Debug\TikaOnDotNet.Tests.dll" total="10" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-07-12" time="11:35:15">
+  <environment nunit-version="2.5.10.11092" clr-version="2.0.50727.5472" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="c:\projects\tikaondotnet" machine-name="KEVIN" user="KevM" user-domain="Kevin" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="c:\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Debug\TikaOnDotNet.Tests.dll" executed="True" result="Success" success="True" time="5.251" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="TikaOnDotNet" executed="True" result="Success" success="True" time="5.247" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="5.247" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="text_extraction" executed="True" result="Success" success="True" time="5.246" asserts="0">
+                <results>
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_contained_filenames_from_zips" executed="True" result="Success" success="True" time="2.637" asserts="3" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_doc" executed="True" result="Success" success="True" time="0.293" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_docx" executed="True" result="Success" success="True" time="0.694" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_jpg" executed="True" result="Success" success="True" time="0.132" asserts="2" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_pdf" executed="True" result="Success" success="True" time="0.424" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_ppt" executed="True" result="Success" success="True" time="0.132" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_pptx" executed="True" result="Success" success="True" time="0.190" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_rtf" executed="True" result="Success" success="True" time="0.331" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_xls" executed="True" result="Success" success="True" time="0.149" asserts="1" />
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.should_extract_from_xlsx" executed="True" result="Success" success="True" time="0.087" asserts="1" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
