@@ -17,13 +17,13 @@ solution = FubuRake::Solution.new do |sln|
 		:solutionfile => 'src/TikaOnDotnet.sln'
 	}
 
-=begin
+begin
 	sln.assembly_info = {
 		:product_name => "TikaOnDotnet",
 		:copyright => 'Copyright Kevin Miller 2013',
 		:output_file => 'src/CommonAssemblyInfo.cs'
 	}
-=end
+end
 
 	sln.ripple_enabled = true
 end
