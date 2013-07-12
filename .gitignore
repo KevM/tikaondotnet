@@ -16,3 +16,4 @@ src/packages
 logs
 *.user
 results
+artifacts
