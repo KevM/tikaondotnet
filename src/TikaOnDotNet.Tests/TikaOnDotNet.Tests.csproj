@@ -145,9 +145,6 @@
     <Compile Include="text_extraction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="files\Tika.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
