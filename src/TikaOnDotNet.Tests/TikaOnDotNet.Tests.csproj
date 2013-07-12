@@ -136,8 +136,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="tika-app-1.4">
-      <HintPath>..\..\lib\tika-app-1.4.dll</HintPath>
+    <Reference Include="tika-app">
+      <HintPath>..\..\lib\tika-app.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
