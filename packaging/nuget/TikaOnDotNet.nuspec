@@ -18,7 +18,7 @@
     <copyright>Copyright Kevin Miller 2013</copyright>
   </metadata>
   <files xmlns="">
-    <file src="..\..\src\TikaOnDotNet\bin\release\TikaOnDotNet.*" target="net35" />
-    <file src="..\..\lib\tika-app.dll" target="net35" />
+    <file src="..\..\src\TikaOnDotNet\bin\release\TikaOnDotNet.*" target="lib\net35" />
+    <file src="..\..\lib\tika-app.dll" target="lib\net35" />
   </files>
 </package>
