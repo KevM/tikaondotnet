@@ -1,18 +1,17 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bottles (1.1.0.499)
-    fubudocs (0.9.0.120)
-    fuburake (0.5.0.23)
-      bottles (~> 1.0)
+    bottles (2.1.0.584)
+    fubudocs (0.9.9.297)
+    fuburake (0.9.5.37)
+      bottles (>= 1.1)
       fubudocs (>= 0.5)
       ripple-cli (~> 2.0)
-    rake (10.1.0)
-    ripple-cli (2.0.0.102)
+    rake (10.1.1)
+    ripple-cli (2.3.4.151)
 
 PLATFORMS
   x64-mingw32
-  x86-mingw32
 
 DEPENDENCIES
   fuburake (~> 0.5)
