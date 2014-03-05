@@ -11,6 +11,7 @@ GEM
     ripple-cli (2.0.0.102)
 
 PLATFORMS
+  x64-mingw32
   x86-mingw32
 
 DEPENDENCIES
