@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using FubuTestingSupport;
 using NUnit.Framework;
 
@@ -13,6 +14,18 @@ namespace TikaOnDotNet.Tests
 		public virtual void SetUp()
 		{
 			_cut = new TextExtractor();
+		}
+
+		[Test]
+		public void should_extract_mp4()
+		{
+			var textExtractionResult = _cut.Extract("files/badgers.mp4");
+
+			textExtractionResult.ContentType.ShouldEqual("video/mp4");
+
+			var fileInfo = new FileInfo(@"C:\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Debug\files\badgers.mp4");
+			fileInfo.Delete();
+			fileInfo.Exists.ShouldBeFalse();
 		}
 
 		[Test]
