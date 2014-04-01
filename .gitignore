@@ -17,3 +17,5 @@ logs
 *.user
 results
 artifacts
+ikvm
+Gemfile.lock

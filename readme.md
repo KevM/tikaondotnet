@@ -15,11 +15,19 @@ If successful this should build and run the Tika text extraction integration tes
 
 To ensure you have all the required gems installed [Bundler](http://bundler.io/) is used and should be automatically installed and setup the first time you rake the project. To manage our Nuget dependencies we are using a tool called [Ripple](http://darthfubumvc.github.io/ripple/ripple/gettingstarted/overview/) but you should hopefully not have to worry about that unless you are updating dependencies. 
 
+##Updating the IKVM Nuget dependency##
+
+```
+ripple update -n IKVM -p TikaOnDotNet -v {version}
+```
+
 ##Building the Tika-App .NET Assembly##
 
 **You should only need to do this step to upgrade the version of Tika being used by this project.**
 
 At it's core this project simply wraps the Java Tika library. To accomplish this the **tika-app-{version}.jar** is transpiled into a .Net assembly using the [IKVM](http://www.ikvm.net/) compiler. 
+
+> Please ensure that your version of IKVM binaries match the Nuget dependency's version
 
 ```
 ikvmc.exe -target:library -assembly:tika-app tika-app-{version}.jar
@@ -28,12 +36,6 @@ ikvmc.exe -target:library -assembly:tika-app tika-app-{version}.jar
 The result of this process is a .NET assembly ```tika-app.dll``` which is stored in this repo's [lib directory](https://github.com/KevM/tikaondotnet/tree/master/lib).
 
 The **tika-app** .jar file can be downloaded from the [Tika Download page](http://tika.apache.org/download.html).
-
-##Updating the IKVM Nuget dependency##
-
-```
-ripple update -n IKVM -p TikaOnDotNet -v {version}
-```
 
 ##Releasing TikaOnDotNet##
 
