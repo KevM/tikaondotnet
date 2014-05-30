@@ -8,8 +8,9 @@ This project is a simple wrapper around the very excellent and robust [Tika](htt
 This project uses [rake](http://rake.rubyforge.org/) for build automation. 
 
 1. [Install Ruby](http://rubyinstaller.org/)
-2. Install Rake ```gem install rake```
-3. Run ```rake```
+2. Install Rake ```gem install bundler```
+3. Run ```bundle install```
+4. Run ```rake```
 
 If successful this should build and run the Tika text extraction integration tests.
 
@@ -18,7 +19,7 @@ To ensure you have all the required gems installed [Bundler](http://bundler.io/)
 ##Updating the IKVM Nuget dependency##
 
 ```
-ripple update -n IKVM -p TikaOnDotNet -v {version}
+ripple update -n IKVM -V {version}
 ```
 
 ##Building the Tika-App .NET Assembly##
@@ -30,7 +31,7 @@ At it's core this project simply wraps the Java Tika library. To accomplish this
 > Please ensure that your version of IKVM binaries match the Nuget dependency's version
 
 ```
-ikvmc.exe -target:library -assembly:tika-app tika-app-{version}.jar
+ikvmc.exe -target:library -assembly:tika-app -classloader:ikvm.runtime.AppDomainAssemblyClassLoader tika-app-{version}.jar
 ```
 
 The result of this process is a .NET assembly ```tika-app.dll``` which is stored in this repo's [lib directory](https://github.com/KevM/tikaondotnet/tree/master/lib).
