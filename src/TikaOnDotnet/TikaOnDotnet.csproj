@@ -123,6 +123,7 @@
     <Compile Include="MySystemClassLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtrensions.cs" />
+    <Compile Include="TextExtractionResult.cs" />
     <Compile Include="TextExtractor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

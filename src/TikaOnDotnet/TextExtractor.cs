@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using java.io;
 using java.lang;
@@ -11,30 +10,38 @@ using org.apache.tika.metadata;
 using org.apache.tika.parser;
 using Exception = System.Exception;
 using String = System.String;
-using StringBuilder = System.Text.StringBuilder;
 
 namespace TikaOnDotNet
 {
-	public class TextExtractionResult
+	public interface ITextExtractor
 	{
-		public string Text { get; set; }
-		public string ContentType { get; set; }
-		public IDictionary<string, string> Metadata { get; set; }
+		/// <summary>
+		/// Extract text from a given filepath.
+		/// </summary>
+		/// <param name="filePath">File path to be extracted.</param>
+		TextExtractionResult Extract(string filePath);
+		
+		/// <summary>
+		/// Extract text from a byte[]. This is a good way to get data from arbitrary sources.
+		/// </summary>
+		/// <param name="data">A byte array of data which will have its text extracted.</param>
+		TextExtractionResult Extract(byte[] data);
 
-		public override string ToString()
-		{
-			var builder = new StringBuilder("Text:\n" + Text + "MetaData:\n");
+		/// <summary>
+		/// Extract text from a URI. Time to create your very of web spider.
+		/// </summary>
+		/// <param name="uri">URL which will have its text extracted.</param>
+		TextExtractionResult Extract(Uri uri);
 
-			foreach (var keypair in Metadata)
-			{
-				builder.AppendFormat("{0} - {1}\n", keypair.Key, keypair.Value);
-			}
-
-			return builder.ToString();
-		}
+		/// <summary>
+		/// Under the hood we are using Tika which is a Java project. Tika wants an java.io.InputStream. The other overloads eventually call this Extract giving this method a Func.
+		/// </summary>
+		/// <param name="streamFactory">A Func which takes a Metadata object and returns an InputStream.</param>
+		/// <returns></returns>
+		TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory);
 	}
 
-	public class TextExtractor
+	public class TextExtractor : ITextExtractor
 	{
 		private StringWriter _outputWriter;
 
