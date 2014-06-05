@@ -39,11 +39,18 @@ namespace TikaOnDotNet.Tests
 			var textExtractionResult = _cut.Extract("files/badgers.mp4");
 
 			textExtractionResult.ContentType.ShouldEqual("video/mp4");
+		}
+
+		[Test, Explicit("Issue #11")]
+		public void should_be_able_to_delete_the_mp4_after_extraction()
+		{
+			_cut.Extract("files/badgers.mp4");
 
 			var fileInfo = new FileInfo(@"C:\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Debug\files\badgers.mp4");
 			fileInfo.Delete();
 			fileInfo.Exists.ShouldBeFalse();
 		}
+
 
 		[Test]
 		public void extract_by_filepath_should_add_filepath_to_metadata()
