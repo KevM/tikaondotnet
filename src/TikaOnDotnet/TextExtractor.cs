@@ -63,6 +63,30 @@ namespace TikaOnDotNet
 				throw new ApplicationException("Extraction of text from the file '{0}' failed.".ToFormat(filePath), ex);
 			}
 		}
+		
+		public TextExtractionResult Extract(byte[] data)
+        {
+            var parser = new AutoDetectParser();
+            var metadata = new Metadata();
+            var parseContext = new ParseContext();
+            Class parserClass = parser.GetType();
+            parseContext.set(parserClass, parser);
+
+            try
+            {
+                using (InputStream inputStream = TikaInputStream.get(data, metadata))
+                {
+                    parser.parse(inputStream, getTransformerHandler(), metadata, parseContext);
+                    inputStream.close();
+                }
+
+                return assembleExtractionResult(_outputWriter.ToString(), metadata);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Extraction of text from the byte array failed.", ex);
+            }
+        }
 
 		private static TextExtractionResult assembleExtractionResult(string text, Metadata metadata)
 		{
