@@ -111,5 +111,14 @@ namespace TikaOnDotNet.Tests
 
 			textExtractionResult.Text.ShouldContain("Use the force duke");
 		}
+		
+		[Test]
+		public void should_extract_from_xls_with_byte()
+		{
+			var data = System.IO.File.ReadAllBytes("files/Tika.xls");
+			var textExtractionResult = _cut.Extract(data);
+
+			textExtractionResult.Text.ShouldContain("Use the force duke");
+		}
 	}
 }
