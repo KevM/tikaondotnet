@@ -43,8 +43,6 @@ namespace TikaOnDotNet
 
 	public class TextExtractor : ITextExtractor
 	{
-		private StringWriter _outputWriter;
-
 		public TextExtractionResult Extract(string filePath)
 		{
 			try
@@ -85,12 +83,13 @@ namespace TikaOnDotNet
 			{
 				var parser = new AutoDetectParser();
 				var metadata = new Metadata();
+				var outputWriter = new StringWriter();
 				
 				using (var inputStream = streamFactory(metadata))
 				{
 					try
 					{
-						parser.parse(inputStream, getTransformerHandler(), metadata);
+						parser.parse(inputStream, getTransformerHandler(outputWriter), metadata);
 					}
 					finally
 					{
@@ -98,7 +97,7 @@ namespace TikaOnDotNet
 					}
 				}
 
-				return assembleExtractionResult(_outputWriter.ToString(), metadata);
+				return assembleExtractionResult(outputWriter.ToString(), metadata);
 			}
 			catch (Exception ex)
 			{
@@ -121,7 +120,7 @@ namespace TikaOnDotNet
 			};
 		}
 
-		private TransformerHandler getTransformerHandler()
+		private TransformerHandler getTransformerHandler(StringWriter output)
 		{
 			var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
 			var transformerHandler = factory.newTransformerHandler();
@@ -129,8 +128,7 @@ namespace TikaOnDotNet
 			transformerHandler.getTransformer().setOutputProperty(OutputKeys.METHOD, "text");
 			transformerHandler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
 
-			_outputWriter = new StringWriter();
-			transformerHandler.setResult(new StreamResult(_outputWriter));
+			transformerHandler.setResult(new StreamResult(output));
 			return transformerHandler;
 		}
 	}
