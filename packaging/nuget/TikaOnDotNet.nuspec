@@ -19,5 +19,6 @@
   </metadata>
   <files xmlns="">
     <file src="..\..\lib\tika-app.dll" target="lib\net35" />
+    <file src="..\..\src\TikaOnDotNet\bin\release\TikaOnDotNet.*" target="lib\net35" />
   </files>
 </package>
