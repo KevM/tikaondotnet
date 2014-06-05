@@ -84,12 +84,15 @@ namespace TikaOnDotNet
 				var parser = new AutoDetectParser();
 				var metadata = new Metadata();
 				var outputWriter = new StringWriter();
+				var parseContext = new ParseContext();
+				Class parserClass = parser.GetType();
+				parseContext.set(parserClass, parser);
 				
 				using (var inputStream = streamFactory(metadata))
 				{
 					try
 					{
-						parser.parse(inputStream, getTransformerHandler(outputWriter), metadata);
+						parser.parse(inputStream, getTransformerHandler(outputWriter), metadata, parseContext);
 					}
 					finally
 					{
