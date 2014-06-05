@@ -29,6 +29,16 @@ namespace TikaOnDotNet.Tests
 		}
 
 		[Test]
+		public void extract_by_filepath_should_add_filepath_to_metadata()
+		{
+			const string filePath = "files/apache.jpg";
+
+			var textExtractionResult = _cut.Extract(filePath);
+
+			textExtractionResult.Metadata["FilePath"].ShouldEqual(filePath);
+		}
+
+		[Test]
 		public void should_extract_contained_filenames_from_zips()
 		{
 			var textExtractionResult = _cut.Extract("files/tika.zip");
@@ -124,9 +134,11 @@ namespace TikaOnDotNet.Tests
 		[Test]
 		public void should_extract_from_uri()
 		{
-			var textExtractionResult = _cut.Extract(new Uri("http://google.com"));
-
+			const string url = "http://google.com/";
+			var textExtractionResult = _cut.Extract(new Uri(url));
+			
 			textExtractionResult.Text.ShouldContain("Google");
+			textExtractionResult.Metadata["Uri"].ShouldEqual(url);
 		}
 	}
 }

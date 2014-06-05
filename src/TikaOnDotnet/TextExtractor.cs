@@ -50,7 +50,12 @@ namespace TikaOnDotNet
 			try
 			{
 				var file = new File(filePath);
-				return Extract(metadata => TikaInputStream.get(file, metadata));
+				return Extract(metadata =>
+				{
+					var result = TikaInputStream.get(file, metadata);
+					metadata.add("FilePath", filePath);
+					return result;
+				});
 			}
 			catch (Exception ex)
 			{
@@ -66,7 +71,12 @@ namespace TikaOnDotNet
 		public TextExtractionResult Extract(Uri uri)
 		{
 			var jUri = new java.net.URI(uri.ToString());
-			return Extract(metadata => TikaInputStream.get(jUri, metadata));
+			return Extract(metadata =>
+			{
+				var result = TikaInputStream.get(jUri, metadata);
+				metadata.add("Uri", uri.ToString());
+				return result;
+			});
 		}
 
 		public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
