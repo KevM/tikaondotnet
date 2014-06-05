@@ -40,68 +40,65 @@ namespace TikaOnDotNet
 
 		public TextExtractionResult Extract(string filePath)
 		{
-			var parser = new AutoDetectParser();
-			var metadata = new Metadata();
-			var parseContext = new ParseContext();
-			Class parserClass = parser.GetType();
-			parseContext.set(parserClass, parser);
-
 			try
 			{
 				var file = new File(filePath);
-				var url = file.toURI().toURL();
-				using (InputStream inputStream = TikaInputStream.get(url, metadata))
-				{
-					parser.parse(inputStream, getTransformerHandler(), metadata, parseContext);
-					inputStream.close();
-				}
-
-				return assembleExtractionResult(_outputWriter.toString(), metadata);
+				return Extract(metadata => TikaInputStream.get(file, metadata));
 			}
 			catch (Exception ex)
 			{
 				throw new ApplicationException("Extraction of text from the file '{0}' failed.".ToFormat(filePath), ex);
 			}
 		}
-		
+
 		public TextExtractionResult Extract(byte[] data)
-        {
-            var parser = new AutoDetectParser();
-            var metadata = new Metadata();
-            var parseContext = new ParseContext();
-            Class parserClass = parser.GetType();
-            parseContext.set(parserClass, parser);
+		{
+			return Extract(metadata => TikaInputStream.get(data, metadata));
+		}
 
-            try
-            {
-                using (InputStream inputStream = TikaInputStream.get(data, metadata))
-                {
-                    parser.parse(inputStream, getTransformerHandler(), metadata, parseContext);
-                    inputStream.close();
-                }
+		public TextExtractionResult Extract(Uri uri)
+		{
+			var jUri = new java.net.URI(uri.ToString());
+			return Extract(metadata => TikaInputStream.get(jUri, metadata));
+		}
 
-                return assembleExtractionResult(_outputWriter.ToString(), metadata);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Extraction of text from the byte array failed.", ex);
-            }
-        }
+		public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
+		{
+			try
+			{
+				var parser = new AutoDetectParser();
+				var metadata = new Metadata();
+				var parseContext = new ParseContext();
+				Class parserClass = parser.GetType();
+				parseContext.set(parserClass, parser);
+
+				using (var inputStream = streamFactory(metadata))
+				{
+					parser.parse(inputStream, getTransformerHandler(), metadata, parseContext);
+					inputStream.close();
+				}
+
+				return assembleExtractionResult(_outputWriter.ToString(), metadata);
+			}
+			catch (Exception ex)
+			{
+				throw new ApplicationException("Extraction failed.", ex);
+			}
+		}
 
 		private static TextExtractionResult assembleExtractionResult(string text, Metadata metadata)
 		{
-			Dictionary<string, string> metaDataResult = metadata.names().ToDictionary(name => name,
-			                                                                          name =>
-			                                                                          String.Join(", ", metadata.getValues(name)));
+			var metaDataResult = metadata.names()
+				.ToDictionary(name => name, name => String.Join(", ", metadata.getValues(name)));
 
-			string contentType = metaDataResult["Content-Type"];
+			var contentType = metaDataResult["Content-Type"];
 
 			return new TextExtractionResult
-			       {
-			       	Text = text,
-			       	ContentType = contentType,
-			       	Metadata = metaDataResult
-			       };
+			{
+				Text = text,
+				ContentType = contentType,
+				Metadata = metaDataResult
+			};
 		}
 
 		private TransformerHandler getTransformerHandler()
