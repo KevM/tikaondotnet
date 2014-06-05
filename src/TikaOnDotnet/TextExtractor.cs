@@ -59,7 +59,7 @@ namespace TikaOnDotNet
 			}
 			catch (Exception ex)
 			{
-				throw new ApplicationException("Extraction of text from the file '{0}' failed.".ToFormat(filePath), ex);
+				throw new TextExtractionException("Extraction of text from the file '{0}' failed.".ToFormat(filePath), ex);
 			}
 		}
 
@@ -99,7 +99,7 @@ namespace TikaOnDotNet
 			}
 			catch (Exception ex)
 			{
-				throw new ApplicationException("Extraction failed.", ex);
+				throw new TextExtractionException("Extraction failed.", ex);
 			}
 		}
 

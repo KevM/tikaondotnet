@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Policy;
 using FubuTestingSupport;
 using NUnit.Framework;
 
@@ -14,6 +15,23 @@ namespace TikaOnDotNet.Tests
 		public virtual void SetUp()
 		{
 			_cut = new TextExtractor();
+		}
+
+		[Test]
+		public void non_existing_files_should_fail_with_exception()
+		{
+			const string fileName = "files/doesnotexist.mp3";
+
+			typeof(TextExtractionException).ShouldBeThrownBy(() => _cut.Extract(fileName))
+				.Message.ShouldContain(fileName);
+		}
+
+		[Test]
+		public void non_existing_uri_should_fail_with_exception()
+		{
+			const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
+
+			typeof(TextExtractionException).ShouldBeThrownBy(() => _cut.Extract(new Uri(uri)));
 		}
 
 		[Test]
