@@ -17,5 +17,6 @@ logs
 *.user
 results
 artifacts
-ikvm
+lib/ikvm*
+*.jar
 Gemfile.lock
