@@ -85,8 +85,9 @@ namespace TikaOnDotNet
 				var metadata = new Metadata();
 				var outputWriter = new StringWriter();
 				var parseContext = new ParseContext();
-				Class parserClass = parser.GetType();
-				parseContext.set(parserClass, parser);
+
+                //use the base class type for the key or parts of Tika won't find a usable parser
+				parseContext.set(typeof(org.apache.tika.parser.Parser), parser);
 				
 				using (var inputStream = streamFactory(metadata))
 				{

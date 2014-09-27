@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using FubuTestingSupport;
 using NUnit.Framework;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TikaOnDotNet.Tests
 {
@@ -71,6 +73,24 @@ namespace TikaOnDotNet.Tests
 			textExtractionResult.Text.ShouldContain("Tika.pptx");
 			textExtractionResult.Text.ShouldContain("tika.xlsx");
 		}
+
+        [Test]
+        public void should_extract_contained_filenames_and_text_from_zips()
+        {
+            var textExtractionResult = _cut.Extract("files/tika.zip");
+
+            List<string> fileNames = new List<string>(new string [] { "Tika.docx", "Tika.pptx", "tika.xlsx" });
+
+            //verify all expected files are there
+            fileNames.ForEach(name => textExtractionResult.Text.ShouldContain(name));
+
+            //we should find the same string once for every file in the zip. if we split the string on file names
+            // this should break out the content into different strings to confirm the phrase is found in each extracted text content,
+            // not just multiple times in one file.
+            string[] splits = textExtractionResult.Text.Split(fileNames.ToArray(), StringSplitOptions.None);   
+            var foundCount = splits.Where(s => s.Contains("Use the force duke")).Count();
+            foundCount.ShouldEqual(fileNames.Count());
+        }
 
 		[Test]
 		public void should_extract_from_jpg()
