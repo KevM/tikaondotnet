@@ -13,7 +13,7 @@
     <description>TikaOnDotNet is a .NET wrapper around the Tika text extraction library implemented in Java.</description>
     <tags>Text IKVM.Net Java .NET</tags>
     <dependencies>
-      <dependency id="IKVM" version="[7.4.5196]" />
+      <dependency id="IKVM" version="7.4.5196" />
     </dependencies>
     <copyright>Copyright Kevin Miller 2013</copyright>
   </metadata>
