@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using FubuTestingSupport;
 using NUnit.Framework;
 using System.Linq;
@@ -43,16 +44,17 @@ namespace TikaOnDotNet.Tests
 			textExtractionResult.ContentType.ShouldEqual("video/mp4");
 		}
 
-		[Test, Explicit("Issue #11")]
+		[Test]
 		public void should_be_able_to_delete_the_mp4_after_extraction()
 		{
-			_cut.Extract("files/badgers.mp4");
+			var original = new FileInfo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.mp4"));
+			var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"));
 
-			var fileInfo = new FileInfo(@"C:\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Debug\files\badgers.mp4");
-			fileInfo.Delete();
-			fileInfo.Exists.ShouldBeFalse();
+			_cut.Extract("files/badgers.bak.mp4");
+
+			mp4.Delete();
+			mp4.Exists.ShouldBeFalse();
 		}
-
 
 		[Test]
 		public void extract_by_filepath_should_add_filepath_to_metadata()
