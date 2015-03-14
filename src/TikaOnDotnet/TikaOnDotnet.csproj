@@ -44,6 +44,9 @@
     <Reference Include="IKVM.OpenJDK.Charsets">
       <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Charsets.dll</HintPath>
     </Reference>
+    <Reference Include="IKVM.OpenJDK.Cldrdata">
+      <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Cldrdata.dll</HintPath>
+    </Reference>
     <Reference Include="IKVM.OpenJDK.Corba">
       <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Corba.dll</HintPath>
     </Reference>
@@ -52,6 +55,9 @@
     </Reference>
     <Reference Include="IKVM.OpenJDK.Jdbc">
       <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Jdbc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Localedata">
+      <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Localedata.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Management">
       <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Management.dll</HintPath>
@@ -64,6 +70,9 @@
     </Reference>
     <Reference Include="IKVM.OpenJDK.Naming">
       <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Naming.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Nashorn">
+      <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Nashorn.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Remoting">
       <HintPath>..\packages\IKVM\lib\IKVM.OpenJDK.Remoting.dll</HintPath>
