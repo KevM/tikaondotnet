@@ -48,7 +48,7 @@ namespace TikaOnDotNet.Tests
 		public void should_be_able_to_delete_the_mp4_after_extraction()
 		{
 			var original = new FileInfo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.mp4"));
-			var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"));
+			var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"), true);
 
 			_cut.Extract("files/badgers.bak.mp4");
 
