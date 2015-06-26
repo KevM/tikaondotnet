@@ -1,6 +1,8 @@
 Developers Guide to Tika on .NET
 ===============================
 
+[![Join the chat at https://gitter.im/KevM/tikaondotnet](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/KevM/tikaondotnet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This project is a simple wrapper around the very excellent and robust [Tika](http://tika.apache.org/) text extraction Java library. 
 
 ##Building TikaOnDotNet##
