@@ -14,7 +14,7 @@ This project uses [rake](http://rake.rubyforge.org/) for build automation.
 
 If successful this should build and run the Tika text extraction integration tests.
 
-To ensure you have all the required gems installed [Bundler](http://bundler.io/) is used and should be automatically installed and setup the first time you rake the project. To manage our Nuget dependencies we are using a tool called [Ripple](http://darthfubumvc.github.io/ripple/ripple/gettingstarted/overview/) but you should hopefully not have to worry about that unless you are updating dependencies. 
+To ensure you have all the required gems installed [Bundler](http://bundler.io/) is used and should be automatically installed and setup the first time you rake the project. To manage our Nuget dependencies we are using a tool called [Ripple](http://darthfubumvc.github.io/ripple/gettingstarted/overview/) but you should hopefully not have to worry about that unless you are updating dependencies. 
 
 ##Updating the IKVM Nuget dependency##
 
