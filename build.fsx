@@ -18,7 +18,8 @@ let tikaLibDir = "lib"
 let solutionFile  = "src/TikaOnDotNet.sln"
 let testAssemblies = "src/**/bin/Release/*Tests*.dll"
 
-type root = FileSystem< __SOURCE_DIRECTORY__ >
+let [<Literal>]rootPath = __SOURCE_DIRECTORY__  
+type root = FileSystem<rootPath>
 
 let release =
   ReadFile "Release-Notes.md"
