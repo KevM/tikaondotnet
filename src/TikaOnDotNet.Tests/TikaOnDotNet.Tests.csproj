@@ -417,4 +417,7 @@
       <Paket>True</Paket>
     </Reference>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy  /S /I /E /Y "$(ProjectDir)files" "$(TargetDir)files"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

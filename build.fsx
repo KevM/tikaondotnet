@@ -95,7 +95,7 @@ Target "RunTests" (fun _ ->
     !! testAssemblies
     |> NUnit (fun p ->
         { p with
-            TimeOut = TimeSpan.FromMinutes 20. })
+            OutputFile = buildDir + "TestResults.xml"})
 )
 
 type tikaDir = root.``paket-files``.``www-us.apache.org``
