@@ -1,13 +1,16 @@
 ## 1.12.0
 
-Introducing **TikaOneDotNet.App** Nuget.
+**Breaking Change**: This release splits **TikaOneDotNet** into two Nugets.
+- TikaOnDotNet
+- TikaOnDotNet.TextExtractor
 
-TikaOneDotNet has been separated into two Nugets.  
-Updated build automation to build `tika-app-{version}.dll` and package it as a
-new standalone nuget **TikaOneDotNet.App**. This Nuget is the minimum you need
-to work with Tika.
+Existing Nuget users who have problems are encouraged to take a dependency on [TikaOnDotNet.TextExtractor](https://www.nuget.org/packages/TikaOnDotNet.TextExtractor/).
 
-**TODO** add more details here.
+Note: Even though this is a breaking change we are not updating our major version as we are trying to stay in sync with Tika.
+
+Build automation has been revamped and entirely automated. It is now super easy to upgrade to newer versions of [Tika](http://tika.apache.org/) or [IKVM](http://www.ikvm.net).
+
+Added [AppVeyor Continuous Integration](https://ci.appveyor.com/project/KevM/tikaondotnet).
 
 ## 1.7.0
 
