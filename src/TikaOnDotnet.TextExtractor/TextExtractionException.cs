@@ -1,6 +1,6 @@
 using System;
 
-namespace TikaOnDotNet
+namespace TikaOnDotNet.TextExtraction
 {
 	public class TextExtractionException : Exception
 	{

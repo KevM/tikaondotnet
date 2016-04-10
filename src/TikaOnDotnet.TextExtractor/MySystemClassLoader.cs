@@ -1,7 +1,7 @@
 ﻿using ikvm.runtime;
 using java.lang;
 
-namespace TikaOnDotNet
+namespace TikaOnDotNet.TextExtraction
 {
 	public class MySystemClassLoader : ClassLoader
 	{

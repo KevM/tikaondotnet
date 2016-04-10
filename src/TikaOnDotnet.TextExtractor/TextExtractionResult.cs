@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TikaOnDotNet
+namespace TikaOnDotNet.TextExtraction
 {
 	public class TextExtractionResult
 	{

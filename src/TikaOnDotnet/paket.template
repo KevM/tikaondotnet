@@ -1,11 +1,9 @@
 type file
 authors Kevin Miller
-id TikaOnDotnet.TextExtractor
+id TikaOnDotnet
 description
-  Example of how to use **TikaOnDotNet** for text extraction from rich documents.
+  Tika from Java ported to .Net via IKVM.
 files
-    bin\Release\TikaOnDotNet.* ==> lib
+    ..\lib\tika-app.dll ==> lib
 dependencies
-    TikaOnDotnet
-projectUrl
-  https://github.com/KevM/tikaondotnet
+      IKVM

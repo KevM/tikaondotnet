@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TikaOnDotNet
+namespace TikaOnDotNet.TextExtraction
 {
 	public static class StringExtrensions
 	{
