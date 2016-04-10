@@ -37,8 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="tika-app">
-      <HintPath>..\..\lib\tika-app.dll</HintPath>
+    <Reference Include="tika-app-1.12">
+      <HintPath>..\..\lib\tika-app-1.12.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
