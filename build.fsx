@@ -31,7 +31,6 @@ let ikvmc = root.``paket-files``.``www.frijters.net``.``ikvm-8.1.5717.0``.bin.``
 type IKVMcTask(jar:string) =
   member val JarFile = jar
   member val Version = "" with get, set
-  member val Dependencies = List.empty<IKVMcTask> with get, set
 
 let timeOut = TimeSpan.FromSeconds(300.0)
 
@@ -52,10 +51,6 @@ let IKVMCompile workingDirectory tasks =
   let rec compile (task:IKVMcTask) =
       let getIKVMCommandLineArgs() =
           let sb = Text.StringBuilder()
-          task.Dependencies |> Seq.iter
-              (fun x ->
-                  compile x
-                  x.JarFile |> getNewFileName ".dll" |> bprintf sb " -r:%s")
           if not <| String.IsNullOrEmpty(task.Version)
               then task.Version |> bprintf sb " -version:%s"
           bprintf sb " %s -out:%s"
@@ -95,7 +90,7 @@ Target "RunTests" (fun _ ->
 type tikaDir = root.``paket-files``.``www-us.apache.org``
 
 Target "CompileTikaLib" (fun _ ->
-    [IKVMcTask(tikaDir.``tika-app-1.12.jar``, Version=release.AssemblyVersion, Dependencies = [])]
+    [IKVMcTask(tikaDir.``tika-app-1.12.jar``, Version=release.AssemblyVersion)]
     |> IKVMCompile tikaLibDir
 )
 
