@@ -1,4 +1,3 @@
-// include Fake libs
 #r "packages/FAKE/tools/FakeLib.dll"
 #r "System.IO.Compression.FileSystem.dll"
 #r "packages/FSharp.Management/lib/net40/FSharp.Management.dll"
@@ -11,8 +10,6 @@ open Fake.ReleaseNotesHelper
 open System
 open System.IO
 open FSharp.Management
-
-// Directories
 
 let buildDir = "build"
 let tempDir = "temp"
@@ -29,9 +26,6 @@ let release =
 
 // --------------------------------------------------------------------------------------
 // IKVM.NET compilation helpers
-
-
-// Location of IKVM Compiler & ildasm / ilasm
 let ikvmc = root.``paket-files``.``www.frijters.net``.``ikvm-8.1.5717.0``.bin.``ikvmc.exe``
 
 type IKVMcTask(jar:string) =
