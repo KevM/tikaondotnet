@@ -1,0 +1,9 @@
+type file
+authors Kevin Miller
+id TikaOnDotnet
+description
+  Tika from Java ported to .Net via IKVM.
+files
+    \lib\tika-app-*.dll ==> lib
+dependencies
+      IKVM

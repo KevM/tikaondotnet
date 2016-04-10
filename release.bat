@@ -1,1 +1,0 @@
-rake config=release && rake ripple:package

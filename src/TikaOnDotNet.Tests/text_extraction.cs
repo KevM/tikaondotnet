@@ -1,10 +1,9 @@
 using System;
 using System.IO;
-using System.Reflection;
-using FubuTestingSupport;
-using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
+using FluentAssertions;
+using NUnit.Framework;
 
 namespace TikaOnDotNet.Tests
 {
@@ -24,167 +23,172 @@ namespace TikaOnDotNet.Tests
 		{
 			const string fileName = "files/doesnotexist.mp3";
 
-			typeof(TextExtractionException).ShouldBeThrownBy(() => _cut.Extract(fileName))
-				.Message.ShouldContain(fileName);
-		}
 
-		[Test]
-		public void non_existing_uri_should_fail_with_exception()
-		{
-			const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
+		    Action act = () => _cut.Extract(fileName);
 
-			typeof(TextExtractionException).ShouldBeThrownBy(() => _cut.Extract(new Uri(uri)));
-		}
+            act.ShouldThrow<TextExtractionException>()
+                .Which.Message.Should().Contain(fileName);
+        }
 
-		[Test]
-		public void should_extract_mp4()
-		{
-			var textExtractionResult = _cut.Extract("files/badgers.mp4");
+        [Test]
+        public void non_existing_uri_should_fail_with_exception()
+        {
+            const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
 
-			textExtractionResult.ContentType.ShouldEqual("video/mp4");
-		}
+            Action act = () => _cut.Extract(new Uri(uri));
 
-		[Test]
-		public void should_be_able_to_delete_the_mp4_after_extraction()
-		{
-			var original = new FileInfo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.mp4"));
-			var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"));
+            act.ShouldThrow<TextExtractionException>();
+        }
 
-			_cut.Extract("files/badgers.bak.mp4");
+        [Test]
+        public void should_extract_mp4()
+        {
+            var textExtractionResult = _cut.Extract("files/badgers.mp4");
 
-			mp4.Delete();
-			mp4.Exists.ShouldBeFalse();
-		}
+            textExtractionResult.ContentType.Should().Be("video/mp4");
+        }
 
-		[Test]
-		public void extract_by_filepath_should_add_filepath_to_metadata()
-		{
-			const string filePath = "files/apache.jpg";
+        [Test]
+        public void should_be_able_to_delete_the_mp4_after_extraction()
+        {
+            var original = new FileInfo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.mp4"));
+            var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"));
 
-			var textExtractionResult = _cut.Extract(filePath);
+            _cut.Extract("files/badgers.bak.mp4");
 
-			textExtractionResult.Metadata["FilePath"].ShouldEqual(filePath);
-		}
+            mp4.Delete();
+            mp4.Exists.Should().BeFalse();
+        }
 
-		[Test]
-		public void should_extract_contained_filenames_from_zips()
-		{
-			var textExtractionResult = _cut.Extract("files/tika.zip");
+        [Test]
+        public void extract_by_filepath_should_add_filepath_to_metadata()
+        {
+            const string filePath = "files/apache.jpg";
 
-			textExtractionResult.Text.ShouldContain("Tika.docx");
-			textExtractionResult.Text.ShouldContain("Tika.pptx");
-			textExtractionResult.Text.ShouldContain("tika.xlsx");
-		}
+            var textExtractionResult = _cut.Extract(filePath);
+
+            textExtractionResult.Metadata["FilePath"].Should().Be(filePath);
+        }
+
+        [Test]
+        public void should_extract_contained_filenames_from_zips()
+        {
+            var textExtractionResult = _cut.Extract("files/tika.zip");
+
+            textExtractionResult.Text.Should().Contain("Tika.docx");
+            textExtractionResult.Text.Should().Contain("Tika.pptx");
+            textExtractionResult.Text.Should().Contain("tika.xlsx");
+        }
 
         [Test]
         public void should_extract_contained_filenames_and_text_from_zips()
         {
             var textExtractionResult = _cut.Extract("files/tika.zip");
 
-            List<string> fileNames = new List<string>(new string [] { "Tika.docx", "Tika.pptx", "tika.xlsx" });
+            var fileNames = new List<string>(new[] { "Tika.docx", "Tika.pptx", "tika.xlsx" });
 
             //verify all expected files are there
-            fileNames.ForEach(name => textExtractionResult.Text.ShouldContain(name));
+            fileNames.ForEach(name => textExtractionResult.Text.Should().Contain(name));
 
             //we should find the same string once for every file in the zip. if we split the string on file names
             // this should break out the content into different strings to confirm the phrase is found in each extracted text content,
             // not just multiple times in one file.
-            string[] splits = textExtractionResult.Text.Split(fileNames.ToArray(), StringSplitOptions.None);   
-            var foundCount = splits.Where(s => s.Contains("Use the force duke")).Count();
-            foundCount.ShouldEqual(fileNames.Count());
+            var splits = textExtractionResult.Text.Split(fileNames.ToArray(), StringSplitOptions.None);
+            var foundCount = splits.Count(s => s.Contains("Use the force duke"));
+            foundCount.Should().Be(fileNames.Count);
         }
 
-		[Test]
-		public void should_extract_from_jpg()
-		{
-			var textExtractionResult = _cut.Extract("files/apache.jpg");
+        [Test]
+        public void should_extract_from_jpg()
+        {
+            var textExtractionResult = _cut.Extract("files/apache.jpg");
 
-			textExtractionResult.Text.Trim().ShouldBeEmpty();
+            textExtractionResult.Text.Trim().Should().BeEmpty();
 
-			textExtractionResult.Metadata["Software"].ShouldContain("Paint.NET");
-		}
+            textExtractionResult.Metadata["Software"].Should().Contain("Paint.NET");
+        }
 
-		[Test]
-		public void should_extract_from_rtf()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.rtf");
+        [Test]
+        public void should_extract_from_rtf()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.rtf");
 
-			textExtractionResult.Text.ShouldContain("pack of pickled almonds");
-		}
+            textExtractionResult.Text.Should().Contain("pack of pickled almonds");
+        }
 
-		[Test]
-		public void should_extract_from_pdf()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.pdf");
+        [Test]
+        public void should_extract_from_pdf()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.pdf");
 
-			textExtractionResult.Text.ShouldContain("pack of pickled almonds");
-		}
-		
-		[Test]
-		public void should_extract_from_docx()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.docx");
+            textExtractionResult.Text.Should().Contain("pack of pickled almonds");
+        }
 
-			textExtractionResult.Text.ShouldContain("formatted in interesting ways");
-		}
+        [Test]
+        public void should_extract_from_docx()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.docx");
 
-		[Test]
-		public void should_extract_from_pptx()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.pptx");
+            textExtractionResult.Text.Should().Contain("formatted in interesting ways");
+        }
 
-			textExtractionResult.Text.ShouldContain("Tika Test Presentation");
-		}
+        [Test]
+        public void should_extract_from_pptx()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.pptx");
 
-		[Test]
-		public void should_extract_from_xlsx()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.xlsx");
+            textExtractionResult.Text.Should().Contain("Tika Test Presentation");
+        }
 
-			textExtractionResult.Text.ShouldContain("Use the force duke");
-		}
+        [Test]
+        public void should_extract_from_xlsx()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.xlsx");
 
-		[Test]
-		public void should_extract_from_doc()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.doc");
+            textExtractionResult.Text.Should().Contain("Use the force duke");
+        }
 
-			textExtractionResult.Text.ShouldContain("formatted in interesting ways");
-		}
+        [Test]
+        public void should_extract_from_doc()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.doc");
 
-		[Test]
-		public void should_extract_from_ppt()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.ppt");
+            textExtractionResult.Text.Should().Contain("formatted in interesting ways");
+        }
 
-			textExtractionResult.Text.ShouldContain("This document is used for testing");
-		}
+        [Test]
+        public void should_extract_from_ppt()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.ppt");
 
-		[Test]
-		public void should_extract_from_xls()
-		{
-			var textExtractionResult = _cut.Extract("files/Tika.xls");
+            textExtractionResult.Text.Should().Contain("This document is used for testing");
+        }
 
-			textExtractionResult.Text.ShouldContain("Use the force duke");
-		}
-		
-		[Test]
-		public void should_extract_from_xls_with_byte()
-		{
-			var data = File.ReadAllBytes("files/Tika.xls");
-			var textExtractionResult = _cut.Extract(data);
+        [Test]
+        public void should_extract_from_xls()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.xls");
 
-			textExtractionResult.Text.ShouldContain("Use the force duke");
-		}
+            textExtractionResult.Text.Should().Contain("Use the force duke");
+        }
 
-		[Test]
-		public void should_extract_from_uri()
-		{
-			const string url = "http://google.com/";
-			var textExtractionResult = _cut.Extract(new Uri(url));
-			
-			textExtractionResult.Text.ShouldContain("Google");
-			textExtractionResult.Metadata["Uri"].ShouldEqual(url);
-		}
-	}
+        [Test]
+        public void should_extract_from_xls_with_byte()
+        {
+            var data = File.ReadAllBytes("files/Tika.xls");
+            var textExtractionResult = _cut.Extract(data);
+
+            textExtractionResult.Text.Should().Contain("Use the force duke");
+        }
+
+        [Test]
+        public void should_extract_from_uri()
+        {
+            const string url = "http://google.com/";
+            var textExtractionResult = _cut.Extract(new Uri(url));
+
+            textExtractionResult.Text.Should().Contain("Google");
+            textExtractionResult.Metadata["Uri"].Should().Be(url);
+        }
+    }
 }

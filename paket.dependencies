@@ -1,0 +1,16 @@
+source https://www.nuget.org/api/v2
+
+nuget FAKE
+nuget IKVM
+
+nuget FSharp.Management
+nuget FubuCore ~> 1.4
+nuget structuremap 2.6.3
+nuget structuremap.automocking 2.6.3
+nuget RhinoMocks
+nuget NUnit ~> 2
+nuget NUnit.Runners ~> 2
+nuget FluentAssertions
+
+http http://www.frijters.net/ikvmbin-8.1.5717.0.zip
+http http://www-us.apache.org/dist/tika/tika-app-1.12.jar
