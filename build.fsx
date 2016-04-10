@@ -74,7 +74,7 @@ let IKVMCompile workingDirectory tasks =
   tasks |> Seq.iter compile
 
 Target "Clean" (fun _ ->
-    CleanDirs [buildDir; tempDir]
+    CleanDirs [buildDir; tempDir; tikaLibDir]
 )
 
 Target "SetVersions" (fun _ ->
@@ -116,7 +116,7 @@ Target "PackageNuget" (fun _ ->
 
 "Clean"
   ==> "SetVersions"
-//  ==> "CompileTikaLib"
+  ==> "CompileTikaLib"
   ==> "Build"
   ==> "RunTests"
   ==> "PackageNuget"
