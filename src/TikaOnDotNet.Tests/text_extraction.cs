@@ -21,177 +21,174 @@ namespace TikaOnDotNet.Tests
 		[Test]
 		public void non_existing_files_should_fail_with_exception()
 		{
-			//const string fileName = "files/doesnotexist.mp3";
+			const string fileName = "files/doesnotexist.mp3";
 
-		 //   _cut.Extract(fileName);
 
-      //      Action act = () => ;
+		    Action act = () => _cut.Extract(fileName);
 
-		    //act.ShouldThrow<TextExtractionException>()
-      //          .Which.Message.Should().Contain(fileName);
-		}
+            act.ShouldThrow<TextExtractionException>()
+                .Which.Message.Should().Contain(fileName);
+        }
 
-		//[Test]
-		//public void non_existing_uri_should_fail_with_exception()
-		//{
-		//	const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
+        [Test]
+        public void non_existing_uri_should_fail_with_exception()
+        {
+            const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
 
-		//	typeof(TextExtractionException).ShouldBeThrownBy(() => _cut.Extract(new Uri(uri)));
-		//}
+            Action act = () => _cut.Extract(new Uri(uri));
 
-		//[Test]
-		//public void should_extract_mp4()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/badgers.mp4");
+            act.ShouldThrow<TextExtractionException>();
+        }
 
-		//	textExtractionResult.ContentType.ShouldEqual("video/mp4");
-		//}
+        [Test]
+        public void should_extract_mp4()
+        {
+            var textExtractionResult = _cut.Extract("files/badgers.mp4");
 
-		//[Test]
-		//public void should_be_able_to_delete_the_mp4_after_extraction()
-		//{
-		//	var original = new FileInfo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.mp4"));
-		//	var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"));
+            textExtractionResult.ContentType.Should().Be("video/mp4");
+        }
 
-		//	_cut.Extract("files/badgers.bak.mp4");
+        [Test]
+        public void should_be_able_to_delete_the_mp4_after_extraction()
+        {
+            var original = new FileInfo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.mp4"));
+            var mp4 = original.CopyTo(Path.Combine(Directory.GetCurrentDirectory(), @"files\badgers.bak.mp4"));
 
-		//	mp4.Delete();
-		//	mp4.Exists.ShouldBeFalse();
-		//}
+            _cut.Extract("files/badgers.bak.mp4");
 
-		//[Test]
-		//public void extract_by_filepath_should_add_filepath_to_metadata()
-		//{
-		//	const string filePath = "files/apache.jpg";
+            mp4.Delete();
+            mp4.Exists.Should().BeFalse();
+        }
 
-		//	var textExtractionResult = _cut.Extract(filePath);
+        [Test]
+        public void extract_by_filepath_should_add_filepath_to_metadata()
+        {
+            const string filePath = "files/apache.jpg";
 
-		//	textExtractionResult.Metadata["FilePath"].ShouldEqual(filePath);
-		//}
+            var textExtractionResult = _cut.Extract(filePath);
 
-		//[Test]
-		//public void should_extract_contained_filenames_from_zips()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/tika.zip");
+            textExtractionResult.Metadata["FilePath"].Should().Be(filePath);
+        }
 
-		//	textExtractionResult.Text.ShouldContain("Tika.docx");
-		//	textExtractionResult.Text.ShouldContain("Tika.pptx");
-		//	textExtractionResult.Text.ShouldContain("tika.xlsx");
-		//}
+        [Test]
+        public void should_extract_contained_filenames_from_zips()
+        {
+            var textExtractionResult = _cut.Extract("files/tika.zip");
 
-  //      [Test]
-  //      public void should_extract_contained_filenames_and_text_from_zips()
-  //      {
-  //          var textExtractionResult = _cut.Extract("files/tika.zip");
+            textExtractionResult.Text.Should().Contain("Tika.docx");
+            textExtractionResult.Text.Should().Contain("Tika.pptx");
+            textExtractionResult.Text.Should().Contain("tika.xlsx");
+        }
 
-  //          List<string> fileNames = new List<string>(new string [] { "Tika.docx", "Tika.pptx", "tika.xlsx" });
+        [Test]
+        public void should_extract_contained_filenames_and_text_from_zips()
+        {
+            var textExtractionResult = _cut.Extract("files/tika.zip");
 
-  //          //verify all expected files are there
-  //          fileNames.ForEach(name => textExtractionResult.Text.ShouldContain(name));
+            var fileNames = new List<string>(new[] { "Tika.docx", "Tika.pptx", "tika.xlsx" });
 
-  //          //we should find the same string once for every file in the zip. if we split the string on file names
-  //          // this should break out the content into different strings to confirm the phrase is found in each extracted text content,
-  //          // not just multiple times in one file.
-  //          string[] splits = textExtractionResult.Text.Split(fileNames.ToArray(), StringSplitOptions.None);   
-  //          var foundCount = splits.Where(s => s.Contains("Use the force duke")).Count();
-  //          foundCount.ShouldEqual(fileNames.Count());
-  //      }
+            //verify all expected files are there
+            fileNames.ForEach(name => textExtractionResult.Text.Should().Contain(name));
 
-		//[Test]
-		//public void should_extract_from_jpg()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/apache.jpg");
+            //we should find the same string once for every file in the zip. if we split the string on file names
+            // this should break out the content into different strings to confirm the phrase is found in each extracted text content,
+            // not just multiple times in one file.
+            var splits = textExtractionResult.Text.Split(fileNames.ToArray(), StringSplitOptions.None);
+            var foundCount = splits.Count(s => s.Contains("Use the force duke"));
+            foundCount.Should().Be(fileNames.Count);
+        }
 
-		//	textExtractionResult.Text.Trim().ShouldBeEmpty();
+        [Test]
+        public void should_extract_from_jpg()
+        {
+            var textExtractionResult = _cut.Extract("files/apache.jpg");
 
-		//	textExtractionResult.Metadata["Software"].ShouldContain("Paint.NET");
-		//}
+            textExtractionResult.Text.Trim().Should().BeEmpty();
 
-		//[Test]
-		//public void should_extract_from_rtf()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.rtf");
+            textExtractionResult.Metadata["Software"].Should().Contain("Paint.NET");
+        }
 
-		//	textExtractionResult.Text.ShouldContain("pack of pickled almonds");
-		//}
+        [Test]
+        public void should_extract_from_rtf()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.rtf");
 
-		//[Test]
-		//public void should_extract_from_pdf()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.pdf");
+            textExtractionResult.Text.Should().Contain("pack of pickled almonds");
+        }
 
-		//	textExtractionResult.Text.ShouldContain("pack of pickled almonds");
-		//}
-		
-		//[Test]
-		//public void should_extract_from_docx()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.docx");
+        [Test]
+        public void should_extract_from_pdf()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.pdf");
 
-		//	textExtractionResult.Text.ShouldContain("formatted in interesting ways");
-		//}
+            textExtractionResult.Text.Should().Contain("pack of pickled almonds");
+        }
 
-		//[Test]
-		//public void should_extract_from_pptx()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.pptx");
+        [Test]
+        public void should_extract_from_docx()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.docx");
 
-		//	textExtractionResult.Text.ShouldContain("Tika Test Presentation");
-		//}
+            textExtractionResult.Text.Should().Contain("formatted in interesting ways");
+        }
 
-		//[Test]
-		//public void should_extract_from_xlsx()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.xlsx");
+        [Test]
+        public void should_extract_from_pptx()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.pptx");
 
-		//	textExtractionResult.Text.ShouldContain("Use the force duke");
-		//}
+            textExtractionResult.Text.Should().Contain("Tika Test Presentation");
+        }
 
-		//[Test]
-		//public void should_extract_from_doc()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.doc");
+        [Test]
+        public void should_extract_from_xlsx()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.xlsx");
 
-		//	textExtractionResult.Text.ShouldContain("formatted in interesting ways");
-		//}
+            textExtractionResult.Text.Should().Contain("Use the force duke");
+        }
 
-		//[Test]
-		//public void should_extract_from_ppt()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.ppt");
+        [Test]
+        public void should_extract_from_doc()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.doc");
 
-		//	textExtractionResult.Text.ShouldContain("This document is used for testing");
-		//}
+            textExtractionResult.Text.Should().Contain("formatted in interesting ways");
+        }
 
-		//[Test]
-		//public void should_extract_from_xls()
-		//{
-		//	var textExtractionResult = _cut.Extract("files/Tika.xls");
+        [Test]
+        public void should_extract_from_ppt()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.ppt");
 
-		//	textExtractionResult.Text.ShouldContain("Use the force duke");
-		//}
-		
-		//[Test]
-		//public void should_extract_from_xls_with_byte()
-		//{
-		//	var data = File.ReadAllBytes("files/Tika.xls");
-		//	var textExtractionResult = _cut.Extract(data);
+            textExtractionResult.Text.Should().Contain("This document is used for testing");
+        }
 
-		//	textExtractionResult.Text.ShouldContain("Use the force duke");
-		//}
+        [Test]
+        public void should_extract_from_xls()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.xls");
 
-		//[Test]
-		//public void should_extract_from_uri()
-		//{
-		//	const string url = "http://google.com/";
-		//	var textExtractionResult = _cut.Extract(new Uri(url));
-			
-		//	textExtractionResult.Text.ShouldContain("Google");
-		//	textExtractionResult.Metadata["Uri"].ShouldEqual(url);
-		//}
-	}
+            textExtractionResult.Text.Should().Contain("Use the force duke");
+        }
 
-    public class TestFixtureAttribute : Attribute
-    {
+        [Test]
+        public void should_extract_from_xls_with_byte()
+        {
+            var data = File.ReadAllBytes("files/Tika.xls");
+            var textExtractionResult = _cut.Extract(data);
+
+            textExtractionResult.Text.Should().Contain("Use the force duke");
+        }
+
+        [Test]
+        public void should_extract_from_uri()
+        {
+            const string url = "http://google.com/";
+            var textExtractionResult = _cut.Extract(new Uri(url));
+
+            textExtractionResult.Text.Should().Contain("Google");
+            textExtractionResult.Metadata["Uri"].Should().Be(url);
+        }
     }
 }
