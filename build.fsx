@@ -11,14 +11,14 @@ open System
 open System.IO
 open FSharp.Management
 
-let buildDir = "build"
+let artifactDir = "artifacts"
 let tempDir = "temp"
 let tikaLibDir = "lib"
 
 let solutionFile  = "src/TikaOnDotNet.sln"
 let testAssemblies = "src/**/bin/Release/*Tests*.dll"
 
-let [<Literal>]rootPath = __SOURCE_DIRECTORY__  
+let [<Literal>]rootPath = __SOURCE_DIRECTORY__
 type root = FileSystem<rootPath>
 
 let release =
@@ -65,7 +65,7 @@ let IKVMCompile workingDirectory tasks =
   tasks |> Seq.iter compile
 
 Target "Clean" (fun _ ->
-    CleanDirs [buildDir; tempDir; tikaLibDir]
+    CleanDirs [artifactDir; tempDir; tikaLibDir]
 )
 
 Target "SetVersions" (fun _ ->
@@ -86,7 +86,7 @@ Target "RunTests" (fun _ ->
     !! testAssemblies
     |> NUnit (fun p ->
         { p with
-            OutputFile = buildDir + "\TestResults.xml"})
+            OutputFile = artifactDir + "\TestResults.xml"})
 )
 
 type tikaDir = root.``paket-files``.``www-us.apache.org``
@@ -100,7 +100,7 @@ Target "PackageNugets" (fun _ ->
   Paket.Pack (fun p ->
         { p with
             Version = release.NugetVersion
-            OutputPath = buildDir
+            OutputPath = artifactDir
             ReleaseNotes = toLines release.Notes
             Symbols = true })
 )

@@ -1,46 +1,65 @@
-Developers Guide to Tika on .NET
-===============================
+Tika on .NET
+============
 
 [![Join the chat at https://gitter.im/KevM/tikaondotnet](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/KevM/tikaondotnet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This project is a simple wrapper around the very excellent and robust [Tika](http://tika.apache.org/) text extraction Java library. 
+This project is a simple wrapper around the very excellent and robust
+[Tika](http://tika.apache.org/) text extraction Java library. This project produces two nugets:
+- TikaOnDotNet - A straight [IKVM](http://www.ikvm.net/userguide/ikvmc.html) hosted port of Java Tika project.
+- TikaOnDotNet.TextExtractor - Use Tika to extract text from rich documents.
 
-##Building TikaOnDotNet##
+## Building
 
-This project uses [rake](http://rake.rubyforge.org/) for build automation. 
+This project uses [FAKE](http://fsharp.github.io/FAKE/) for build automation and
+[Paket](https://fsprojects.github.io/Paket/) for managing dependencies.
 
-1. [Install Ruby](http://rubyinstaller.org/)
-2. Install Rake ```gem install bundler```
-3. Run ```bundle install```
-4. Run ```rake```
+**Note:** Your first build should be from the command line to get the assembly version file created.
 
-If successful this should build and run the Tika text extraction integration tests.
+`./build.cmd`
 
-To ensure you have all the required gems installed [Bundler](http://bundler.io/) is used and should be automatically installed and setup the first time you rake the project. To manage our Nuget dependencies we are using a tool called [Ripple](http://darthfubumvc.github.io/ripple/gettingstarted/overview/) but you should hopefully not have to worry about that unless you are updating dependencies. 
+The default build will run our Tika text extraction integration tests.
 
-##Updating the IKVM Nuget dependency##
+### Building Nugets
+
+It's easy to produce updated `.nupkg` packages.
+
+`./build.cmd PackageNugets`
+
+Look in `./artifacts` for the resulting `.nupkg` files.
+
+## Updating Tika
+
+When a new Tika release comes out you can follow the instructions below to get on the newest version.
+
+1. Edit the `paket.dependencies` file to point to the new release of the Tika Jar file.
+2. `./build.cmd PackageNugets`
+
+Follow this quick procedure to find the latest Tika release Jar archive:
+
+1. Visit the [Tika download page](https://tika.apache.org/download.html)
+2. Click on the **Mirrors for tika-app-<version>.jar** link.
+3. Find the Jar hosted on **www-us.apache.org**.
+4. Copy this url into `paket.dependencies`.
+
+Note: The automation looks for the Tika Jar file under `paket-files/<hostname>/*.jar`. If you do not use the **www-us.apache.org** url you'll need to update `build.fsx`.
+
+## Updating IKVM
+
+When a new release of IKVM comes out you can follow the instructions below to get on the newest version.
+
+1. Edit the `paket.dependencies` file
+  - Point the IKVM tools binary to the [new release](http://weblog.ikvm.net).
+  - Point the IKVM nuget to the matching version of the Nuget.
+2. `./build.cmd PackageNugets`
+
+Note: The automation looks for the IKVM compiler in `./bin/ikvmc.exe` of the expanded archive in `paket-files`.
+
+You should make sure that `paket.depdendencies`linked to the same version for the Nuget of IKVM and the build tools
 
 ```
-ripple update -n IKVM -V {version}
+//IKVM dependencies - the nuget and tool versions need to be in sync.
+nuget IKVM <version>
+http http://www.frijters.net/ikvmbin-<version>.zip
 ```
 
-##Building the Tika-App .NET Assembly##
-
-**You should only need to do this step to upgrade the version of Tika being used by this project.**
-
-At it's core this project simply wraps the Java Tika library. To accomplish this the **tika-app-{version}.jar** is transpiled into a .Net assembly using the [IKVM](http://www.ikvm.net/) compiler. 
-
-> Please ensure that your version of IKVM binaries match the Nuget dependency's version
-
-```
-ikvmc.exe -target:library -assembly:tika-app -classloader:ikvm.runtime.AppDomainAssemblyClassLoader tika-app-{version}.jar
-```
-
-The result of this process is a .NET assembly ```tika-app.dll``` which is stored in this repo's [lib directory](https://github.com/KevM/tikaondotnet/tree/master/lib).
-
-The **tika-app** .jar file can be downloaded from the [Tika Download page](http://tika.apache.org/download.html).
-
-##Releasing TikaOnDotNet##
-
-There is a handy ```release.bat``` which will create a release build and package the nuget. The resulting nuget package will be in the **artifacts** directory.
-
+Looking for updated versions of IKVM? [Check out their blog](http://weblog.ikvm.net).
