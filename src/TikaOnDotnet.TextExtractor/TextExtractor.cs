@@ -9,7 +9,7 @@ using org.apache.tika.metadata;
 using org.apache.tika.parser;
 using Exception = System.Exception;
 
-namespace TikaOnDotNet
+namespace TikaOnDotNet.TextExtraction
 {
 	public interface ITextExtractor
 	{

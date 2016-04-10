@@ -75,12 +75,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TikaOnDotnet\TikaOnDotnet.csproj">
-      <Project>{4c55e602-1c6c-4396-a118-70ba9a93fd97}</Project>
-      <Name>TikaOnDotnet</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="files\apache.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -413,6 +407,12 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TikaOnDotnet.TextExtractor\TikaOnDotnet.TextExtraction.csproj">
+      <Project>{4c55e602-1c6c-4396-a118-70ba9a93fd97}</Project>
+      <Name>TikaOnDotnet.TextExtraction</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy  /S /I /E /Y "$(ProjectDir)files" "$(TargetDir)files"</PostBuildEvent>

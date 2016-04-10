@@ -8,8 +8,8 @@
     <ProjectGuid>{4C55E602-1C6C-4396-A118-70BA9A93FD97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TikaOnDotNet</RootNamespace>
-    <AssemblyName>TikaOnDotNet</AssemblyName>
+    <RootNamespace>TikaOnDotNet.TextExtraction</RootNamespace>
+    <AssemblyName>TikaOnDotNet.TextExtraction</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
