@@ -39,7 +39,7 @@ type IKVMcTask(jar:string) =
   member val Version = "" with get, set
   member val Dependencies = List.empty<IKVMcTask> with get, set
 
-let timeOut = TimeSpan.FromSeconds(120.0)
+let timeOut = TimeSpan.FromSeconds(300.0)
 
 let IKVMCompile workingDirectory tasks =
   let getNewFileName newExtension (fileName:string) =
@@ -74,7 +74,7 @@ let IKVMCompile workingDirectory tasks =
   tasks |> Seq.iter compile
 
 Target "Clean" (fun _ ->
-    CleanDirs [buildDir; tempDir; tikaLibDir]
+    CleanDirs [buildDir; tempDir]
 )
 
 Target "SetVersions" (fun _ ->
@@ -95,7 +95,6 @@ Target "RunTests" (fun _ ->
     !! testAssemblies
     |> NUnit (fun p ->
         { p with
-            WorkingDir = "tests/TikaOnDotNet.Tests"
             TimeOut = TimeSpan.FromMinutes 20. })
 )
 
@@ -117,14 +116,10 @@ Target "PackageNuget" (fun _ ->
 
 "Clean"
   ==> "SetVersions"
-  ==> "CompileTikaLib"
+//  ==> "CompileTikaLib"
   ==> "Build"
   ==> "RunTests"
-
-//"Release"
-//  ==> "Build"
-//  ==> "Package"
-
+  ==> "PackageNuget"
 
 // start build
 RunTargetOrDefault "RunTests"

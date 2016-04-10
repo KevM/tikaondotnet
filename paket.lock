@@ -23,6 +23,7 @@ NUGET
     FubuCore (1.4.0.294)
     IKVM (8.1.5717)
     NUnit (2.6.4)
+    NUnit.Runners (2.6.4)
     RhinoMocks (3.6.1)
     structuremap (2.6.3)
     structuremap.automocking (2.6.3)

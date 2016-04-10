@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\scoun\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Release\TikaOnDotNet.Tests.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-04-10" time="14:34:55">
+  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.8670" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="C:\Users\scoun\projects\tikaondotnet" machine-name="DESKTOP-J2VESHU" user="scoun" user-domain="DESKTOP-J2VESHU" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="C:\Users\scoun\projects\tikaondotnet\src\TikaOnDotNet.Tests\bin\Release\TikaOnDotNet.Tests.dll" executed="True" result="Success" success="True" time="0.061" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="TikaOnDotNet" executed="True" result="Success" success="True" time="0.054" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="0.053" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="text_extraction" executed="True" result="Success" success="True" time="0.052" asserts="0">
+                <results>
+                  <test-case name="TikaOnDotNet.Tests.text_extraction.non_existing_files_should_fail_with_exception" executed="True" result="Success" success="True" time="0.039" asserts="0" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

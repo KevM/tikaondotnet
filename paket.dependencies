@@ -9,6 +9,7 @@ nuget structuremap 2.6.3
 nuget structuremap.automocking 2.6.3
 nuget RhinoMocks
 nuget NUnit ~> 2
+nuget NUnit.Runners ~> 2
 nuget FluentAssertions
 
 http http://www.frijters.net/ikvmbin-8.1.5717.0.zip

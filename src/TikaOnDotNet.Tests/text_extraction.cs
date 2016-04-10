@@ -21,9 +21,9 @@ namespace TikaOnDotNet.Tests
 		[Test]
 		public void non_existing_files_should_fail_with_exception()
 		{
-			const string fileName = "files/doesnotexist.mp3";
+			//const string fileName = "files/doesnotexist.mp3";
 
-		    _cut.Extract(fileName);
+		 //   _cut.Extract(fileName);
 
       //      Action act = () => ;
 

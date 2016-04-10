@@ -1,0 +1,9 @@
+type file
+authors Kevin Miller
+id TikaOnDotnet
+description
+  Example of how to use **TikaOnDotNet.App** to do text extraction.
+files
+    bin\Release\TikaOnDotNet.* ==> lib
+dependencies
+    TikaOnDotnet.App
