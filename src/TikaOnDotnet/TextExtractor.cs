@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using java.io;
-using java.lang;
 using javax.xml.transform;
 using javax.xml.transform.sax;
 using javax.xml.transform.stream;
@@ -9,7 +8,6 @@ using org.apache.tika.io;
 using org.apache.tika.metadata;
 using org.apache.tika.parser;
 using Exception = System.Exception;
-using String = System.String;
 
 namespace TikaOnDotNet
 {
@@ -47,10 +45,10 @@ namespace TikaOnDotNet
 		{
 			try
 			{
-				var file = new File(filePath);
+				var inputStream = new FileInputStream(filePath);
 				return Extract(metadata =>
 				{
-					var result = TikaInputStream.get(file, metadata);
+					var result = TikaInputStream.get(inputStream);
 					metadata.add("FilePath", filePath);
 					return result;
 				});
@@ -87,7 +85,7 @@ namespace TikaOnDotNet
 				var parseContext = new ParseContext();
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
-				parseContext.set(typeof(org.apache.tika.parser.Parser), parser);
+				parseContext.set(typeof(Parser), parser);
 				
 				using (var inputStream = streamFactory(metadata))
 				{
@@ -101,7 +99,7 @@ namespace TikaOnDotNet
 					}
 				}
 
-				return assembleExtractionResult(outputWriter.ToString(), metadata);
+				return AssembleExtractionResult(outputWriter.ToString(), metadata);
 			}
 			catch (Exception ex)
 			{
@@ -109,10 +107,10 @@ namespace TikaOnDotNet
 			}
 		}
 
-		private static TextExtractionResult assembleExtractionResult(string text, Metadata metadata)
+		private static TextExtractionResult AssembleExtractionResult(string text, Metadata metadata)
 		{
 			var metaDataResult = metadata.names()
-				.ToDictionary(name => name, name => String.Join(", ", metadata.getValues(name)));
+				.ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
 
 			var contentType = metaDataResult["Content-Type"];
 
@@ -124,7 +122,7 @@ namespace TikaOnDotNet
 			};
 		}
 
-		private TransformerHandler getTransformerHandler(StringWriter output)
+		private static TransformerHandler getTransformerHandler(Writer output)
 		{
 			var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
 			var transformerHandler = factory.newTransformerHandler();
