@@ -1,5 +1,8 @@
 ## 1.12.0
 
+Introducing **TikaOneDotNet.App** Nuget.
+
+TikaOneDotNet has been separated into two Nugets.  
 Updated build automation to build `tika-app-{version}.dll` and package it as a
 new standalone nuget **TikaOneDotNet.App**. This Nuget is the minimum you need
 to work with Tika.

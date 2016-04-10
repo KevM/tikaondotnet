@@ -1,6 +1,6 @@
 type file
 authors Kevin Miller
-id TikaOnDotnet.App
+id TikaOnDotnet
 description
   Tika from Java ported to .Net via IKVM.
 files
