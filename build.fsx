@@ -89,7 +89,7 @@ Target "RunTests" (fun _ ->
     !! testAssemblies
     |> NUnit (fun p ->
         { p with
-            OutputFile = buildDir + "TestResults.xml"})
+            OutputFile = buildDir + "\TestResults.xml"})
 )
 
 type tikaDir = root.``paket-files``.``www-us.apache.org``
@@ -99,7 +99,7 @@ Target "CompileTikaLib" (fun _ ->
     |> IKVMCompile tikaLibDir
 )
 
-Target "PackageNuget" (fun _ ->
+Target "PackageNugets" (fun _ ->
   Paket.Pack (fun p ->
         { p with
             Version = release.NugetVersion
@@ -113,7 +113,7 @@ Target "PackageNuget" (fun _ ->
   ==> "CompileTikaLib"
   ==> "Build"
   ==> "RunTests"
-  ==> "PackageNuget"
+  ==> "PackageNugets"
 
 // start build
 RunTargetOrDefault "RunTests"

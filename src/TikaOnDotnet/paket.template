@@ -1,9 +1,11 @@
 type file
 authors Kevin Miller
-id TikaOnDotnet
+id TikaOnDotnet.TextExtractor
 description
-  Example of how to use **TikaOnDotNet.App** to do text extraction.
+  Example of how to use **TikaOnDotNet** for text extraction from rich documents.
 files
     bin\Release\TikaOnDotNet.* ==> lib
 dependencies
-    TikaOnDotnet.App
+    TikaOnDotnet
+projectUrl
+  https://github.com/KevM/tikaondotnet
