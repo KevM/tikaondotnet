@@ -92,7 +92,8 @@ Target "RunTests" (fun _ ->
 type tikaDir = root.``paket-files``.``www-us.apache.org``
 
 Target "CompileTikaLib" (fun _ ->
-    [IKVMcTask(tikaDir.``tika-app-1.12.jar``, "tika-app.dll", Version=release.AssemblyVersion)]
+    !! "paket-files/www-us.apache.org/tika-app-*.jar"
+    |> Seq.map (fun name -> IKVMcTask(name, "tika-app.dll", Version=release.AssemblyVersion))    
     |> IKVMCompile tikaLibDir
 )
 
