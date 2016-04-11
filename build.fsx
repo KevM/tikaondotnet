@@ -105,12 +105,20 @@ Target "PackageNugets" (fun _ ->
             Symbols = true })
 )
 
+Target "PublishNugets" (fun _ ->
+    Paket.Push(fun p ->
+        { p with
+            DegreeOfParallelism = 2
+            WorkingDir = artifactDir })
+)
+
 "Clean"
   ==> "SetVersions"
   ==> "CompileTikaLib"
   ==> "Build"
   ==> "RunTests"
   ==> "PackageNugets"
+  ==> "PublishNugets"
 
 // start build
 RunTargetOrDefault "RunTests"
