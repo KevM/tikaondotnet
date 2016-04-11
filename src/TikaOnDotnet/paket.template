@@ -6,4 +6,4 @@ description
 files
     ..\..\lib\tika-app.dll ==> lib
 dependencies
-      IKVM
+      IKVM 8.1.5717
