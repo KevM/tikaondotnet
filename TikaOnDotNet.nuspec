@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>TikaOnDotNet</id>
+    <title>Tika on dotnet</title>
+    <version>0.0.0</version>
+    <authors>Kevin Miller</authors>
+    <owners>Kevin Miller</owners>
+    <licenseUrl>http://www.apache.org/licenses/</licenseUrl>
+    <projectUrl>http://kevm.github.io/tikaondotnet/</projectUrl>
+    <iconUrl>http://tika.apache.org/tika.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TikaOnDotNet is a .NET wrapper around the Tika text extraction library implemented in Java.</description>
+    <tags>Text IKVM.Net Java .NET</tags>
+    <dependencies>
+      <dependency id="IKVM" version="7.4.5196" />
+    </dependencies>
+    <copyright>Copyright Kevin Miller 2013</copyright>
+  </metadata>
+  <files xmlns="">
+    <file src="..\..\lib\tika-app.dll" target="lib\net35" />
+    <file src="..\..\src\TikaOnDotNet\bin\release\TikaOnDotNet.*" target="lib\net35" />
+  </files>
+</package>
