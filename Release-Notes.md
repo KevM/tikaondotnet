@@ -1,3 +1,7 @@
+## 1.12.1
+
+Fix TikaOnDotNet.TextExtractor to depend on a compatible version (1.12) of TikaOnDotNet.
+
 ## 1.12.0
 
 **Breaking Change**: This release splits **TikaOneDotNet** into two Nugets.
