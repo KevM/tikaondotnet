@@ -24,10 +24,6 @@ NUGET
     IKVM (8.1.5717)
     NUnit (2.6.4)
     NUnit.Runners (2.6.4)
-    RhinoMocks (3.6.1)
-    structuremap (2.6.3)
-    structuremap.automocking (2.6.3)
-      structuremap (>= 2.6.2)
     System.Collections (4.0.10) - framework: dnxcore50
       System.Diagnostics.Debug (>= 4.0) - framework: dnxcore50
       System.Resources.ResourceManager (>= 4.0) - framework: dnxcore50

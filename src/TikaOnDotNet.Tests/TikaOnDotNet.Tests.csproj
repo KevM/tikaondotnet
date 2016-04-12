@@ -92,6 +92,15 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\TikaOnDotnet.TextExtractor\TikaOnDotnet.TextExtraction.csproj">
+      <Project>{4c55e602-1c6c-4396-a118-70ba9a93fd97}</Project>
+      <Name>TikaOnDotnet.TextExtraction</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy  /S /I /E /Y "$(ProjectDir)files" "$(TargetDir)files"</PostBuildEvent>
+  </PropertyGroup>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETCore' And $(TargetFrameworkVersion) == 'v4.5.1'">
       <ItemGroup>
@@ -394,27 +403,4 @@
       <Paket>True</Paket>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="StructureMap">
-      <HintPath>..\..\packages\structuremap\lib\StructureMap.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="StructureMap.AutoMocking">
-      <HintPath>..\..\packages\structuremap.automocking\lib\StructureMap.AutoMocking.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TikaOnDotnet.TextExtractor\TikaOnDotnet.TextExtraction.csproj">
-      <Project>{4c55e602-1c6c-4396-a118-70ba9a93fd97}</Project>
-      <Name>TikaOnDotnet.TextExtraction</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy  /S /I /E /Y "$(ProjectDir)files" "$(TargetDir)files"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
