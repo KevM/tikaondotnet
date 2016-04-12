@@ -1,6 +1,7 @@
 ## 1.12.1
 
-Fix TikaOnDotNet.TextExtractor to depend on a compatible version (1.12) of TikaOnDotNet.
+- This release fixes the minimum version for child dependencies. #41
+- Fix project urls in nugets.
 
 ## 1.12.0
 
