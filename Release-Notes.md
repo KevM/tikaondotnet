@@ -1,3 +1,8 @@
+## 1.12.2
+
+- Breaking Change: Renamed the namespace and assembly name of TikaOnDotNet to match the Nuget id (was `tika-app`). This should only affect the resulting filename of the assembly. All Tika code is namespaced with a Java style (com.apache.{yadda yadda}).
+- Fix TextExtractor dependency so that it is using a "working" version of TikaOnDotNet (1.12.2)
+
 ## 1.12.1
 
 - This release fixes the minimum version for child dependencies. #41
