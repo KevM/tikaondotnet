@@ -4,7 +4,7 @@ id TikaOnDotnet
 description
   Tika from Java ported to .Net via IKVM.
 files
-  ..\..\lib\tika-app.dll ==> lib
+  ..\..\lib\TikaOnDotnet.dll ==> lib
 dependencies
   IKVM 8.1.5717
 projectUrl
