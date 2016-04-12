@@ -6,6 +6,6 @@ description
 files
     bin\Release\TikaOnDotNet.* ==> lib
 dependencies
-    TikaOnDotnet ~> 1.12
+    TikaOnDotnet ~> 1.12.2
 projectUrl
   https://github.com/KevM/tikaondotnet

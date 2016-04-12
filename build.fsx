@@ -32,7 +32,7 @@ let ikvmc = root.``paket-files``.``www.frijters.net``.``ikvm-8.1.5717.0``.bin.``
 
 type IKVMcTask(jar:string, assembly:string) =
   member val JarFile = jar
-  member val DllFile = assembly
+  member val AssemblyName = assembly
   member val Version = "" with get, set
 
 let timeOut = TimeSpan.FromSeconds(300.0)
@@ -54,11 +54,13 @@ let IKVMCompile workingDirectory tasks =
   let rec compile (task:IKVMcTask) =
       let getIKVMCommandLineArgs() =
           let sb = Text.StringBuilder()
+          bprintf sb "-target:library -assembly:%s"
+              (task.AssemblyName)
           if not <| String.IsNullOrEmpty(task.Version)
               then task.Version |> bprintf sb " -version:%s"
           bprintf sb " %s -out:%s"
               (task.JarFile |> getNewFileName ".jar")
-              (task.DllFile)
+              (task.AssemblyName + ".dll")
           sb.ToString()
 
       File.Copy(task.JarFile, workingDirectory @@ (Path.GetFileName(task.JarFile)) ,true)
@@ -94,7 +96,7 @@ type tikaDir = root.``paket-files``.``www-us.apache.org``
 
 Target "CompileTikaLib" (fun _ ->
     !! "paket-files/www-us.apache.org/tika-app-*.jar"
-    |> Seq.map (fun name -> IKVMcTask(name, "tika-app.dll", Version=release.AssemblyVersion))
+    |> Seq.map (fun name -> IKVMcTask(name, "TikaOnDotNet", Version=release.AssemblyVersion))
     |> IKVMCompile tikaLibDir
 )
 
