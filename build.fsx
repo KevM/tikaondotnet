@@ -11,14 +11,15 @@ open System
 open System.IO
 open FSharp.Management
 
+MSBuildDefaults <- { MSBuildDefaults with Verbosity = Some MSBuildVerbosity.Minimal }
+
 let artifactDir = "artifacts"
 let tempDir = "temp"
 let tikaLibDir = "lib"
 
 let solutionFile  = "src/TikaOnDotNet.sln"
-let testAssemblies = "src/**/bin/Release/*Tests*.dll"
-
 let [<Literal>]rootPath = __SOURCE_DIRECTORY__
+let testAssemblies = "src/**/bin/Release/*Tests*.dll"
 type root = FileSystem<rootPath>
 
 let release =
@@ -93,7 +94,7 @@ type tikaDir = root.``paket-files``.``www-us.apache.org``
 
 Target "CompileTikaLib" (fun _ ->
     !! "paket-files/www-us.apache.org/tika-app-*.jar"
-    |> Seq.map (fun name -> IKVMcTask(name, "tika-app.dll", Version=release.AssemblyVersion))    
+    |> Seq.map (fun name -> IKVMcTask(name, "tika-app.dll", Version=release.AssemblyVersion))
     |> IKVMCompile tikaLibDir
 )
 
