@@ -2,7 +2,7 @@ type file
 authors Kevin Miller
 id TikaOnDotnet
 description
-  Tika from Java ported to .Net via IKVM.
+  Bare-bones IKVM Java-to-.NET port of Apache Tika. You'll want to install TikaOnDotNet.TextExtractor.
 files
   ..\..\lib\TikaOnDotnet.dll ==> lib
 dependencies
