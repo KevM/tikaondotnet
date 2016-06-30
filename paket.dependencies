@@ -3,7 +3,6 @@ source https://www.nuget.org/api/v2
 nuget FAKE
 
 nuget FSharp.Management
-nuget FubuCore ~> 1.4
 nuget NUnit ~> 2
 nuget NUnit.Runners ~> 2
 nuget FluentAssertions
