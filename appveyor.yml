@@ -1,0 +1,20 @@
+version: 1.0.{build}
+environment:
+  nugetkey:
+    secure: JNpnpSglMOIdpmkuqgvwvY6jzqEabYZH1hRziq/GddbsMNWyObRk07km0SZYBfT1
+build_script:
+- cmd: build.cmd PackageNugets
+test: off
+artifacts:
+- path: artifacts\**\*.nupkg
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: iNhyBhmsJzWLZ5sLXRXg0Nb3UxhpKwA1k9LW5WGtQdIAAr4IjEq0f+M+E2PbaqwH
+  artifact: /.*\.nupkg/
+  draft: false
+  force_update: true
+  on:
+    appveyor_repo_tag: true
+after_deploy:
+- ps: ./build.cmd PublishNugets --single-target
