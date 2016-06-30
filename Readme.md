@@ -13,6 +13,8 @@ This project is a simple wrapper around the very excellent and robust
 This project uses [FAKE](http://fsharp.github.io/FAKE/) for build automation and
 [Paket](https://fsprojects.github.io/Paket/) for managing dependencies.
 
+> Note: You will need to have [Git installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
 **Note:** Your first build should be from the command line to get the assembly version file created.
 
 `./build.cmd`
