@@ -10,10 +10,13 @@ This project is a simple wrapper around the very excellent and robust
 
 ## Building
 
+The build automation expects the source to [reside within a Git repo](https://github.com/KevM/tikaondotnet/issues/52) so the first step is to clone the repo [using Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+```git clone https://github.com/KevM/tikaondotnet.git```
+
 This project uses [FAKE](http://fsharp.github.io/FAKE/) for build automation and
 [Paket](https://fsprojects.github.io/Paket/) for managing dependencies.
 
-> Note: You will need to have [Git installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 **Note:** Your first build should be from the command line to get the assembly version file created.
 
