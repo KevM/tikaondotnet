@@ -2,7 +2,7 @@ type file
 authors Kevin Miller
 id TikaOnDotnet.TextExtractor
 description
-  Example of how to use **TikaOnDotNet** for text extraction from rich documents.
+  Classes for running Apache Tika through **TikaOnDotNet**. Just use TextExtractor.Extract() and you'll be on your way.
 files
     bin\Release\TikaOnDotNet.* ==> lib
 dependencies
