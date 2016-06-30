@@ -1,3 +1,7 @@
+## 1.13
+
+- Updated Tika dependency to 1.13.
+
 ## 1.12.2
 
 - Breaking Change: Renamed the namespace and assembly name of TikaOnDotNet to match the Nuget id (was `tika-app`). This should only affect the resulting filename of the assembly. All Tika code is namespaced with a Java style (com.apache.{yadda yadda}).
