@@ -1,6 +1,5 @@
 NUGET
   remote: https://www.nuget.org/api/v2
-  specs:
     FAKE (4.24)
     FluentAssertions (4.3.2)
       System.Collections (>= 4.0.10) - framework: dnxcore50
@@ -220,8 +219,6 @@ NUGET
       System.Xml.ReaderWriter (>= 4.0.10) - framework: dnxcore50
 HTTP
   remote: http://www.frijters.net
-  specs:
     ikvmbin-8.1.5717.0.zip (/ikvmbin-8.1.5717.0.zip)
   remote: http://www-us.apache.org
-  specs:
-    tika-app-1.12.jar (/dist/tika/tika-app-1.12.jar)
+    tika-app-1.13.jar (/dist/tika/tika-app-1.13.jar)

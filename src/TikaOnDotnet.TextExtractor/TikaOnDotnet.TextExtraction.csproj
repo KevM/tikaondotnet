@@ -62,6 +62,10 @@
   </Target>
   -->
   <ItemGroup>
+    <None Include="paket.references" />
+    <None Include="paket.template" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="IKVM.AWT.WinForms">
       <HintPath>..\..\packages\IKVM\lib\IKVM.AWT.WinForms.dll</HintPath>
       <Private>True</Private>
@@ -202,9 +206,5 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="paket.references" />
-    <None Include="paket.template" />
   </ItemGroup>
 </Project>
