@@ -68,3 +68,11 @@ http http://www.frijters.net/ikvmbin-<version>.zip
 ```
 
 Looking for updated versions of IKVM? [Check out their blog](http://weblog.ikvm.net).
+
+## Releasing a Nuget
+
+1. Update the `Release-Notes.md` adding a new section for the next version. This is really important because it controls the version number of the assemblies and nuget packages.
+2. Tag the release commit. `git tag -a v{version} -m "Ship it!"`
+3. Push the tag `git push origin --tags`
+
+Appveyor is setup to to automatically push tagged commits to Nuget.
