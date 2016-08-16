@@ -1,3 +1,7 @@
+## 1.13.1
+
+- Update TextExtractor dependency metadata to properly sync with TikaOnDotNet
+
 ## 1.13
 
 - Updated Tika dependency to 1.13.
