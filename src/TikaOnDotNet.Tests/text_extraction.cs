@@ -110,6 +110,15 @@ namespace TikaOnDotNet.Tests
         }
 
         [Test]
+        public void should_extract_from_msg()
+        {
+            var textExtractionResult = _cut.Extract("files/emailTest.msg");
+
+            // Deliberately fail test for now, since it does eventually return with data
+            textExtractionResult.Text.Should().Contain("DELIBERATELY FAILED");
+        }
+
+        [Test]
         public void should_extract_from_rtf()
         {
             var textExtractionResult = _cut.Extract("files/Tika.rtf");
