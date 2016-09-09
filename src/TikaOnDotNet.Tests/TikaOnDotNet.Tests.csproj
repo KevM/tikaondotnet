@@ -46,6 +46,9 @@
     <Compile Include="text_extraction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="files\emailTest.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="files\Tika.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -399,5 +402,8 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
 </Project>

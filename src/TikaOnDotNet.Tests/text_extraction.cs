@@ -110,6 +110,12 @@ namespace TikaOnDotNet.Tests
         }
 
         [Test]
+        public void should_extract_from_msg()
+        {
+            var textExtractionResult = _cut.Extract("files/emailTest.msg");
+        }
+
+        [Test]
         public void should_extract_from_rtf()
         {
             var textExtractionResult = _cut.Extract("files/Tika.rtf");
