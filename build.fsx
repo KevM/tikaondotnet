@@ -54,7 +54,7 @@ let IKVMCompile workingDirectory tasks =
   let rec compile (task:IKVMcTask) =
       let getIKVMCommandLineArgs() =
           let sb = Text.StringBuilder()
-          bprintf sb "-target:library -assembly:%s"
+          bprintf sb "-keyfile:..\TextExtraction.snk -target:library -assembly:%s"
               (task.AssemblyName)
           if not <| String.IsNullOrEmpty(task.Version)
               then task.Version |> bprintf sb " -version:%s"
