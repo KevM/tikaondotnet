@@ -6,7 +6,13 @@ Tika on .NET
 This project is a simple wrapper around the very excellent and robust
 [Tika](http://tika.apache.org/) text extraction Java library. This project produces two nugets:
 - TikaOnDotNet - A straight [IKVM](http://www.ikvm.net/userguide/ikvmc.html) hosted port of Java Tika project.
+
+![Install-Package TikaOnDotNet](https://cldup.com/H-IdGdU75T.png)
+
+
 - TikaOnDotNet.TextExtractor - Use Tika to extract text from rich documents.
+
+![Install-Package TikaOnDotNet.TextExtractor](https://cldup.com/_BM0b5jVjU.png)
 
 ## Building
 
