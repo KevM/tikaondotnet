@@ -18,6 +18,8 @@ let tempDir = "temp"
 let tikaLibDir = "lib"
 
 let solutionFile  = "src/TikaOnDotNet.sln"
+let keyFile = (fileInfo "TikaOnDotNet.snk")
+
 let [<Literal>]rootPath = __SOURCE_DIRECTORY__
 let testAssemblies = "src/**/bin/Release/*Tests*.dll"
 type root = FileSystem<rootPath>
@@ -54,10 +56,13 @@ let IKVMCompile workingDirectory tasks =
   let rec compile (task:IKVMcTask) =
       let getIKVMCommandLineArgs() =
           let sb = Text.StringBuilder()
-          bprintf sb "-target:library -assembly:%s"
-              (task.AssemblyName)
+          
+          if keyFile.Exists
+              then bprintf sb "-keyfile:%s -target:library -assembly:%s" keyFile.FullName task.AssemblyName
+
           if not <| String.IsNullOrEmpty(task.Version)
               then task.Version |> bprintf sb " -version:%s"
+
           bprintf sb " %s -out:%s"
               (task.JarFile |> getNewFileName ".jar")
               (task.AssemblyName + ".dll")
@@ -68,7 +73,7 @@ let IKVMCompile workingDirectory tasks =
   tasks |> Seq.iter compile
 
 Target "Clean" (fun _ ->
-    CleanDirs [artifactDir; tempDir; tikaLibDir]
+   CleanDirs [artifactDir; tempDir; tikaLibDir]
 )
 
 Target "SetVersions" (fun _ ->
@@ -80,8 +85,13 @@ Target "SetVersions" (fun _ ->
 )
 
 Target "Build" (fun _ ->
+    let strongName = 
+        if keyFile.Exists
+            then ["SignAssembly","true"; "AssemblyOriginatorKeyFile",keyFile.FullName]
+            else []
+
     !! solutionFile
-    |> MSBuildRelease "" "Clean;Rebuild"
+    |> MSBuildReleaseExt "" strongName "Clean;Rebuild"
     |> ignore
 )
 
@@ -116,8 +126,22 @@ Target "PublishNugets" (fun _ ->
             WorkingDir = artifactDir })
 )
 
+Target "BuildSNK" (fun _ ->
+    let snkBase64 = environVarOrNone "snk"
+    match snkBase64 with 
+    | Some env -> 
+    (
+    trace "Replacing .snk"
+    keyFile.Delete |> ignore
+    let snkbytes = System.Convert.FromBase64String(env)
+    System.IO.File.WriteAllBytes(keyFile.FullName, snkbytes)
+    )
+    | None -> trace "No key found in the \"snk\" environment"
+)
+
 "Clean"
   ==> "SetVersions"
+  ==> "BuildSNK"
   ==> "CompileTikaLib"
   ==> "Build"
   ==> "RunTests"

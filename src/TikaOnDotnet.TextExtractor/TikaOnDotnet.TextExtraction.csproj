@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="TikaOnDotNet, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TikaOnDotNet">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\TikaOnDotNet.dll</HintPath>
     </Reference>
@@ -48,7 +48,7 @@
     </Compile>
     <Compile Include="MySystemClassLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringExtrensions.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="TextExtractionException.cs" />
     <Compile Include="TextExtractionResult.cs" />
     <Compile Include="TextExtractor.cs" />

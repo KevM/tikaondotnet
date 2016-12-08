@@ -1,3 +1,8 @@
+## 1.14
+
+- Tika updated to 1.14. Please see the official Tika site for [what's changed](https://dist.apache.org/repos/dist/release/tika/CHANGES-1.14.txt).
+- Please note that TikaOnDotnet assemblies are now signed. Thank you [@Sicos1977](https://github.com/Sicos1977) for the PR.
+
 ## 1.13.1
 
 - Update TextExtractor dependency metadata to properly sync with TikaOnDotNet

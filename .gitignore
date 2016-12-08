@@ -13,3 +13,4 @@ build
 SolutionInfo.cs
 .paket/paket.exe
 paket-files
+*.snk
