@@ -69,11 +69,6 @@
     <None Include="paket.template" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="IKVM.AWT.WinForms">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.AWT.WinForms.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
     <Reference Include="IKVM.OpenJDK.Beans">
       <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.Beans.dll</HintPath>
       <Private>True</Private>
@@ -154,11 +149,6 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Tools">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.Tools.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
     <Reference Include="IKVM.OpenJDK.Util">
       <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.Util.dll</HintPath>
       <Private>True</Private>
@@ -196,16 +186,6 @@
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.XPath">
       <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.XML.XPath.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-    <Reference Include="IKVM.Runtime.JNI">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.JNI.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-    <Reference Include="IKVM.Runtime">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.dll</HintPath>
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
