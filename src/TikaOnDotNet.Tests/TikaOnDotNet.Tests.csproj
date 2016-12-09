@@ -88,6 +88,12 @@
     <Content Include="files\Badgers.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="files\testfile.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="files\testfile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="files\testfile.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -11,6 +11,11 @@ namespace TikaOnDotNet.Tests
     [TestFixture]
     public class text_extraction
     {
+        /// <summary>
+        /// The path to Tesseract
+        /// </summary>
+        const string TesseractPath = @"c:\Program Files (x86)\Tesseract-OCR";
+
         [SetUp]
         public virtual void SetUp()
         {
@@ -201,16 +206,40 @@ namespace TikaOnDotNet.Tests
         }
 
         [Test]
-        public void should_ocr_with_tesseract()
+        public void should_ocr_tif_with_tesseract()
         {
-            const string tesseractPath = @"c:\Program Files (x86)\Tesseract-OCR";
-
-            if (!File.Exists(Path.Combine(tesseractPath, "tesseract.exe")))
-                Assert.Ignore("Tesseract not found in the path '" + tesseractPath + "'");
+            if (!File.Exists(Path.Combine(TesseractPath, "tesseract.exe")))
+                Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _cut.TesseractPath = tesseractPath;
+                _cut.TesseractPath = TesseractPath;
                 var textExtractionResult = _cut.Extract("files/testfile.tif");
+                textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
+            }
+        }
+
+        [Test]
+        public void should_ocr_jpg_with_tesseract()
+        {
+            if (!File.Exists(Path.Combine(TesseractPath, "tesseract.exe")))
+                Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
+            else
+            {
+                _cut.TesseractPath = TesseractPath;
+                var textExtractionResult = _cut.Extract("files/testfile.png");
+                textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
+            }
+        }
+
+        [Test]
+        public void should_ocr_png_with_tesseract()
+        {
+            if (!File.Exists(Path.Combine(TesseractPath, "tesseract.exe")))
+                Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
+            else
+            {
+                _cut.TesseractPath = TesseractPath;
+                var textExtractionResult = _cut.Extract("files/testfile.png");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
         }
@@ -218,13 +247,11 @@ namespace TikaOnDotNet.Tests
         [Test]
         public void should_ocr_msg_with_tif_with_tesseract()
         {
-            const string tesseractPath = @"c:\Program Files (x86)\Tesseract-OCR";
-
-            if (!File.Exists(Path.Combine(tesseractPath, "tesseract.exe")))
-                Assert.Ignore("Tesseract not found in the path '" + tesseractPath + "'");
+            if (!File.Exists(Path.Combine(TesseractPath, "tesseract.exe")))
+                Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _cut.TesseractPath = tesseractPath;
+                _cut.TesseractPath = TesseractPath;
                 var textExtractionResult = _cut.Extract("files/withtifattachment.msg");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
