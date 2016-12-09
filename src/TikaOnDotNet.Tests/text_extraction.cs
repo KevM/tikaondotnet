@@ -191,5 +191,20 @@ namespace TikaOnDotNet.Tests
 
             textExtractionResult.ContentType.Should().Be("video/mp4");
         }
+
+        [Test]
+        public void should_ocr_with_tesseract()
+        {
+            const string tesseractPath = @"c:\Program Files (x86)\Tesseract-OCR";
+
+            if (!File.Exists(Path.Combine(tesseractPath, "tesseract.exe")))
+                Assert.Ignore("Tesseract not found in the path '" + tesseractPath + "'");
+            else
+            {
+                _cut.TesseractPath = tesseractPath;
+                var textExtractionResult = _cut.Extract("files/testfile.tif");
+                textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
+            }
+        }
     }
 }

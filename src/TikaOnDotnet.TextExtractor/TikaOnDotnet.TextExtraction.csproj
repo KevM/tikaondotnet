@@ -46,7 +46,6 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="Helpers.cs" />
     <Compile Include="ITextExtractor.cs" />
     <Compile Include="MySystemClassLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

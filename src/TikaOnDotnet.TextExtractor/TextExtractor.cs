@@ -1,8 +1,12 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using java.io;
 using java.net;
+using javax.xml.transform;
+using javax.xml.transform.sax;
+using javax.xml.transform.stream;
 using org.apache.tika;
 using org.apache.tika.config;
 using org.apache.tika.detect;
@@ -29,32 +33,24 @@ namespace TikaOnDotNet.TextExtraction
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets the path to Tesseract
+        /// </summary>
+        /// <remarks>
+        /// When set then tesseract is used to extract text from images like tiffs
+        /// </remarks>
         public string TesseractPath
         {
             get { return _tesseractPath; }
             set
             {
+                var file = Path.Combine(value, "tesseract.exe");
+                if (!System.IO.File.Exists(file))
+                    throw new TextExtractionException("Could not find tesseract in the path '" + value + "'");
+
                 _tesseractPath = value;
                 _tesseractOcrConfig = new TesseractOCRConfig();
-                //todo: validate directory and tesseract.exe at location
                 _tesseractOcrConfig.setTesseractPath(_tesseractPath);
-            }
-        }
-
-        public bool IsOcrPathEnabled
-        {
-            get { return _tesseractOcrConfig != null; }
-            set
-            {
-                if (value)
-                {
-                    _tesseractOcrConfig = new TesseractOCRConfig();
-                    _tesseractOcrConfig.setTesseractPath(_tesseractPath);
-                }
-                else
-                {
-                    _tesseractOcrConfig = null;
-                }
             }
         }
         #endregion
@@ -163,7 +159,7 @@ namespace TikaOnDotNet.TextExtraction
                 var outputWriter = new StringWriter();
                 var parseContext = new ParseContext();
 
-                if (IsOcrPathEnabled)
+                if (_tesseractOcrConfig != null)
                     parseContext.set(typeof(TesseractOCRConfig), _tesseractOcrConfig);
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
@@ -173,7 +169,7 @@ namespace TikaOnDotNet.TextExtraction
                 {
                     try
                     {
-                        parser.parse(inputStream, Helpers.GetTransformerHandler(outputWriter), metadata, parseContext);
+                        parser.parse(inputStream, GetTransformerHandler(outputWriter), metadata, parseContext);
                     }
                     finally
                     {
@@ -181,7 +177,7 @@ namespace TikaOnDotNet.TextExtraction
                     }
                 }
 
-                return Helpers.AssembleExtractionResult(outputWriter.ToString(), metadata);
+                return AssembleExtractionResult(outputWriter.ToString(), metadata);
             }
             catch (Exception ex)
             {
@@ -243,6 +239,37 @@ namespace TikaOnDotNet.TextExtraction
             retVal.AppendFormat("\nFallback Parser: {0}\n", configParser.getFallback());
 
             return retVal.ToString();
+        }
+        #endregion
+
+        #region AssembleExtractionResult
+        private static TextExtractionResult AssembleExtractionResult(string text, Metadata metadata)
+        {
+            var metaDataResult = metadata.names()
+                .ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
+
+            var contentType = metaDataResult["Content-Type"];
+
+            return new TextExtractionResult
+            {
+                Text = text,
+                ContentType = contentType,
+                Metadata = metaDataResult
+            };
+        }
+        #endregion
+
+        #region GetTransformerHandler
+        internal static TransformerHandler GetTransformerHandler(Writer output)
+        {
+            var factory = (SAXTransformerFactory)TransformerFactory.newInstance();
+            var transformerHandler = factory.newTransformerHandler();
+
+            transformerHandler.getTransformer().setOutputProperty(OutputKeys.METHOD, "text");
+            transformerHandler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
+
+            transformerHandler.setResult(new StreamResult(output));
+            return transformerHandler;
         }
         #endregion
     }
