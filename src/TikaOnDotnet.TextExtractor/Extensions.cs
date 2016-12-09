@@ -2,7 +2,7 @@
 
 namespace TikaOnDotNet.TextExtraction
 {
-	public static class StringExtensions
+	public static class Extensions
 	{
 		public static string ToFormat(this string formatMe, params object[] args)
 		{
