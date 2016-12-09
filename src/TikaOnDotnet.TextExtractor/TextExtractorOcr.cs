@@ -16,6 +16,10 @@ using StringWriter = java.io.StringWriter;
 
 namespace TikaOnDotNet.TextExtraction
 {
+    /// <summary>
+    ///     With this class text can be extracted from all diferent kind of documents with
+    ///     the use of Tika and Tesseract
+    /// </summary>
     public class TextExtractorOcr : ITextExtractor
     {
         #region Fields
