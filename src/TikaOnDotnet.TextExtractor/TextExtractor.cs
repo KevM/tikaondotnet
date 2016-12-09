@@ -92,41 +92,6 @@ namespace TikaOnDotNet.TextExtraction
             return Extract(metadata => TikaInputStream.get(data, metadata));
         }
 
-        public TextExtractionResult Extract(byte[] data, string filePath, string contentType)
-        {
-            var result = Extract
-                (
-                    metadata =>
-                    {
-                        metadata.add(TikaMetadataKeys.__Fields.RESOURCE_NAME_KEY, Path.GetFileName(filePath));
-                        metadata.add(TikaMimeKeys.__Fields.TIKA_MIME_FILE, filePath);
-
-                        if (!contentType.Equals(MimeTypes.OCTET_STREAM, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            metadata.add(HttpHeaders.__Fields.CONTENT_TYPE, contentType);
-                        }
-                        else
-                        {
-                            var detector = Config.getDetector();
-                            using (var inputStream = TikaInputStream.@get(data, metadata))
-                            {
-                                var foundType = detector.detect(inputStream, metadata);
-                                if (
-                                    !foundType.toString()
-                                        .Equals(MimeTypes.OCTET_STREAM, StringComparison.CurrentCultureIgnoreCase))
-                                {
-                                    metadata.add(HttpHeaders.__Fields.CONTENT_TYPE, foundType.toString());
-                                }
-                            }
-                        }
-
-                        return TikaInputStream.get(data, metadata);
-                    }
-                );
-
-            return result;
-        }
-
         /// <summary>
         ///     Extract from the give uri and returns it as an <see cref="TextExtractionResult" /> object
         /// </summary>
