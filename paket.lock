@@ -1,6 +1,6 @@
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.46)
+    FAKE (4.46.1)
     FluentAssertions (4.18)
       NETStandard.Library (>= 1.6) - framework: >= netstandard13
       System.Reflection.TypeExtensions (>= 4.1) - framework: >= netstandard13
