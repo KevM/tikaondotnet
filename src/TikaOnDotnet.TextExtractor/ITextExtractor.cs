@@ -11,6 +11,7 @@ namespace TikaOnDotNet.TextExtraction
         /// </summary>
         /// <param name="filePath">The file with its full path</param>
         /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
         TextExtractionResult Extract(string filePath);
 
         /// <summary>
@@ -18,6 +19,7 @@ namespace TikaOnDotNet.TextExtraction
         /// </summary>
         /// <param name="data">The byte array</param>
         /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
         TextExtractionResult Extract(byte[] data);
 
         /// <summary>
@@ -25,6 +27,7 @@ namespace TikaOnDotNet.TextExtraction
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
         TextExtractionResult Extract(Uri uri);
 
         /// <summary>
@@ -32,6 +35,7 @@ namespace TikaOnDotNet.TextExtraction
         /// </summary>
         /// <param name="streamFactory"></param>
         /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
         TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory);
     }
 }
