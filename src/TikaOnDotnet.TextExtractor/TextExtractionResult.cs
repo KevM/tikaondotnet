@@ -29,11 +29,9 @@ namespace TikaOnDotNet.TextExtraction
 			var builder = new StringBuilder("Text:\n" + Text + "MetaData:\n");
 
 			foreach (var keypair in Metadata)
-			{
 				builder.AppendFormat("{0} - {1}\n", keypair.Key, keypair.Value);
-			}
 
 			return builder.ToString();
 		}
-	}
+    }
 }

@@ -1,10 +1,6 @@
 using System;
-using System.Linq;
 using java.io;
 using java.net;
-using javax.xml.transform;
-using javax.xml.transform.sax;
-using javax.xml.transform.stream;
 using org.apache.tika.io;
 using org.apache.tika.metadata;
 using org.apache.tika.parser;
@@ -17,37 +13,6 @@ namespace TikaOnDotNet.TextExtraction
     /// </summary>
     public class TextExtractor : ITextExtractor
     {
-        #region AssembleExtractionResult
-        private static TextExtractionResult AssembleExtractionResult(string text, Metadata metadata)
-        {
-            var metaDataResult = metadata.names()
-                .ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
-
-            var contentType = metaDataResult["Content-Type"];
-
-            return new TextExtractionResult
-            {
-                Text = text,
-                ContentType = contentType,
-                Metadata = metaDataResult
-            };
-        }
-        #endregion
-
-        #region GetTransformerHandler
-        private static TransformerHandler GetTransformerHandler(Writer output)
-        {
-            var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
-            var transformerHandler = factory.newTransformerHandler();
-
-            transformerHandler.getTransformer().setOutputProperty(OutputKeys.METHOD, "text");
-            transformerHandler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
-
-            transformerHandler.setResult(new StreamResult(output));
-            return transformerHandler;
-        }
-        #endregion
-
         #region Extract
         /// <summary>
         ///     Extract the text from the given file and returns it as an <see cref="TextExtractionResult" /> object
@@ -83,6 +48,11 @@ namespace TikaOnDotNet.TextExtraction
             return Extract(metadata => TikaInputStream.get(data, metadata));
         }
 
+        /// <summary>
+        ///     Extract from the give uri and returns it as an <see cref="TextExtractionResult" /> object
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         public TextExtractionResult Extract(Uri uri)
         {
             var jUri = new URI(uri.ToString());
@@ -115,7 +85,7 @@ namespace TikaOnDotNet.TextExtraction
                 {
                     try
                     {
-                        parser.parse(inputStream, GetTransformerHandler(outputWriter), metadata, parseContext);
+                        parser.parse(inputStream, Helpers.GetTransformerHandler(outputWriter), metadata, parseContext);
                     }
                     finally
                     {
@@ -123,7 +93,7 @@ namespace TikaOnDotNet.TextExtraction
                     }
                 }
 
-                return AssembleExtractionResult(outputWriter.ToString(), metadata);
+                return Helpers.AssembleExtractionResult(outputWriter.ToString(), metadata);
             }
             catch (Exception ex)
             {

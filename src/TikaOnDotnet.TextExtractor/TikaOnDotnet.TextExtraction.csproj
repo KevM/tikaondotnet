@@ -46,6 +46,7 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Helpers.cs" />
     <Compile Include="ITextExtractor.cs" />
     <Compile Include="MySystemClassLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="TextExtractionException.cs" />
     <Compile Include="TextExtractionResult.cs" />
     <Compile Include="TextExtractor.cs" />
+    <Compile Include="TextExtractorOcr.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

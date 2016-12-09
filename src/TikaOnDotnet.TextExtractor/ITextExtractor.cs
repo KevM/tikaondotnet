@@ -7,27 +7,30 @@ namespace TikaOnDotNet.TextExtraction
     public interface ITextExtractor
     {
         /// <summary>
-        /// Extract text from a given filepath.
+        ///     Extract the text from the given file and returns it as an <see cref="TextExtractionResult" /> object
         /// </summary>
-        /// <param name="filePath">File path to be extracted.</param>
+        /// <param name="filePath">The file with its full path</param>
+        /// <returns></returns>
         TextExtractionResult Extract(string filePath);
-		
+
         /// <summary>
-        /// Extract text from a byte[]. This is a good way to get data from arbitrary sources.
+        ///     Extract the text from the given byte array and returns it as an <see cref="TextExtractionResult" /> object
         /// </summary>
-        /// <param name="data">A byte array of data which will have its text extracted.</param>
+        /// <param name="data">The byte array</param>
+        /// <returns></returns>
         TextExtractionResult Extract(byte[] data);
 
         /// <summary>
-        /// Extract text from a URI. Time to create your very of web spider.
+        ///     Extract from the give uri and returns it as an <see cref="TextExtractionResult" /> object
         /// </summary>
-        /// <param name="uri">URL which will have its text extracted.</param>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         TextExtractionResult Extract(Uri uri);
 
         /// <summary>
-        /// Under the hood we are using Tika which is a Java project. Tika wants an java.io.InputStream. The other overloads eventually call this Extract giving this method a Func.
+        ///     Extract the text from the given inputstreams and returns it as an <see cref="TextExtractionResult" /> object
         /// </summary>
-        /// <param name="streamFactory">A Func which takes a Metadata object and returns an InputStream.</param>
+        /// <param name="streamFactory"></param>
         /// <returns></returns>
         TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory);
     }
