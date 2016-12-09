@@ -193,6 +193,14 @@ namespace TikaOnDotNet.Tests
         }
 
         [Test]
+        public void should_extract_msg()
+        {
+            var textExtractionResult = _cut.Extract("files/test.msg");
+            
+            textExtractionResult.Text.Should().Contain("This is my test file");
+        }
+
+        [Test]
         public void should_ocr_with_tesseract()
         {
             const string tesseractPath = @"c:\Program Files (x86)\Tesseract-OCR";

@@ -45,6 +45,9 @@
     <Compile Include="text_extraction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="files\test.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="files\Tika.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
