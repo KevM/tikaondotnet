@@ -1,8 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
+using com.sun.org.apache.xml.@internal.utils;
 using java.io;
 using java.lang;
-using java.net;
 using javax.xml.transform;
 using javax.xml.transform.sax;
 using javax.xml.transform.stream;
@@ -15,12 +16,12 @@ using org.apache.tika.mime;
 using org.apache.tika.parser;
 using org.apache.tika.parser.ocr;
 using org.apache.tika.parser.pdf;
-using org.apache.tika.sax;
 using Exception = System.Exception;
 using Object = java.lang.Object;
-using String = System.String;
+using Parser = org.apache.tika.parser.Parser;
 using StringBuilder = System.Text.StringBuilder;
 using StringWriter = java.io.StringWriter;
+using URI = java.net.URI;
 
 namespace TikaOnDotNet.TextExtraction
 {
@@ -126,7 +127,7 @@ namespace TikaOnDotNet.TextExtraction
             {
                 var parser = new AutoDetectParser();
                 var metadata = new Metadata();
-                var outputWriter = new StringWriter();
+                //var outputWriter = new StringWriter();
                 var parseContext = new ParseContext();
 
                 if (_tesseractOcrConfig != null)
@@ -139,18 +140,22 @@ namespace TikaOnDotNet.TextExtraction
                         pdfParserConfig.setExtractInlineImages(true);
                         // Set to false if pdf contains multiple images
                         pdfParserConfig.setExtractUniqueInlineImagesOnly(false);
-                        parseContext.set(typeof(PDFParserConfig), pdfParserConfig);
+                        parseContext.set(typeof (PDFParserConfig), pdfParserConfig);
                     }
                 }
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
                 parseContext.set(typeof (Parser), parser);
 
+                //var customTextContentHandler = new CustomTextContentHandler(GetTransformerHandler(outputWriter), true);
+                var content = new System.IO.StringWriter();
+                var customTextContentHandler = new CustomTextContentHandler(content);
+
                 using (var inputStream = streamFactory(metadata))
                 {
                     try
                     {
-                        parser.parse(inputStream, GetTransformerHandler(outputWriter), metadata, parseContext);
+                        parser.parse(inputStream, customTextContentHandler, metadata, parseContext);
                     }
                     finally
                     {
@@ -158,7 +163,8 @@ namespace TikaOnDotNet.TextExtraction
                     }
                 }
 
-                return AssembleExtractionResult(outputWriter.ToString(), metadata);
+                //return AssembleExtractionResult(outputWriter.ToString(), metadata);
+                return AssembleExtractionResult(content.ToString(), metadata);
             }
             catch (Exception ex)
             {
@@ -180,29 +186,29 @@ namespace TikaOnDotNet.TextExtraction
 
             retVal.AppendLine("\nDetectors");
 
-            var configDetector = (CompositeDetector)Config.getDetector();
+            var configDetector = (CompositeDetector) Config.getDetector();
             var detectors = configDetector.getDetectors().toArray();
             foreach (Detector detector in detectors)
             {
-                retVal.AppendFormat("\t{0}\n", ((Object)detector).getClass().getName());
+                retVal.AppendFormat("\t{0}\n", ((Object) detector).getClass().getName());
 
-                if (detector.GetType() == typeof(CompositeDetector))
+                if (detector.GetType() == typeof (CompositeDetector))
                 {
                     var subDetectors = configDetector.getDetectors().toArray();
                     foreach (Detector subDetector in subDetectors)
                     {
-                        retVal.AppendFormat("\t\t{0}\n", ((Object)subDetector).getClass().getName());
+                        retVal.AppendFormat("\t\t{0}\n", ((Object) subDetector).getClass().getName());
                     }
                 }
             }
 
             retVal.AppendLine("\nParsers");
 
-            var configParser = (CompositeParser)Config.getParser();
+            var configParser = (CompositeParser) Config.getParser();
             var parsers = configParser.getAllComponentParsers().toArray();
             foreach (Parser parser in parsers)
             {
-                retVal.AppendFormat("\t{0}\n", ((Object)parser).getClass().getName());
+                retVal.AppendFormat("\t{0}\n", ((Object) parser).getClass().getName());
 
                 var parserTypes = parser.getSupportedTypes(new ParseContext()).toArray();
                 foreach (MediaType mediaType in parserTypes)
@@ -214,7 +220,7 @@ namespace TikaOnDotNet.TextExtraction
             var translator = Config.getTranslator();
             if (translator.isAvailable())
             {
-                retVal.AppendFormat("Translator {0}\n", ((Object)translator).getClass().getName());
+                retVal.AppendFormat("Translator {0}\n", ((Object) translator).getClass().getName());
             }
 
             retVal.AppendFormat("\nFallback Parser: {0}\n", configParser.getFallback());
@@ -248,24 +254,23 @@ namespace TikaOnDotNet.TextExtraction
         #endregion
 
         #region GetTransformerHandler
-        /// <summary>
-        /// Sets the way the output of Tika is converted
-        /// </summary>
-        /// <param name="output"></param>
-        /// <returns></returns>
-        internal static TransformerHandler GetTransformerHandler(Writer output)
-        {
-            var factory = (SAXTransformerFactory)TransformerFactory.newInstance();
-            var transformerHandler = factory.newTransformerHandler();
-            var transformer = transformerHandler.getTransformer();
-
-            transformer.setOutputProperty(OutputKeys.METHOD, "text");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
-            transformerHandler.setResult(new StreamResult(output));
-            return transformerHandler;
-        }
+        ///// <summary>
+        ///// Sets the way the output of Tika is converted
+        ///// </summary>
+        ///// <param name="output"></param>
+        ///// <returns></returns>
+        //internal static TransformerHandler GetTransformerHandler(Writer output)
+        //{
+        //    var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+        //    var transformerHandler = factory.newTransformerHandler();
+        //    var transformer = transformerHandler.getTransformer();
+            
+        //    transformer.setOutputProperty(OutputKeys.METHOD, "text");
+        //    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        //    transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        //    transformerHandler.setResult(new StreamResult(output));
+        //    return transformerHandler;
+        //}
         #endregion
     }
 }
