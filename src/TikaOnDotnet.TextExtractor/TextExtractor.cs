@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
-using System.Text;
 using java.io;
+using java.lang;
 using java.net;
 using javax.xml.transform;
 using javax.xml.transform.sax;
@@ -15,7 +15,11 @@ using org.apache.tika.mime;
 using org.apache.tika.parser;
 using org.apache.tika.parser.ocr;
 using org.apache.tika.parser.pdf;
+using org.apache.tika.sax;
+using Exception = System.Exception;
 using Object = java.lang.Object;
+using String = System.String;
+using StringBuilder = System.Text.StringBuilder;
 using StringWriter = java.io.StringWriter;
 
 namespace TikaOnDotNet.TextExtraction
@@ -220,6 +224,13 @@ namespace TikaOnDotNet.TextExtraction
         #endregion
 
         #region AssembleExtractionResult
+        /// <summary>
+        /// Takes the extracted <see cref="text"/> and <see cref="metadata"/> and returns it as
+        /// an <see cref="TextExtractionResult"/> object
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="metadata"></param>
+        /// <returns></returns>
         private static TextExtractionResult AssembleExtractionResult(string text, Metadata metadata)
         {
             var metaDataResult = metadata.names()
