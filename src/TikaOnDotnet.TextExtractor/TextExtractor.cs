@@ -1,137 +1,113 @@
 using System;
-using System.Linq;
 using java.io;
-using javax.xml.transform;
-using javax.xml.transform.sax;
-using javax.xml.transform.stream;
 using org.apache.tika.io;
 using org.apache.tika.metadata;
 using org.apache.tika.parser;
 using Exception = System.Exception;
+using Parser = org.apache.tika.parser.Parser;
+using URI = java.net.URI;
 
 namespace TikaOnDotNet.TextExtraction
 {
-	public interface ITextExtractor
-	{
-		/// <summary>
-		/// Extract text from a given filepath.
-		/// </summary>
-		/// <param name="filePath">File path to be extracted.</param>
-		TextExtractionResult Extract(string filePath);
-		
-		/// <summary>
-		/// Extract text from a byte[]. This is a good way to get data from arbitrary sources.
-		/// </summary>
-		/// <param name="data">A byte array of data which will have its text extracted.</param>
-		TextExtractionResult Extract(byte[] data);
+    /// <summary>
+    ///     With this class text can be extracted from all different kind of documents with
+    ///     the use of Tika
+    /// </summary>
+    public class TextExtractor : ITextExtractor
+    {
+        #region Extract
+        /// <summary>
+        ///     Extract the text from the given file and returns it as an <see cref="TextExtractionResult" /> object
+        /// </summary>
+        /// <param name="filePath">The file with its full path</param>
+        /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
+        public TextExtractionResult Extract(string filePath)
+        {
+            try
+            {
+                var inputStream = new FileInputStream(filePath);
+                return Extract(metadata =>
+                {
+                    var result = TikaInputStream.get(inputStream);
+                    metadata.add("FilePath", filePath);
+                    return result;
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new TextExtractionException("Extraction of text from the file '{0}' failed.".ToFormat(filePath),
+                    ex);
+            }
+        }
 
-		/// <summary>
-		/// Extract text from a URI. Time to create your very of web spider.
-		/// </summary>
-		/// <param name="uri">URL which will have its text extracted.</param>
-		TextExtractionResult Extract(Uri uri);
+        /// <summary>
+        ///     Extract the text from the given byte array and returns it as an <see cref="TextExtractionResult" /> object
+        /// </summary>
+        /// <param name="data">The byte array</param>
+        /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
+        public TextExtractionResult Extract(byte[] data)
+        {
+            return Extract(metadata => TikaInputStream.get(data, metadata));
+        }
 
-		/// <summary>
-		/// Under the hood we are using Tika which is a Java project. Tika wants an java.io.InputStream. The other overloads eventually call this Extract giving this method a Func.
-		/// </summary>
-		/// <param name="streamFactory">A Func which takes a Metadata object and returns an InputStream.</param>
-		/// <returns></returns>
-		TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory);
-	}
+        /// <summary>
+        ///     Extract from the give uri and returns it as an <see cref="TextExtractionResult" /> object
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
+        public TextExtractionResult Extract(Uri uri)
+        {
+            var jUri = new URI(uri.ToString());
+            return Extract(metadata =>
+            {
+                var result = TikaInputStream.get(jUri, metadata);
+                metadata.add("Uri", uri.ToString());
+                return result;
+            });
+        }
 
-	public class TextExtractor : ITextExtractor
-	{
-		public TextExtractionResult Extract(string filePath)
-		{
-			try
-			{
-				var inputStream = new FileInputStream(filePath);
-				return Extract(metadata =>
-				{
-					var result = TikaInputStream.get(inputStream);
-					metadata.add("FilePath", filePath);
-					return result;
-				});
-			}
-			catch (Exception ex)
-			{
-				throw new TextExtractionException("Extraction of text from the file '{0}' failed.".ToFormat(filePath), ex);
-			}
-		}
+        /// <summary>
+        ///     Extract the text from the given inputstreams and returns it as an <see cref="TextExtractionResult" /> object
+        /// </summary>
+        /// <param name="streamFactory"></param>
+        /// <returns></returns>
+        /// <exception cref="TextExtractionException"></exception>
+        public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
+        {
+            try
+            {
+                var parser = new AutoDetectParser();
+                var metadata = new Metadata();
+                var parseContext = new ParseContext();
 
-		public TextExtractionResult Extract(byte[] data)
-		{
-			return Extract(metadata => TikaInputStream.get(data, metadata));
-		}
+                // Use the base class type for the key or parts of Tika won't find a usable parser
+                parseContext.set(typeof (Parser), parser);
 
-		public TextExtractionResult Extract(Uri uri)
-		{
-			var jUri = new java.net.URI(uri.ToString());
-			return Extract(metadata =>
-			{
-				var result = TikaInputStream.get(jUri, metadata);
-				metadata.add("Uri", uri.ToString());
-				return result;
-			});
-		}
+                var content = new System.IO.StringWriter();
+                var customTextContentHandler = new CustomTextContentHandler(content);
 
-		public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
-		{
-			try
-			{
-				var parser = new AutoDetectParser();
-				var metadata = new Metadata();
-				var outputWriter = new StringWriter();
-				var parseContext = new ParseContext();
+                using (var inputStream = streamFactory(metadata))
+                {
+                    try
+                    {
+                        parser.parse(inputStream, customTextContentHandler, metadata, parseContext);
+                    }
+                    finally
+                    {
+                        inputStream.close();
+                    }
+                }
 
-                //use the base class type for the key or parts of Tika won't find a usable parser
-				parseContext.set(typeof(Parser), parser);
-				
-				using (var inputStream = streamFactory(metadata))
-				{
-					try
-					{
-						parser.parse(inputStream, getTransformerHandler(outputWriter), metadata, parseContext);
-					}
-					finally
-					{
-						inputStream.close();
-					}
-				}
-
-				return AssembleExtractionResult(outputWriter.ToString(), metadata);
-			}
-			catch (Exception ex)
-			{
-				throw new TextExtractionException("Extraction failed.", ex);
-			}
-		}
-
-		private static TextExtractionResult AssembleExtractionResult(string text, Metadata metadata)
-		{
-			var metaDataResult = metadata.names()
-				.ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
-
-			var contentType = metaDataResult["Content-Type"];
-
-			return new TextExtractionResult
-			{
-				Text = text,
-				ContentType = contentType,
-				Metadata = metaDataResult
-			};
-		}
-
-		private static TransformerHandler getTransformerHandler(Writer output)
-		{
-			var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
-			var transformerHandler = factory.newTransformerHandler();
-			
-			transformerHandler.getTransformer().setOutputProperty(OutputKeys.METHOD, "text");
-			transformerHandler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
-
-			transformerHandler.setResult(new StreamResult(output));
-			return transformerHandler;
-		}
-	}
+                return Helpers.AssembleExtractionResult(content.ToString(), metadata);
+            }
+            catch (Exception ex)
+            {
+                throw new TextExtractionException("Extraction failed.", ex);
+            }
+        }
+        #endregion
+    }
 }

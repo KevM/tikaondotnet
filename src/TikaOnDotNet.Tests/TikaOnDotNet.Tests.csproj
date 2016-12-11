@@ -30,7 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -46,6 +45,12 @@
     <Compile Include="text_extraction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="files\scanned.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="files\test.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="files\Tika.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -73,6 +78,9 @@
     <None Include="files\Tika.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="files\withtifattachment.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="files\apache.jpg">
@@ -81,6 +89,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="files\Badgers.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="files\testfile.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="files\testfile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="files\testfile.tif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -249,11 +266,6 @@
     </When>
   </Choose>
   <ItemGroup>
-    <Reference Include="IKVM.AWT.WinForms">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.AWT.WinForms.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
     <Reference Include="IKVM.OpenJDK.Beans">
       <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.Beans.dll</HintPath>
       <Private>True</Private>
@@ -334,11 +346,6 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
-    <Reference Include="IKVM.OpenJDK.Tools">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.Tools.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
     <Reference Include="IKVM.OpenJDK.Util">
       <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.Util.dll</HintPath>
       <Private>True</Private>
@@ -376,16 +383,6 @@
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.XPath">
       <HintPath>..\..\packages\IKVM\lib\IKVM.OpenJDK.XML.XPath.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-    <Reference Include="IKVM.Runtime.JNI">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.JNI.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-    <Reference Include="IKVM.Runtime">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.dll</HintPath>
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
