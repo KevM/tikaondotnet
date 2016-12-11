@@ -25,7 +25,6 @@ namespace TikaOnDotNet.TextExtraction
         #region Implementation of ContentHandler
         public void setDocumentLocator(Locator locator)
         {
-            
         }
 
         public void startDocument()

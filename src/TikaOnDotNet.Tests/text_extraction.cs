@@ -28,6 +28,11 @@ namespace TikaOnDotNet.Tests
         /// The <see cref="TextExtractor"/>
         /// </summary>
         private TextExtractor _textExtractor;
+
+        /// <summary>
+        /// The <see cref="TextExtractorOCR"/>
+        /// </summary>
+        private TextExtractorOCR _textExtractorOCR;
         #endregion
 
         #region Setup
@@ -39,23 +44,24 @@ namespace TikaOnDotNet.Tests
         {
             _textExtractor = new TextExtractor();
 
+            _textExtractorOCR = new TextExtractorOCR();
             // Setting up tesseract
-            _textExtractor.TesseractOCRConfig.setTesseractPath(TesseractPath);
+            _textExtractorOCR.TesseractOCRConfig.setTesseractPath(TesseractPath);
 
             // The path to ImageMagick
-            _textExtractor.TesseractOCRConfig.setImageMagickPath(ImageMagickPath);
+            _textExtractorOCR.TesseractOCRConfig.setImageMagickPath(ImageMagickPath);
 
             // The language to use
-            _textExtractor.TesseractOCRConfig.setLanguage("ENG");
+            _textExtractorOCR.TesseractOCRConfig.setLanguage("ENG");
 
             // Use ImageMagick to cleanup en enhace images for better OCRing
-            _textExtractor.TesseractOCRConfig.setEnableImageProcessing(1);
+            _textExtractorOCR.TesseractOCRConfig.setEnableImageProcessing(1);
 
             // Max amount of time to OCR before it times out (default 120 seconds)
-            _textExtractor.TesseractOCRConfig.setTimeout(60);
+            _textExtractorOCR.TesseractOCRConfig.setTimeout(60);
 
             // Extract text from scanned pdf's (default false)
-            _textExtractor.ExtractFromScannedPdfs = true;
+            _textExtractorOCR.ExtractFromScannedPdfs = true;
         }
         #endregion
 
@@ -239,6 +245,7 @@ namespace TikaOnDotNet.Tests
             textExtractionResult.Text.Should().Contain("This is my test file");
         }
 
+        #region OCR test
         [Test]
         public void should_ocr_tif_with_tesseract()
         {
@@ -246,7 +253,6 @@ namespace TikaOnDotNet.Tests
                 Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _textExtractor.TesseractOCRConfig.setTesseractPath(TesseractPath);
                 var textExtractionResult = _textExtractor.Extract("files/testfile.tif");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
@@ -259,7 +265,6 @@ namespace TikaOnDotNet.Tests
                 Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _textExtractor.TesseractOCRConfig.setTesseractPath(TesseractPath);
                 var textExtractionResult = _textExtractor.Extract("files/testfile.png");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
@@ -272,7 +277,6 @@ namespace TikaOnDotNet.Tests
                 Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _textExtractor.TesseractOCRConfig.setTesseractPath(TesseractPath);
                 var textExtractionResult = _textExtractor.Extract("files/testfile.png");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
@@ -285,7 +289,6 @@ namespace TikaOnDotNet.Tests
                 Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _textExtractor.TesseractOCRConfig.setTesseractPath(TesseractPath);
                 var textExtractionResult = _textExtractor.Extract("files/withtifattachment.msg");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
@@ -299,11 +302,11 @@ namespace TikaOnDotNet.Tests
                 Assert.Ignore("Tesseract not found in the path '" + TesseractPath + "'");
             else
             {
-                _textExtractor.TesseractOCRConfig.setTesseractPath(TesseractPath);
-                _textExtractor.ExtractFromScannedPdfs = true;
+                _textExtractorOCR.ExtractFromScannedPdfs = true;
                 var textExtractionResult = _textExtractor.Extract("files/scanned.pdf");
                 textExtractionResult.Text.Should().Contain("This is some example text that should be ocred by tesseract");
             }
         }
+        #endregion
     }
 }

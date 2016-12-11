@@ -47,12 +47,14 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="CustomTextContentHandler.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="ITextExtractor.cs" />
     <Compile Include="MySystemClassLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="TextExtractionException.cs" />
     <Compile Include="TextExtractionResult.cs" />
+    <Compile Include="TextExtractorOCR.cs" />
     <Compile Include="TextExtractor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
