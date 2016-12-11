@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using java.io;
@@ -15,6 +14,7 @@ using org.apache.tika.metadata;
 using org.apache.tika.mime;
 using org.apache.tika.parser;
 using org.apache.tika.parser.ocr;
+using org.apache.tika.parser.pdf;
 using Object = java.lang.Object;
 using StringWriter = java.io.StringWriter;
 
@@ -29,30 +29,31 @@ namespace TikaOnDotNet.TextExtraction
         #region Fields
         private static readonly TikaConfig Config = TikaConfig.getDefaultConfig();
         private TesseractOCRConfig _tesseractOcrConfig;
-        private static string _tesseractPath = string.Empty;
         #endregion
 
         #region Properties
         /// <summary>
-        /// Gets or sets the path to Tesseract
+        /// Set the <see cref="TesseractOCRConfig"/> and enables extraction of text from
+        /// images with the use of Tesseract
         /// </summary>
         /// <remarks>
-        /// When set then tesseract is used to extract text from images like tiffs
+        /// See https://tika.apache.org/1.14/api/org/apache/tika/parser/ocr/TesseractOCRParser.html
         /// </remarks>
-        public string TesseractPath
+        public TesseractOCRConfig TesseractOCRConfig
         {
-            get { return _tesseractPath; }
-            set
-            {
-                var file = Path.Combine(value, "tesseract.exe");
-                if (!System.IO.File.Exists(file))
-                    throw new TextExtractionException("Could not find tesseract in the path '" + value + "'");
-
-                _tesseractPath = value;
-                _tesseractOcrConfig = new TesseractOCRConfig();
-                _tesseractOcrConfig.setTesseractPath(_tesseractPath);
-            }
+            get { return _tesseractOcrConfig ?? (_tesseractOcrConfig = new TesseractOCRConfig()); }
+            set { _tesseractOcrConfig = value; }
         }
+
+        /// <summary>
+        /// Set to <c>true</c> to extract text from scanned PDF's with the use of Tesseract.
+        /// When set to <c>false</c> (default) then images in PDF's are ignored
+        /// </summary>
+        /// <remarks>
+        /// Tesseract has to be setup trough the <see cref="TesseractOCRConfig"/> property to
+        /// make this work. When not set then this property is ignored
+        /// </remarks>
+        public bool ExtractFromScannedPdfs { get; set; }
         #endregion
 
         #region Extract
@@ -125,7 +126,18 @@ namespace TikaOnDotNet.TextExtraction
                 var parseContext = new ParseContext();
 
                 if (_tesseractOcrConfig != null)
-                    parseContext.set(typeof(TesseractOCRConfig), _tesseractOcrConfig);
+                {
+                    parseContext.set(typeof (TesseractOCRConfig), _tesseractOcrConfig);
+
+                    if (ExtractFromScannedPdfs)
+                    {
+                        var pdfParserConfig = new PDFParserConfig();
+                        pdfParserConfig.setExtractInlineImages(true);
+                        // Set to false if pdf contains multiple images
+                        pdfParserConfig.setExtractUniqueInlineImagesOnly(false);
+                        parseContext.set(typeof(PDFParserConfig), pdfParserConfig);
+                    }
+                }
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
                 parseContext.set(typeof (Parser), parser);
@@ -225,13 +237,20 @@ namespace TikaOnDotNet.TextExtraction
         #endregion
 
         #region GetTransformerHandler
+        /// <summary>
+        /// Sets the way the output of Tika is converted
+        /// </summary>
+        /// <param name="output"></param>
+        /// <returns></returns>
         internal static TransformerHandler GetTransformerHandler(Writer output)
         {
             var factory = (SAXTransformerFactory)TransformerFactory.newInstance();
             var transformerHandler = factory.newTransformerHandler();
+            var transformer = transformerHandler.getTransformer();
 
-            transformerHandler.getTransformer().setOutputProperty(OutputKeys.METHOD, "text");
-            transformerHandler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "text");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
             transformerHandler.setResult(new StreamResult(output));
             return transformerHandler;
