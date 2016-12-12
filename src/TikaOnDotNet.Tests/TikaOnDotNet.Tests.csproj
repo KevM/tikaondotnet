@@ -52,6 +52,9 @@
     <None Include="files\Tika.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="files\Tika.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="files\Tika.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

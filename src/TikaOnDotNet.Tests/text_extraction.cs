@@ -191,5 +191,13 @@ namespace TikaOnDotNet.Tests
             textExtractionResult.Text.Should().Contain("Google");
             textExtractionResult.Metadata["Uri"].Should().Be(url);
         }
+
+        [Test]
+        public void should_extract_msg()
+        {
+            var textExtractionResult = _cut.Extract("files/Tika.msg");
+
+            textExtractionResult.Text.Should().Contain("This is my test file");
+        }
     }
 }
