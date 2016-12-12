@@ -63,7 +63,7 @@ namespace TikaOnDotNet.TextExtraction
 				{
 					try
 					{
-						parser.parse(inputStream, getTransformerHandler(outputWriter), metadata, parseContext);
+						parser.parse(inputStream, GetTransformerHandler(outputWriter), metadata, parseContext);
 					}
 					finally
 					{
@@ -94,7 +94,7 @@ namespace TikaOnDotNet.TextExtraction
 			};
 		}
 
-		private static TransformerHandler getTransformerHandler(Writer output)
+		private static TransformerHandler GetTransformerHandler(Writer output)
 		{
 			var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
 			var transformerHandler = factory.newTransformerHandler();
