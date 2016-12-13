@@ -50,7 +50,6 @@ namespace TikaOnDotNet.TextExtraction
 			{
 				var parser = new AutoDetectParser();
 				var metadata = new Metadata();
-				var outputWriter = new StringWriter();
 				var parseContext = new ParseContext();
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
@@ -71,7 +70,7 @@ namespace TikaOnDotNet.TextExtraction
 					}
 				}
 
-				return AssembleExtractionResult(outputWriter.ToString(), metadata);
+				return AssembleExtractionResult(content.ToString(), metadata);
 			}
 			catch (Exception ex)
 			{

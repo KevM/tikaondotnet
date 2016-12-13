@@ -53,7 +53,8 @@ namespace TikaOnDotNet.TextExtraction
 
         public void characters(char[] ch, int start, int length)
         {
-            _contentWriter.WriteLine(ch);
+            if (length > 0)
+                _contentWriter.WriteLine(ch);
         }
 
         public void ignorableWhitespace(char[] ch, int start, int length)
