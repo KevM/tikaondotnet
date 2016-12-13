@@ -1,9 +1,6 @@
 using System;
 using System.Linq;
 using java.io;
-using javax.xml.transform;
-using javax.xml.transform.sax;
-using javax.xml.transform.stream;
 using org.apache.tika.io;
 using org.apache.tika.metadata;
 using org.apache.tika.parser;
@@ -58,12 +55,15 @@ namespace TikaOnDotNet.TextExtraction
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
 				parseContext.set(typeof(Parser), parser);
-				
-				using (var inputStream = streamFactory(metadata))
+
+                var content = new System.IO.StringWriter();
+                var contentHandlerResult = new ContentHandlerResult(content);
+
+                using (var inputStream = streamFactory(metadata))
 				{
 					try
 					{
-						parser.parse(inputStream, GetTransformerHandler(outputWriter), metadata, parseContext);
+						parser.parse(inputStream, contentHandlerResult, metadata, parseContext);
 					}
 					finally
 					{
@@ -92,18 +92,6 @@ namespace TikaOnDotNet.TextExtraction
 				ContentType = contentType,
 				Metadata = metaDataResult
 			};
-		}
-
-		private static TransformerHandler GetTransformerHandler(Writer output)
-		{
-			var factory = (SAXTransformerFactory) TransformerFactory.newInstance();
-			var transformerHandler = factory.newTransformerHandler();
-			
-			transformerHandler.getTransformer().setOutputProperty(OutputKeys.METHOD, "text");
-			transformerHandler.getTransformer().setOutputProperty(OutputKeys.INDENT, "yes");
-
-			transformerHandler.setResult(new StreamResult(output));
-			return transformerHandler;
 		}
 	}
 }
