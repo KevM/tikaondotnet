@@ -4,25 +4,18 @@ using org.xml.sax;
 namespace TikaOnDotNet.TextExtraction
 {
     /// <summary>
-    /// A custom text handler that writes it output to a string builder and gets rid of all the dreadful
-    /// empty lines that are added with the standard tike transformers
+    /// Write Tika output to a string builder while squelching the dreadful empty lines.
+    /// NOTE: This type is only public for testing.
     /// </summary>
-    internal class ContentHandlerResult : ContentHandler
+    public class TextExtractorContentHandler : ContentHandler
     {
-        #region Fields
         private readonly StringWriter _contentWriter;
-        #endregion
 
-        /// <summary>
-        /// Makes this object and sets all it's properties
-        /// </summary>
-        /// <param name="content">All the extracted text will be written to this StringWriter</param>
-        public ContentHandlerResult(StringWriter content)
+        public TextExtractorContentHandler(StringWriter content)
         {
             _contentWriter = content;
         }
 
-        #region Implementation of ContentHandler
         public void setDocumentLocator(Locator locator)
         {
         }
@@ -53,8 +46,8 @@ namespace TikaOnDotNet.TextExtraction
 
         public void characters(char[] ch, int start, int length)
         {
-            if (length > 0)
-                _contentWriter.WriteLine(ch);
+            if (length < 1) return;
+            _contentWriter.WriteLine(ch);
         }
 
         public void ignorableWhitespace(char[] ch, int start, int length)
@@ -69,6 +62,5 @@ namespace TikaOnDotNet.TextExtraction
         public void skippedEntity(string name)
         {
         }
-        #endregion
     }
 }

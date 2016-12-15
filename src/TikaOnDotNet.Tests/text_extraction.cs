@@ -8,7 +8,7 @@ using TikaOnDotNet.TextExtraction;
 
 namespace TikaOnDotNet.Tests
 {
-	[TestFixture]
+    [TestFixture]
 	public class text_extraction
 	{
 		private TextExtractor _cut;
