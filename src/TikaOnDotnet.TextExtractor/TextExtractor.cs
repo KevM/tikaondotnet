@@ -56,7 +56,7 @@ namespace TikaOnDotNet.TextExtraction
 				parseContext.set(typeof(Parser), parser);
 
                 var content = new System.IO.StringWriter();
-                var contentHandlerResult = new ContentHandlerResult(content);
+                var contentHandlerResult = new TextExtractorContentHandler(content);
 
                 using (var inputStream = streamFactory(metadata))
 				{
