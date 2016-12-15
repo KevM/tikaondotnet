@@ -1,6 +1,5 @@
 version: 1.14.{build}
 cache:
-  - packages -> paket.lock # cache packages until paket.lock is changed.
   - paket-files -> paket.lock # cache HTTP downloads until packet.lock is changed.
   - .fake -> build.fsx # cache compiled build scripts until modified.
   - '%LOCALAPPDATA%\NuGet\Cache -> paket.lock'
