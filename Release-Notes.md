@@ -1,4 +1,4 @@
-## 1.next
+## 1.14.1
 
 - Added `StreamTextExtractor` to support streams directly without in-memory buffering. Existing `TextExtractor` now uses this under the hood.
 
