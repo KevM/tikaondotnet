@@ -9,7 +9,7 @@ environment:
   nugetkey:
     secure: JNpnpSglMOIdpmkuqgvwvY6jzqEabYZH1hRziq/GddbsMNWyObRk07km0SZYBfT1
 build_script:
-- cmd: build.cmd Build PackageNugets
+- cmd: build.cmd PackageNugets
 test: auto
 artifacts:
 - path: artifacts\**\*.nupkg

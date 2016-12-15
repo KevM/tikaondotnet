@@ -146,7 +146,8 @@ Target "BuildSNK" (fun _ ->
   ==> "Build"
   ==> "RunTests"
 
-"PackageNugets"
+"Build"
+  ==> "PackageNugets"
   ==> "PublishNugets"
 
 // start build
