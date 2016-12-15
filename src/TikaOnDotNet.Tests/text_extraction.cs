@@ -198,6 +198,7 @@ namespace TikaOnDotNet.Tests
             var textExtractionResult = _cut.Extract("files/Tika.msg");
 
             textExtractionResult.Text.Should().Contain("This is my test file");
+            textExtractionResult.Metadata["subject"].Should().Be("This is the subject");
         }
     }
 }

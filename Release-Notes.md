@@ -1,3 +1,7 @@
+## 1.next
+
+- Added `StreamTextExtractor` to support streams directly without in-memory buffering. Existing `TextExtractor` now uses this under the hood.
+
 ## 1.14
 
 - Tika updated to 1.14. Please see the official Tika site for [what's changed](https://dist.apache.org/repos/dist/release/tika/CHANGES-1.14.txt).

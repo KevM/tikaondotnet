@@ -42,8 +42,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="content_handler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="stream_content_handler.cs" />
+    <Compile Include="stream_text_extraction.cs" />
     <Compile Include="text_extraction.cs" />
   </ItemGroup>
   <ItemGroup>
