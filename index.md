@@ -6,8 +6,9 @@
 
 It is best to take a dependency on the Nugets we produce: 
 
+- [TikaOnDotNet.TextExtractor](https://www.nuget.org/packages/TikaOnDotnet.TextExtractor/) <- start here
 - [TikaOnDotNet](https://www.nuget.org/packages/TikaOnDotnet./)
-- [TikaOnDotNet.TextExtractor](https://www.nuget.org/packages/TikaOnDotnet.TextExtractor/)
+
 
 #### What is this?
 
