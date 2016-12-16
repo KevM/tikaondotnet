@@ -1,0 +1,8 @@
+title: Tikaondotnet
+description: Tika on .Net via IKVM
+google_analytics: UA-10816271-2
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
