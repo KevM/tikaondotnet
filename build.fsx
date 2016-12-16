@@ -145,6 +145,8 @@ Target "BuildSNK" (fun _ ->
   ==> "CompileTikaLib"
   ==> "Build"
   ==> "RunTests"
+
+"Build"
   ==> "PackageNugets"
   ==> "PublishNugets"
 
