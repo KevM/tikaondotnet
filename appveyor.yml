@@ -10,7 +10,7 @@ environment:
     secure: JNpnpSglMOIdpmkuqgvwvY6jzqEabYZH1hRziq/GddbsMNWyObRk07km0SZYBfT1
 build_script:
 - cmd: build.cmd PackageNugets
-test: off
+test: auto
 artifacts:
 - path: artifacts\**\*.nupkg
 deploy:
