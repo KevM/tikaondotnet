@@ -1,9 +1,9 @@
 using System;
-using System.Linq;
+using System.IO;
 using java.io;
 using org.apache.tika.io;
 using org.apache.tika.metadata;
-using org.apache.tika.parser;
+using TikaOnDotNet.TextExtraction.Stream;
 using Exception = System.Exception;
 
 namespace TikaOnDotNet.TextExtraction
@@ -46,51 +46,21 @@ namespace TikaOnDotNet.TextExtraction
 
 		public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
 		{
-			try
-			{
-				var parser = new AutoDetectParser();
-				var metadata = new Metadata();
-				var parseContext = new ParseContext();
+            var streamExtractor = new StreamTextExtractor();
+		    using (var outputStream = new MemoryStream())
+		    {
+                var streamResult = streamExtractor.Extract(streamFactory, outputStream);
 
-                //use the base class type for the key or parts of Tika won't find a usable parser
-				parseContext.set(typeof(Parser), parser);
-
-                var content = new System.IO.StringWriter();
-                var contentHandlerResult = new TextExtractorContentHandler(content);
-
-                using (var inputStream = streamFactory(metadata))
-				{
-					try
-					{
-						parser.parse(inputStream, contentHandlerResult, metadata, parseContext);
-					}
-					finally
-					{
-						inputStream.close();
-					}
-				}
-
-				return AssembleExtractionResult(content.ToString(), metadata);
-			}
-			catch (Exception ex)
-			{
-				throw new TextExtractionException("Extraction failed.", ex);
-			}
-		}
-
-		private static TextExtractionResult AssembleExtractionResult(string text, Metadata metadata)
-		{
-			var metaDataResult = metadata.names()
-				.ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
-
-			var contentType = metaDataResult["Content-Type"];
-
-			return new TextExtractionResult
-			{
-				Text = text,
-				ContentType = contentType,
-				Metadata = metaDataResult
-			};
-		}
+		        using (var reader = new StreamReader(outputStream))
+		        {
+                    return new TextExtractionResult
+                    {
+                        Text = reader.ReadToEnd(),
+                        Metadata = streamResult.Metadata,
+                        ContentType = streamResult.ContentType
+                    };
+                }
+            }
+        }
 	}
 }
