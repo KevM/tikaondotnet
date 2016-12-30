@@ -1,16 +1,17 @@
-= Developers
+# Developers
 
-This guild is for helping project contributors and maintainers get setup and oriented when making changes to Tika On Dotnet.
+This guild is for helping project contributors and maintainers get setup and oriented when making changes to TikaOnDotnet.
 
 ## Building
 
-The build automation expects the source to [reside within a Git repo](https://github.com/KevM/tikaondotnet/issues/52) so the first step is to clone the repo [using Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+The first step is to clone the repo [using Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-```git clone https://github.com/KevM/tikaondotnet.git```
+```bash
+git clone https://github.com/KevM/tikaondotnet.git
+```
 
 This project uses [FAKE](http://fsharp.github.io/FAKE/) for build automation and
 [Paket](https://fsprojects.github.io/Paket/) for managing dependencies.
-
 
 **Note:** Your first build should be from the command line to get the assembly version file created.
 
