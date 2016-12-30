@@ -37,7 +37,7 @@ Have an idea to make this project better? Great! Start out by taking a look at o
 
 ## Having A Problem?
 
-Search in the [Issues](https://github.com/KevM/tikaondotnet/issues?utf8=✓&q=is%3Aissue%20)
+Search in the [Issues](https://github.com/KevM/tikaondotnet/issues?q=is%3Aopen+is%3Aissue)
 as your problem may be a common one. If don't find your problem please [create an
 issue](https://github.com/KevM/tikaondotnet/issues/new). Contributors here will
 chime in when they can.
