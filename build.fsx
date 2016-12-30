@@ -77,7 +77,12 @@ Target "Clean" (fun _ ->
 )
 
 Target "SetVersions" (fun _ ->
-  let commitHash = Information.getCurrentSHA1 "."
+  let commitHash = 
+    try 
+      Information.getCurrentSHA1 "."
+    with 
+      | ex -> "n/a"
+ 
   CreateCSharpAssemblyInfo "./SolutionInfo.cs"
         [Attribute.Version release.AssemblyVersion
          Attribute.FileVersion release.AssemblyVersion
