@@ -1,5 +1,6 @@
 ## 1.14.1
 
+- Fix IKVM nuget dependency
 - Added `StreamTextExtractor` to support streams directly without in-memory buffering. Existing `TextExtractor` now uses this under the hood.
 
 ## 1.14
