@@ -46,6 +46,7 @@
     <Compile Include="..\..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Stream\DotNetOutputStreamAdapter.cs" />
     <Compile Include="Stream\ExtractionResult.cs" />
     <Compile Include="Stream\StreamContentHandler.cs" />
     <Compile Include="Stream\StreamTextExtractor.cs" />
