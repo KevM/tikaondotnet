@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using org.xml.sax;
 
@@ -7,6 +8,7 @@ namespace TikaOnDotNet.TextExtraction.Stream
     /// Write Tika output to a string builder while squelching the dreadful empty lines.
     /// NOTE: This type is only public for testing.
     /// </summary>
+    [Obsolete("This handler was introducing bugs and we restored the built in Tika handerl. Please do not use unless you know what you are doing.", true)]
     public class StreamContentHandler : ContentHandler
     {
         private readonly StreamWriter _writer;
