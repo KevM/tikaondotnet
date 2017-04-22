@@ -1,3 +1,8 @@
+## 1.14.2
+
+- Fix `TextExtractor.Extract(string url)` Closes #84
+- Fix TextExtractor nuget depenency on TikaOnDotNet. Should be future proof now. Closes #86
+
 ## 1.14.1
 
 - Fix IKVM nuget dependency
