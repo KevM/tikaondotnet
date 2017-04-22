@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Net;
 using java.io;
 using org.apache.tika.io;
 using org.apache.tika.metadata;
@@ -35,13 +36,13 @@ namespace TikaOnDotNet.TextExtraction
 
 		public TextExtractionResult Extract(Uri uri)
 		{
-			var jUri = new java.net.URI(uri.ToString());
 			return Extract(metadata =>
 			{
-				var result = TikaInputStream.get(jUri, metadata);
-				metadata.add("Uri", uri.ToString());
-				return result;
-			});
+                metadata.add("Uri", uri.ToString());
+                var pageBytes = new WebClient().DownloadData(uri);
+
+                return TikaInputStream.get(pageBytes, metadata);
+            });
 		}
 
 		public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
@@ -50,6 +51,7 @@ namespace TikaOnDotNet.TextExtraction
 		    using (var outputStream = new MemoryStream())
 		    {
                 var streamResult = streamExtractor.Extract(streamFactory, outputStream);
+		        outputStream.Position = 0;
 
 		        using (var reader = new StreamReader(outputStream))
 		        {

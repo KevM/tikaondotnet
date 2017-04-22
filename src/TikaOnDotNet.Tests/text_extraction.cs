@@ -2,8 +2,10 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
+using org.apache.tika.io;
 using TikaOnDotNet.TextExtraction;
 
 namespace TikaOnDotNet.Tests
@@ -199,6 +201,17 @@ namespace TikaOnDotNet.Tests
 
             textExtractionResult.Text.Should().Contain("This is my test file");
             textExtractionResult.Metadata["subject"].Should().Be("This is the subject");
+        }
+
+        [Test]
+        public void should_extract_uri_contents()
+        {
+            const string url = "https://en.wikipedia.org/wiki/Apache_Tika";
+
+            var textExtractionResult = _cut.Extract(new Uri(url));
+
+            textExtractionResult.Text.Should().Contain("Apache Tika is a content detection and analysis framework");
+            textExtractionResult.Metadata["Uri"].Should().Be(url);
         }
     }
 }
