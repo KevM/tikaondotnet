@@ -9,23 +9,23 @@ using TikaOnDotNet.TextExtraction;
 namespace TikaOnDotNet.Tests
 {
     [TestFixture]
-	public class text_extraction
-	{
-		private TextExtractor _cut;
+    public class text_extraction
+    {
+        private TextExtractor _cut;
 
-		[SetUp]
-		public virtual void SetUp()
-		{
-			_cut = new TextExtractor();
-		}
+        [SetUp]
+        public virtual void SetUp()
+        {
+            _cut = new TextExtractor();
+        }
 
-		[Test]
-		public void non_existing_files_should_fail_with_exception()
-		{
-			const string fileName = "files/doesnotexist.mp3";
+        [Test]
+        public void non_existing_files_should_fail_with_exception()
+        {
+            const string fileName = "files/doesnotexist.mp3";
 
 
-		    Action act = () => _cut.Extract(fileName);
+            Action act = () => _cut.Extract(fileName);
 
             act.ShouldThrow<TextExtractionException>()
                 .Which.Message.Should().Contain(fileName);
@@ -198,6 +198,18 @@ namespace TikaOnDotNet.Tests
             var textExtractionResult = _cut.Extract("files/Tika.msg");
 
             textExtractionResult.Text.Should().Contain("This is my test file");
+            textExtractionResult.Metadata["subject"].Should().Be("This is the subject");
+        }
+
+        [Test]
+        public void should_extract_uri_contents()
+        {
+            const string url = "https://en.wikipedia.org/wiki/Apache_Tika";
+
+            var textExtractionResult = _cut.Extract(new Uri(url));
+
+            textExtractionResult.Text.Should().Contain("Apache Tika is a content detection and analysis framework");
+            textExtractionResult.Metadata["Uri"].Should().Be(url);
         }
     }
 }

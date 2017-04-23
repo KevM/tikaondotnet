@@ -6,6 +6,6 @@ description
 files
   ..\..\lib\TikaOnDotnet.dll ==> lib
 dependencies
-  IKVM 8.1.5717
+  IKVM >= 8.1.5717
 projectUrl
   https://github.com/KevM/tikaondotnet

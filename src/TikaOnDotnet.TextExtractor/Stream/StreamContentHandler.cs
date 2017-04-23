@@ -1,19 +1,23 @@
-﻿using System.IO;
+using System;
+using System.IO;
 using org.xml.sax;
 
-namespace TikaOnDotNet.TextExtraction
+namespace TikaOnDotNet.TextExtraction.Stream
 {
     /// <summary>
     /// Write Tika output to a string builder while squelching the dreadful empty lines.
     /// NOTE: This type is only public for testing.
     /// </summary>
-    public class TextExtractorContentHandler : ContentHandler
+    [Obsolete("This handler was introducing bugs and we restored the built in Tika handerl. Please do not use unless you know what you are doing.", true)]
+    public class StreamContentHandler : ContentHandler
     {
-        private readonly StringWriter _contentWriter;
+        private readonly StreamWriter _writer;
+        private readonly System.IO.Stream _outputStream;
 
-        public TextExtractorContentHandler(StringWriter content)
+        public StreamContentHandler(System.IO.Stream outputStream)
         {
-            _contentWriter = content;
+            _outputStream = outputStream;
+            _writer = new StreamWriter(_outputStream);
         }
 
         public void setDocumentLocator(Locator locator)
@@ -26,6 +30,8 @@ namespace TikaOnDotNet.TextExtraction
 
         public void endDocument()
         {
+            _writer.Flush();
+            _outputStream.Position = 0;
         }
 
         public void startPrefixMapping(string prefix, string uri)
@@ -47,7 +53,8 @@ namespace TikaOnDotNet.TextExtraction
         public void characters(char[] ch, int start, int length)
         {
             if (length < 1) return;
-            _contentWriter.WriteLine(ch);
+
+            _writer.WriteLine(ch);
         }
 
         public void ignorableWhitespace(char[] ch, int start, int length)

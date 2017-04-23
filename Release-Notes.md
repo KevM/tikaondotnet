@@ -1,3 +1,13 @@
+## 1.14.2
+
+- Fix `TextExtractor.Extract(string url)` Closes #84
+- Fix TextExtractor nuget depenency on TikaOnDotNet. Should be future proof now. Closes #86
+
+## 1.14.1
+
+- Fix IKVM nuget dependency
+- Added `StreamTextExtractor` to support streams directly without in-memory buffering. Existing `TextExtractor` now uses this under the hood.
+
 ## 1.14
 
 - Tika updated to 1.14. Please see the official Tika site for [what's changed](https://dist.apache.org/repos/dist/release/tika/CHANGES-1.14.txt).
