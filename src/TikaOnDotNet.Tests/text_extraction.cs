@@ -62,6 +62,18 @@ namespace TikaOnDotNet.Tests
         }
 
         [Test]
+        public void issue_81()
+        {
+            var filePath = $"files/EI-73-1018-2_5632837.doc";
+
+            new FileInfo(filePath).Exists.Should().BeTrue();
+
+            var textExtractionResult = _cut.Extract(filePath);
+
+            textExtractionResult.Text.Should().Be("foo");
+        }
+
+        [Test]
         public void extract_by_filepath_should_add_filepath_to_metadata()
         {
             const string filePath = "files/apache.jpg";
