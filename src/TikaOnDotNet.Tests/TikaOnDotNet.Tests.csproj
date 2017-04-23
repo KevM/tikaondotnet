@@ -43,10 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sad-files\sad_text_extraction.cs" />
     <Compile Include="stream_text_extraction.cs" />
     <Compile Include="text_extraction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="sad-files\EI-73-1018-2_5632837.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="sad-files\EI-73-1027-3_5632849.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="files\Tika.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
