@@ -24,9 +24,9 @@ namespace TikaOnDotNet.Tests
         {
             var disposedStream = new MemoryStream();
             disposedStream.Dispose();
-            var bytes = new byte[] {0, 1, 2, 3};
+            var bytes = new byte[] { 0, 1, 2, 3 };
 
-            Action act = () => _cut.Extract(metadata=> TikaInputStream.get(bytes, metadata), disposedStream);
+            Action act = () => _cut.Extract(metadata => TikaInputStream.get(bytes, metadata), disposedStream);
 
             act.ShouldThrow<TextExtractionException>();
         }

@@ -1,5 +1,4 @@
-﻿
-using java.io;
+﻿using java.io;
 
 namespace TikaOnDotNet.TextExtraction.Stream
 {
@@ -14,7 +13,7 @@ namespace TikaOnDotNet.TextExtraction.Stream
 
         public override void write(int b)
         {
-            _stream.WriteByte((byte) b);
+            _stream.WriteByte((byte)b);
         }
 
         public override void write(byte[] b, int off, int len)

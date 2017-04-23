@@ -2,32 +2,30 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
-using org.apache.tika.io;
 using TikaOnDotNet.TextExtraction;
 
 namespace TikaOnDotNet.Tests
 {
     [TestFixture]
-	public class text_extraction
-	{
-		private TextExtractor _cut;
+    public class text_extraction
+    {
+        private TextExtractor _cut;
 
-		[SetUp]
-		public virtual void SetUp()
-		{
-			_cut = new TextExtractor();
-		}
+        [SetUp]
+        public virtual void SetUp()
+        {
+            _cut = new TextExtractor();
+        }
 
-		[Test]
-		public void non_existing_files_should_fail_with_exception()
-		{
-			const string fileName = "files/doesnotexist.mp3";
+        [Test]
+        public void non_existing_files_should_fail_with_exception()
+        {
+            const string fileName = "files/doesnotexist.mp3";
 
 
-		    Action act = () => _cut.Extract(fileName);
+            Action act = () => _cut.Extract(fileName);
 
             act.ShouldThrow<TextExtractionException>()
                 .Which.Message.Should().Contain(fileName);
