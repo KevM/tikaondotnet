@@ -1,3 +1,7 @@
+## 1.15
+
+- Tika updated to 1.15. Please see the official Tika site for [what's changed](http://tika.apache.org/1.15/).
+
 ## 1.14.2
 
 - Fix `TextExtractor.Extract(string url)` Closes #84
