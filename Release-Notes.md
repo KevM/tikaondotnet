@@ -1,4 +1,8 @@
-## 1.15
+## 1.16.0
+
+- Tika updated to 1.16. Please see the official Tika site for [what's changed](http://tika.apache.org/1.16/).
+
+## 1.15.0
 
 - Tika updated to 1.15. Please see the official Tika site for [what's changed](http://tika.apache.org/1.15/).
 
@@ -14,7 +18,7 @@
 
 ## 1.14
 
-- Tika updated to 1.14. Please see the official Tika site for [what's changed](https://dist.apache.org/repos/dist/release/tika/CHANGES-1.14.txt).
+- Tika updated to 1.14. Please see the official Tika site for [what's changed](http://tika.apache.org/1.14/).
 - Please note that TikaOnDotnet assemblies are now signed. Thank you [@Sicos1977](https://github.com/Sicos1977) for the PR.
 
 ## 1.13.1
