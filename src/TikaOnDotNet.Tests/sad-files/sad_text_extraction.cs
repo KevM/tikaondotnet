@@ -19,7 +19,7 @@ namespace TikaOnDotNet.Tests
         [Test]
         public void issue_81_file_1()
         {
-            var filePath = $"sad-files/EI-73-1018-2_5632837.doc";
+            var filePath = "sad-files/EI-73-1018-2_5632837.doc";
 
             Action act = () => _cut.Extract(filePath);
 
@@ -29,7 +29,7 @@ namespace TikaOnDotNet.Tests
         [Test]
         public void issue_81_file_2()
         {
-            var filePath = $"sad-files/EI-73-1027-3_5632849.doc";
+            var filePath = "sad-files/EI-73-1027-3_5632849.doc";
 
             Action act = () => _cut.Extract(filePath);
 
