@@ -505,4 +505,4 @@ HTTP
   remote: http://www.frijters.net
     ikvmbin-8.1.5717.0.zip (/ikvmbin-8.1.5717.0.zip)
   remote: http://www-us.apache.org
-    tika-app-1.14.jar (/dist/tika/tika-app-1.14.jar)
+    tika-app-1.17.jar (/dist/tika/tika-app-1.17.jar)

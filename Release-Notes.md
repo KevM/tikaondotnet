@@ -1,3 +1,7 @@
+## 1.17.0
+
+- Tika updated to 1.17. Please see the official Tika site for [what's changed](http://tika.apache.org/1.17/).
+
 ## 1.16.0
 
 - Tika updated to 1.16. Please see the official Tika site for [what's changed](http://tika.apache.org/1.16/).
