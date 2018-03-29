@@ -202,13 +202,13 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
-    <Reference Include="IKVM.Runtime.JNI">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.JNI.dll</HintPath>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.dll</HintPath>
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
-    <Reference Include="IKVM.Runtime">
-      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.dll</HintPath>
+    <Reference Include="IKVM.Runtime.JNI">
+      <HintPath>..\..\packages\IKVM\lib\IKVM.Runtime.JNI.dll</HintPath>
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
