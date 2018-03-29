@@ -3,6 +3,7 @@ version: 1.14.{build}
 #  - paket-files -> paket.lock # cache HTTP downloads until packet.lock is changed.
 #  - .fake -> build.fsx # cache compiled build scripts until modified.
 #  - '%LOCALAPPDATA%\NuGet\Cache -> paket.lock'
+image: Visual Studio 2017
 environment:
   snk:
     secure: K+FJ6oBTI+HLJhAiHeQN+Ryofta7b8xBrFYq8UJSXyhLyLGPCqcEseUUbs5emkSXV+EfiPGtTngYlafMXynFulhra5MDfWm8r37Go7WOPaDmxH7nvxnarBs/mIFuxOWzxiAlyfDbmzYagGlEoqeWpcMdGGIz1rrqPm9EIS0RNQ5rymfXIQzit7tEaRprHSEN9Jl0gua48BXKFi+s7gRmsNbbCrLshxybXfjcMz+jcaw7U+rtcHD4RjNf9NVqIXPnSseAZxLWZgvYqksJ44T7Nsn6GNSEap1TGReGls8xkwAxPVpPvrq6NSTiJsGU501YU8Vhy2LXFyVUg0H0QMol2YDRfvIiVIhO/mGbtkech/qM1zUpK47n/n2H4Ivy+KGZ+S301qhacKLY5Ts1Mn4OUaPBOWsgAn/s2dSz/lTlYU0lEdiaJg6G06j4jghnvip3PsW/CPG77yMidSN07itMB2m8V7e8idNpoQajDDtz7Xch/1CUMzfiFiS1E6TA/xJXbFOvq3fLthYe2mXpZG5Zuk72bop2eBpvOQaSu9qsSBASVO8j4Ekrr1P59B6IWE/1kcD4XI7sT+hUBD9kpJgoGoUyVS/xWuiDdTuaO1FfBIVI6VEYv+6W1f8Sa6E+lnuzq691l7gmlguf0os+uIqQ7YAtXyrB3jYJJMZOHgsDHMGh4g89MmTsS/qxgaYQoGGAx3GeDX0g+GUDsJMGwXb1xcCphHlOY5uzyk8Yw5t+sVoKgSOEumRc2bIBkRx8dKmZx/50pl75Mdvtpdf4Kb374ryefGaeAGFBTfbuy0CWxML6G8Kj4JM7HmzmBuYMA6UJ3Spnnjrems9lIMgZShqTFH6kiL4XYMUwTUoNyT7acPER0owryawF+Df2h1uxkD7gzGQZMAdLRJ4mQQx+ALd8sk7dMrYS+W08j3R3zXU4pj9jdYt1CJiaO6m0x2dUOiwXXkyGp6dvR0oHCBGDT08DrbsSfZ+bd4viiFKNl1ciDHgU4PiXJ8a+z2GwTIsBqK+vfDyXNtcU6LdeM+PbdqGqAHcZMjV81xHJoFfgGFdrvc8Cmh/0N3SCCBTSo5TX3S+d
