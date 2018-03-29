@@ -1,3 +1,34 @@
+## 1.17.1
+
+- Add new overloads to the `Textextractor.Extract` allowing users to provide their own extraction result assemblers. Example:
+
+```cs
+public class CustomResult
+{
+    public string Text { get; set; }
+    public IDictionary<string, string[]> Metadata { get; set; }
+}
+
+public static CustomResult CreateCustomResult(string text, Metadata metadata)
+{
+    var metaDataDictionary = metadata.names().ToDictionary(name => name, metadata.getValues);
+
+    return new CustomResult
+    {
+        Metadata = metaDataDictionary,
+        Text = text,
+    };
+}
+
+[Test]
+public void should_extract_author_list_from_pdf()
+{
+    var textExtractionResult = _cut.Extract("files/file_author.pdf", CreateCustomResult);
+
+    textExtractionResult.Metadata["meta:author"].Should().ContainInOrder("Fred Jones, M. D.", "Donald Evans D. M.");
+}
+```
+
 ## 1.17.0
 
 - Tika updated to 1.17. Please see the official Tika site for [what's changed](http://tika.apache.org/1.17/).

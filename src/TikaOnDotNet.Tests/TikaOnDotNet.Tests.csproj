@@ -46,8 +46,12 @@
     <Compile Include="sad-files\sad_text_extraction.cs" />
     <Compile Include="stream_text_extraction.cs" />
     <Compile Include="text_extraction.cs" />
+    <Compile Include="text_extraction_with_with_extraction_result_assembler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="files\file_author.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="sad-files\EI-73-1018-2_5632837.doc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -418,6 +422,9 @@
       <Private>True</Private>
       <Paket>True</Paket>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.3' Or $(TargetFrameworkVersion) == 'v1.4' Or $(TargetFrameworkVersion) == 'v1.5')">

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using org.apache.tika.metadata;
 
 namespace TikaOnDotNet.TextExtraction.Stream
 {
@@ -12,6 +12,6 @@ namespace TikaOnDotNet.TextExtraction.Stream
         /// <summary>
         /// Dictionary of meta data (e.g. titie, size, dimensions) about the data source of the extraction.
         /// </summary>
-        public IDictionary<string, string> Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }
