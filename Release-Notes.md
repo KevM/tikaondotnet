@@ -1,6 +1,6 @@
 ## 1.17.1
 
-- Add new overloads to the `Textextractor.Extract` allowing users to provide their own extraction result assemblers. Example:
+- Add new overloads to the `TextExtractor.Extract` allowing users to provide their own extraction result assemblers. Example:
 
 ```cs
 public class CustomResult
@@ -23,7 +23,7 @@ public static CustomResult CreateCustomResult(string text, Metadata metadata)
 [Test]
 public void should_extract_author_list_from_pdf()
 {
-    var textExtractionResult = _cut.Extract("files/file_author.pdf", CreateCustomResult);
+    var textExtractionResult = new TextExtractor().Extract("file_with_authors.pdf", CreateCustomResult);
 
     textExtractionResult.Metadata["meta:author"].Should().ContainInOrder("Fred Jones, M. D.", "Donald Evans D. M.");
 }
