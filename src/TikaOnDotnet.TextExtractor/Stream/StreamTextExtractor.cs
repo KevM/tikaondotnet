@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using java.io;
 using javax.xml.transform;
 using javax.xml.transform.sax;
@@ -12,7 +11,7 @@ namespace TikaOnDotNet.TextExtraction.Stream
 {
     public class StreamTextExtractor
     {
-        public ExtractionResult Extract(Func<Metadata, InputStream> streamFactory, System.IO.Stream outputStream)
+        public Metadata Extract(Func<Metadata, InputStream> streamFactory, System.IO.Stream outputStream)
         {
             try
             {
@@ -36,7 +35,7 @@ namespace TikaOnDotNet.TextExtraction.Stream
                     }
                 }
 
-                return AssembleExtractionResult(metadata);
+                return metadata;
             }
             catch (Exception ex)
             {
@@ -55,20 +54,6 @@ namespace TikaOnDotNet.TextExtraction.Stream
             var outputAdapter = new DotNetOutputStreamAdapter(outputStream);
             transformerHandler.setResult(new StreamResult(outputAdapter));
             return transformerHandler;
-        }
-
-        private static ExtractionResult AssembleExtractionResult(Metadata metadata)
-        {
-            var metaDataResult = metadata.names()
-                .ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
-
-            var contentType = metaDataResult["Content-Type"];
-
-            return new ExtractionResult
-            {
-                ContentType = contentType,
-                Metadata = metaDataResult
-            };
         }
     }
 }

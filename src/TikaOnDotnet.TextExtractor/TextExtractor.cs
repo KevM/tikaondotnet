@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using java.io;
 using org.apache.tika.io;
@@ -13,56 +14,97 @@ namespace TikaOnDotNet.TextExtraction
     {
         public TextExtractionResult Extract(string filePath)
         {
+            return Extract(filePath, LegacyResultAssembler);
+        }
+
+        public TExtractionResult Extract<TExtractionResult>(
+            string filePath,
+            Func<string, Metadata, TExtractionResult> extractionResultAssembler
+            )
+        {
             try
             {
-                var inputStream = new FileInputStream(filePath);
-                return Extract(metadata =>
-                {
-                    var result = TikaInputStream.get(inputStream);
-                    metadata.add("FilePath", filePath);
-                    return result;
-                });
+                return Extract(FileStreamFactory, extractionResultAssembler);
             }
             catch (Exception ex)
             {
                 throw new TextExtractionException("Extraction of text from the file '{0}' failed.".ToFormat(filePath), ex);
             }
+
+            InputStream FileStreamFactory(Metadata metadata)
+            {
+                var inputStream = new FileInputStream(filePath);
+
+                var result = TikaInputStream.get(inputStream);
+                metadata.add("FilePath", filePath);
+                return result;
+            }
         }
 
         public TextExtractionResult Extract(byte[] data)
         {
-            return Extract(metadata => TikaInputStream.get(data, metadata));
+            return Extract(data, LegacyResultAssembler);
+        }
+
+        public TExtractionResult Extract<TExtractionResult>(byte[] data, Func<string, Metadata, TExtractionResult> extractionResultAssembler)
+        {
+            return Extract(metadata => TikaInputStream.get(data, metadata), extractionResultAssembler);
         }
 
         public TextExtractionResult Extract(Uri uri)
         {
-            return Extract(metadata =>
+            return Extract(uri, LegacyResultAssembler);
+        }
+
+        public TExtractionResult Extract<TExtractionResult>(
+            Uri uri,
+            Func<string, Metadata, TExtractionResult> extractionResultAssembler
+        )
+        {
+            return Extract(UrlStreamFactory, extractionResultAssembler);
+
+            InputStream UrlStreamFactory(Metadata metadata)
             {
                 metadata.add("Uri", uri.ToString());
                 var pageBytes = new WebClient().DownloadData(uri);
 
                 return TikaInputStream.get(pageBytes, metadata);
-            });
+            }
         }
 
         public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
         {
+            return Extract(streamFactory, LegacyResultAssembler);
+        }
+
+        public TExtractionResult Extract<TExtractionResult>(Func<Metadata, InputStream> streamFactory, Func<string, Metadata, TExtractionResult> extractionResultAssembler)
+        {
             var streamExtractor = new StreamTextExtractor();
             using (var outputStream = new MemoryStream())
             {
-                var streamResult = streamExtractor.Extract(streamFactory, outputStream);
+                var metadata = streamExtractor.Extract(streamFactory, outputStream);
                 outputStream.Position = 0;
 
                 using (var reader = new StreamReader(outputStream))
                 {
-                    return new TextExtractionResult
-                    {
-                        Text = reader.ReadToEnd(),
-                        Metadata = streamResult.Metadata,
-                        ContentType = streamResult.ContentType
-                    };
+                    var text = reader.ReadToEnd();
+                    return extractionResultAssembler(text, metadata);
                 }
             }
+        }
+
+        private static TextExtractionResult LegacyResultAssembler(string text, Metadata metadata)
+        {
+            var metaDataDictionary = metadata.names()
+                .ToDictionary(name => name, name => string.Join(", ", metadata.getValues(name)));
+            var contentType = metaDataDictionary["Content-Type"];
+
+            return new TextExtractionResult
+            {
+                Metadata = metaDataDictionary,
+                Text = text,
+                ContentType = contentType
+            };
         }
     }
 }
