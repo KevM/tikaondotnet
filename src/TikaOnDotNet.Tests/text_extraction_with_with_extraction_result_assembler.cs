@@ -17,7 +17,6 @@ namespace TikaOnDotNet.Tests
         {
             _cut = new TextExtractor();
         }
-
         public class CustomResult
         {
             public string Text { get; set; }
