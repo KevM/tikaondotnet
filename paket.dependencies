@@ -5,8 +5,8 @@ framework: net461
 nuget FAKE
 
 nuget FSharp.Management
-nuget NUnit ~> 2
-nuget NUnit.Runners ~> 2
+nuget NUnit ~> 3
+nuget NUnit.Runners ~> 3
 nuget FluentAssertions
 
 //IKVM dependencies - the nuget and tool versions need to be in sync.
