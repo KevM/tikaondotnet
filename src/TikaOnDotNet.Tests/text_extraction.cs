@@ -27,7 +27,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(fileName);
 
-            act.ShouldThrow<TextExtractionException>()
+            act.Should().Throw<TextExtractionException>()
                 .Which.Message.Should().Contain(fileName);
         }
 
@@ -38,7 +38,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(new Uri(uri));
 
-            act.ShouldThrow<TextExtractionException>();
+            act.Should().Throw<TextExtractionException>();
         }
 
         [Test]
