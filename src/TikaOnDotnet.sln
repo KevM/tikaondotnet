@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Automation", "Build Automation", "{B2801331-FF43-4CEE-815D-1107C2221267}"
 	ProjectSection(SolutionItems) = preProject
 		..\build.fsx = ..\build.fsx
 		..\paket.dependencies = ..\paket.dependencies
+		..\Release-Notes.md = ..\Release-Notes.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikaOnDotNet.Tests", "TikaOnDotNet.Tests\TikaOnDotNet.Tests.csproj", "{B9777E8D-0C7F-4370-9835-0DC8C4A5C3A8}"
@@ -30,5 +31,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93060AD4-12A9-4D68-862A-BCA1FF6FFAE8}
 	EndGlobalSection
 EndGlobal
