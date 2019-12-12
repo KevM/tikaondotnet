@@ -21,7 +21,7 @@ The best way to get started is to:
 
 ### Usage 
 ```cs
-// using TikaOnDotNet.TextExtractor;
+// using TikaOnDotNet.TextExtraction;
 
 var textExtractor = new TextExtractor();
 
