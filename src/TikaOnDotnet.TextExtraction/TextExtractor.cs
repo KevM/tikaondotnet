@@ -33,9 +33,8 @@ namespace TikaOnDotNet.TextExtraction
 
             InputStream FileStreamFactory(Metadata metadata)
             {
-                var inputStream = new FileInputStream(filePath);
-
-                var result = TikaInputStream.get(inputStream);
+                var inputFile = new java.io.File(filePath);
+                var result = TikaInputStream.get(inputFile.toPath());
                 metadata.add("FilePath", filePath);
                 return result;
             }
@@ -66,6 +65,7 @@ namespace TikaOnDotNet.TextExtraction
             InputStream UrlStreamFactory(Metadata metadata)
             {
                 metadata.add("Uri", uri.ToString());
+
                 var pageBytes = new WebClient().DownloadData(uri);
 
                 return TikaInputStream.get(pageBytes, metadata);

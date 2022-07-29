@@ -26,8 +26,7 @@ namespace TikaOnDotNet.Tests
 
 
             Action act = () => _cut.Extract(fileName);
-
-            act.ShouldThrow<TextExtractionException>()
+            act.Should().Throw<TextExtractionException>()
                 .Which.Message.Should().Contain(fileName);
         }
 
@@ -38,7 +37,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(new Uri(uri));
 
-            act.ShouldThrow<TextExtractionException>();
+            act.Should().Throw<TextExtractionException>();
         }
 
         [Test]
@@ -106,7 +105,7 @@ namespace TikaOnDotNet.Tests
 
             textExtractionResult.Text.Trim().Should().BeEmpty();
 
-            textExtractionResult.Metadata["Software"].Should().Contain("Paint.NET");
+            textExtractionResult.Metadata["tiff:Software"].Should().Contain("Paint.NET");
         }
 
         [Test]
@@ -198,7 +197,7 @@ namespace TikaOnDotNet.Tests
             var textExtractionResult = _cut.Extract("files/Tika.msg");
 
             textExtractionResult.Text.Should().Contain("This is my test file");
-            textExtractionResult.Metadata["subject"].Should().Be("This is the subject");
+            textExtractionResult.Metadata["dc:subject"].Should().Be("This is the subject");
         }
 
         [Test]

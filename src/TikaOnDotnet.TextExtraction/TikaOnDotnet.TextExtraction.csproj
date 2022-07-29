@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+      <!--<TargetFramework>netcoreapp3.1</TargetFramework>-->
+    <TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="TikaOnDotnet">
+      <Version>2.4.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

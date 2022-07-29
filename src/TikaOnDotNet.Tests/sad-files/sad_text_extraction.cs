@@ -23,7 +23,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(filePath);
 
-            act.ShouldThrow<TextExtractionException>();
+            act.Should().Throw<TextExtractionException>();
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(filePath);
 
-            act.ShouldThrow<TextExtractionException>();
+            act.Should().Throw<TextExtractionException>();
         }
     }
 }

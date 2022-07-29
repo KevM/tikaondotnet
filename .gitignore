@@ -15,3 +15,6 @@ SolutionInfo.cs
 .paket/Paket.Restore.targets
 paket-files
 *.snk
+
+localNuget/
+*.jar

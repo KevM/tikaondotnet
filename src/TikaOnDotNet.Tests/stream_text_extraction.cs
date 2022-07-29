@@ -28,7 +28,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(metadata => TikaInputStream.get(bytes, metadata), disposedStream);
 
-            act.ShouldThrow<TextExtractionException>();
+            act.Should().Throw<TextExtractionException>();
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace TikaOnDotNet.Tests
 
             Action act = () => _cut.Extract(metadata => TikaInputStream.get(bytes, metadata), closedStream);
 
-            act.ShouldThrow<TextExtractionException>();
+            act.Should().Throw<TextExtractionException>();
         }
     }
 }

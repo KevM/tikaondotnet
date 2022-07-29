@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Automation", "Build Automation", "{B2801331-FF43-4CEE-815D-1107C2221267}"
-	ProjectSection(SolutionItems) = preProject
-		..\build.fsx = ..\build.fsx
-		..\paket.dependencies = ..\paket.dependencies
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikaOnDotNet.Tests", "TikaOnDotNet.Tests\TikaOnDotNet.Tests.csproj", "{B9777E8D-0C7F-4370-9835-0DC8C4A5C3A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TikaOnDotnet.TextExtraction", "TikaOnDotnet.TextExtraction\TikaOnDotnet.TextExtraction.csproj", "{A8F71CDB-D591-4215-9DAB-6C38778F58E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikaOnDotnet.TextExtraction", "TikaOnDotnet.TextExtractor\TikaOnDotnet.TextExtraction.csproj", "{4C55E602-1C6C-4396-A118-70BA9A93FD97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TikaOnDotNet.Tests", "TikaOnDotNet.Tests\TikaOnDotNet.Tests.csproj", "{FBBAECE9-1FCD-474F-A705-3697F6A5AB5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TikaOnDotnet.Framework", "TikaOnDotnet.Framework\TikaOnDotnet.Framework.csproj", "{EF79BDFB-383A-4813-A3C0-3F40979BD612}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TikaOnDotnet.Core", "TikaOnDotNet.Core\TikaOnDotnet.Core.csproj", "{0B979BA7-2E8A-47B5-A902-A933898268F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TikaOnDotnet", "TikaOnDotnet\TikaOnDotnet.csproj", "{992153F6-2A11-44A2-AF4B-FC239E23EBA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,16 +21,31 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B9777E8D-0C7F-4370-9835-0DC8C4A5C3A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9777E8D-0C7F-4370-9835-0DC8C4A5C3A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9777E8D-0C7F-4370-9835-0DC8C4A5C3A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9777E8D-0C7F-4370-9835-0DC8C4A5C3A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C55E602-1C6C-4396-A118-70BA9A93FD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C55E602-1C6C-4396-A118-70BA9A93FD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C55E602-1C6C-4396-A118-70BA9A93FD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C55E602-1C6C-4396-A118-70BA9A93FD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8F71CDB-D591-4215-9DAB-6C38778F58E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F71CDB-D591-4215-9DAB-6C38778F58E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F71CDB-D591-4215-9DAB-6C38778F58E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F71CDB-D591-4215-9DAB-6C38778F58E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBBAECE9-1FCD-474F-A705-3697F6A5AB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBAECE9-1FCD-474F-A705-3697F6A5AB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBBAECE9-1FCD-474F-A705-3697F6A5AB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBBAECE9-1FCD-474F-A705-3697F6A5AB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF79BDFB-383A-4813-A3C0-3F40979BD612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF79BDFB-383A-4813-A3C0-3F40979BD612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF79BDFB-383A-4813-A3C0-3F40979BD612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF79BDFB-383A-4813-A3C0-3F40979BD612}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B979BA7-2E8A-47B5-A902-A933898268F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B979BA7-2E8A-47B5-A902-A933898268F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B979BA7-2E8A-47B5-A902-A933898268F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B979BA7-2E8A-47B5-A902-A933898268F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{992153F6-2A11-44A2-AF4B-FC239E23EBA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{992153F6-2A11-44A2-AF4B-FC239E23EBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{992153F6-2A11-44A2-AF4B-FC239E23EBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{992153F6-2A11-44A2-AF4B-FC239E23EBA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {070BA6D4-98DF-4310-8CA7-9C3F1294D1DB}
 	EndGlobalSection
 EndGlobal

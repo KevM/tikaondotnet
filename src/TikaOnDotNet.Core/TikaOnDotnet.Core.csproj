@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <!--<TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>-->
+    <Version>2.4.1</Version>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="IKVM" Version="8.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <IkvmReference Include="..\tika-app-*.jar">
+            <AssemblyName>tika.core</AssemblyName>
+        </IkvmReference>
+        <ContentWithTargetPath Include="$(OutDir)tika.core.dll">
+            <TargetPath>tika.core.dll</TargetPath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ContentWithTargetPath>
+    </ItemGroup>
+
+
+</Project>
