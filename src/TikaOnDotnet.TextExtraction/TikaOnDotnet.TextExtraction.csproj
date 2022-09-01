@@ -1,37 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-      <!--<TargetFramework>netcoreapp3.1</TargetFramework>-->
     <TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <Reference Include="tika.core">
-      <HintPath>..\TikaOnDotNet.Core\bin\Debug\netcoreapp3.1\tika.core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="IKVM" Version="8.2.1" />
-  </ItemGroup>
-
-  --><!--<ItemGroup>
-    <ProjectReference Include="..\TikaOnDotnet\TikaOnDotnet.csproj" />
-  </ItemGroup>-->
-
     <ItemGroup>
         <PackageReference Include="IKVM" Version="8.2.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <IkvmReference Include="..\tika-app-*.jar">
-            <AssemblyName>tika.core</AssemblyName>
-        </IkvmReference>
-        <ContentWithTargetPath Include="$(OutDir)tika.core.dll">
-            <TargetPath>tika.core.dll</TargetPath>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </ContentWithTargetPath>
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+        <PackageReference Include="TikaOnDotNet" Version="2.4.1" />
     </ItemGroup>
 
 </Project>
