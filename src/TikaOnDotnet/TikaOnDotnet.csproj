@@ -36,17 +36,17 @@
         <Copy SourceFiles="@(FileToCopy)" DestinationFolder="..\..\localNuget" ContinueOnError="true" />
     </Target>
 
-    <Target Name="Rejigger" BeforeTargets="Pack">
+    <!-- <Target Name="Rejigger" BeforeTargets="Pack">
         <Message Importance="high" Text="Rejiggering things...." />
         <Delete Files="lib\*\TikaOnDotnet.dll" />
-    </Target>
+    </Target> -->
 
     <ItemGroup>
         <PackageReference Include="IKVM" Version="8.2.1" />
         <ExcludeFromPackageFiles Include="TikaOnDotNet.dll">
         </ExcludeFromPackageFiles>
     </ItemGroup>
-    
+
     <ItemGroup >
         <ProjectReference Include="..\TikaOnDotnet.Framework\TikaOnDotnet.Framework.csproj" Condition="$(TargetFramework.StartsWith('net4'))" >
             <PrivateAssets>all</PrivateAssets>
@@ -68,5 +68,5 @@
             <PackagePath>lib\$(TargetFramework)</PackagePath>
         </Content>
     </ItemGroup>
-   
+
 </Project>
