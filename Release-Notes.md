@@ -1,3 +1,7 @@
+## 2.4.1
+
+After a long hiatus from updates after losing support for IKVM we are updating TikaOnDotnet to the latest version of Tika. A wonderfun boon from the new revived status of IKVM is that we can now add dotnet core support. Yes. This nuget targets both .Net Framework and dotnet core. 
+
 ## 1.17.1
 
 - Add new overloads to the `TextExtractor.Extract` allowing users to provide their own extraction result assemblers. Example:
