@@ -21,7 +21,7 @@
             <FilesToClean Include="$(OutDir)\..\*.nupkg" />
         </ItemGroup>
         <ItemGroup>
-            <FilesToClean2 Include="..\..\localNuget\*.nupkg" />
+            <FilesToClean2 Include="$(MSBuildProjectDirectory)\..\..\localNuget\*.nupkg" />
         </ItemGroup>
         <Message Importance="high" Text="Cleaning Nuget Packages" />
         <Delete Files="@(FilesToClean)" />
@@ -30,21 +30,14 @@
 
     <Target Name="CopyNugetPkg" AfterTargets="Pack">
         <ItemGroup>
-            <FileToCopy Include="$(OutDir)\..\*.nupkg" />
+            <FileToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\*.nupkg" />
         </ItemGroup>
-        <Message Importance="high" Text="Copying latest Nuget Package $(Version)" />
-        <Copy SourceFiles="@(FileToCopy)" DestinationFolder="..\..\localNuget" ContinueOnError="true" />
+        <Message Importance="high" Text="Copying latest Nuget Package $(Version) from $(MSBuildProjectDirectory)\bin\$(Configuration)" />
+        <Copy SourceFiles="@(FileToCopy)" DestinationFolder="$(MSBuildProjectDirectory)\..\..\localNuget"/>
     </Target>
-
-    <!-- <Target Name="Rejigger" BeforeTargets="Pack">
-        <Message Importance="high" Text="Rejiggering things...." />
-        <Delete Files="lib\*\TikaOnDotnet.dll" />
-    </Target> -->
 
     <ItemGroup>
         <PackageReference Include="IKVM" Version="8.2.1" />
-        <ExcludeFromPackageFiles Include="TikaOnDotNet.dll">
-        </ExcludeFromPackageFiles>
     </ItemGroup>
 
     <ItemGroup >

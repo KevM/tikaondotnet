@@ -1,8 +1,6 @@
 Tika on .NET
 ============
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ofc68okbo9s75okr?svg=true)](https://ci.appveyor.com/project/KevM/tikaondotnet) [![NuGet version](https://badge.fury.io/nu/TikaOnDotNet.TextExtractor.svg)](https://badge.fury.io/nu/TikaOnDotNet.TextExtractor)
-
 This project is a simple wrapper around the very excellent and robust
 [Tika](http://tika.apache.org/) text extraction Java library. This project produces two nugets:
 - TikaOnDotNet - A straight [IKVM](http://www.ikvm.net/userguide/ikvmc.html) hosted port of Java Tika project.
@@ -13,13 +11,13 @@ This project is a simple wrapper around the very excellent and robust
 
 [![Install-Package TikaOnDotNet.TextExtractor](https://cldup.com/_BM0b5jVjU.png)](https://www.nuget.org/packages/TikaOnDotNet.TextExtractor/)
 
-## Getting Started 
+## Getting Started
 
 The best way to get started is to:
 - Add a Nuget dependency to [TikaOnDotNet.TextExtractor](https://www.nuget.org/packages/TikaOnDotNet.TextExtractor/).
 - Instantiate a new `TextExtractor` object and call one of the `Extract` methods.
 
-### Usage 
+### Usage
 ```cs
 // using TikaOnDotNet.TextExtraction;
 
@@ -29,7 +27,7 @@ var wordDocContents = textExtractor.Extract(@".\path\to\my favorite word.docx");
 var webPageContents = textExtractor.Extract(new Uri("https://google.com"));
 ```
 
-Take a look at [our tests](https://github.com/KevM/tikaondotnet/tree/master/src/TikaOnDotNet.Tests) for more usage examples. 
+Take a look at [our tests](https://github.com/KevM/tikaondotnet/tree/master/src/TikaOnDotNet.Tests) for more usage examples.
 
 ## How To Contribute
 
