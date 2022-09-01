@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>Tika.OnDotNet</id>
+		<version>2.4.1</version>
+		<description>
+			The Apache Tika™ toolkit detects and extracts metadata and structured text content from various documents using existing parser libraries.
+
+			This project contains all the .Net assemblies necessary to use the wonderful Tika library in your .Net applications.
+
+			Tika is a Apache Foundation open source project written in Java. It may sound scary but it is possible to leverage Java libraries from .Net applications without any TCP sockets or web services getting caught in the crossfire using IKVM. I’ve done the hard work for you and built the .Net version of Tika for you and bundled the supporting IKVM runtime libraies.
+		</description>
+		<authors>Kevin Miller</authors>
+		<license type="expression">Apache-2.0</license>
+		<projectUrl>
+			https://kevm.github.io/tikaondotnet/
+		</projectUrl>
+        <tags></tags>
+        <readme>docs/readme.md</readme>
+        <icon>images\icon.png</icon>
+        <dependencies>
+            <dependency id="IKVM" version="8.2.1" />
+        </dependencies>
+	</metadata>
+    <files>
+        <file src="LICENSE" target="" />
+        <file src="readme.md" target="docs\" />
+        <file src="icon.png" target="images\" />
+        <file src="TikaOnDotNet.Core\bin\release\tika.core.dll" target="lib\netcoreapp3.1\Tika.OnDotNet.dll" />
+        <file src="TikaOnDotNet.Framework\bin\release\tika.framework.dll" target="lib\net462\Tika.OnDotNet.dll" />
+    </files>
+</package>
