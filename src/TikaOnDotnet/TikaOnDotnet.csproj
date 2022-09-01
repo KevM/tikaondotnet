@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+      <TargetFrameworks>net462;netcoreapp3.1</TargetFrameworks>
+      <Version>2.4.1</Version>
+      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+    <PropertyGroup>
+        <TikaUrl>https://dlcdn.apache.org/tika/2.4.1/tika-app-2.4.1.jar</TikaUrl>
+    </PropertyGroup>
+
+    <Target Name="DownloadTikaJar" BeforeTargets="BeforeResolveReferences">
+        <DownloadFile SourceUrl="$(TikaUrl)" DestinationFolder="$(MSBuildProjectDirectory)\..\">
+            <Output TaskParameter="DownloadedFile" ItemName="tika-app-download" />
+        </DownloadFile>
+    </Target>
+
+    <Target Name="CleanNugetPkgs" BeforeTargets="DispatchToInnerBuilds">
+        <ItemGroup>
+            <FilesToClean Include="$(OutDir)\..\*.nupkg" />
+        </ItemGroup>
+        <ItemGroup>
+            <FilesToClean2 Include="$(MSBuildProjectDirectory)\..\..\localNuget\*.nupkg" />
+        </ItemGroup>
+        <Message Importance="high" Text="Cleaning Nuget Packages" />
+        <Delete Files="@(FilesToClean)" />
+        <Delete Files="@(FilesToClean2)" />
+    </Target>
+
+    <Target Name="CopyNugetPkg" AfterTargets="Pack">
+        <ItemGroup>
+            <FileToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\*.nupkg" />
+        </ItemGroup>
+        <Message Importance="high" Text="Copying latest Nuget Package $(Version) from $(MSBuildProjectDirectory)\bin\$(Configuration)" />
+        <Copy SourceFiles="@(FileToCopy)" DestinationFolder="$(MSBuildProjectDirectory)\..\..\localNuget"/>
+    </Target>
+
+    <ItemGroup>
+        <PackageReference Include="IKVM" Version="8.2.1" />
+    </ItemGroup>
+
+    <ItemGroup >
+        <ProjectReference Include="..\TikaOnDotnet.Framework\TikaOnDotnet.Framework.csproj" Condition="$(TargetFramework.StartsWith('net4'))" >
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>all</IncludeAssets>
+        </ProjectReference>
+        <Content Include="$(OutputDir)bin\$(Configuration)\*\tika.framework.dll">
+            <Pack>true</Pack>
+            <PackagePath>lib\$(TargetFramework)</PackagePath>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup >
+        <ProjectReference Include="..\TikaOnDotNet.Core\TikaOnDotnet.Core.csproj" Condition="$(TargetFramework.StartsWith('net')) AND ( $([System.Text.RegularExpressions.Regex]::Match($(TargetFramework), `[1-9|.]\d*`)) &lt;= 400.0 OR $(TargetFramework.StartsWith('netcoreapp')) )" >
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>all</IncludeAssets>
+        </ProjectReference>
+        <Content Include="$(OutputDir)bin\$(Configuration)\*\tika.core.dll">
+            <Pack>true</Pack>
+            <PackagePath>lib\$(TargetFramework)</PackagePath>
+        </Content>
+    </ItemGroup>
+
+</Project>

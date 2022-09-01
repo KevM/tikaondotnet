@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="IKVM" Version="8.2.1" />
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+        <PackageReference Include="TikaOnDotNet" Version="2.4.1" />
+    </ItemGroup>
+
+</Project>

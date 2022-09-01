@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net462</TargetFramework>
+        <Version>2.4.1</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="IKVM" Version="8.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <IkvmReference Include="..\tika-app-*.jar">
+            <AssemblyName>tika.framework</AssemblyName>
+        </IkvmReference>
+        <ContentWithTargetPath Include="$(OutDir)tika.framework.dll">
+            <TargetPath>tika.framework.dll</TargetPath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ContentWithTargetPath>
+
+        <!--<ContentWithTargetPath Include="$(OutDir)TikaOnDotNet.dll">
+            <TargetPath>TikaOnDotNet.dll</TargetPath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ContentWithTargetPath>-->
+        <!--<ExcludeFromPackageFiles Include="$(OutDir)TikaOnDotnet.Framework.dll">
+        </ExcludeFromPackageFiles>-->
+    </ItemGroup>
+
+
+</Project>

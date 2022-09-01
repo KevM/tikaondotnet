@@ -1,5 +1,7 @@
 using System;
 using java.io;
+using org.apache.tika.io;
+using org.apache.tika.sax;
 using javax.xml.transform;
 using javax.xml.transform.sax;
 using javax.xml.transform.stream;
@@ -18,20 +20,21 @@ namespace TikaOnDotNet.TextExtraction.Stream
                 var parser = new AutoDetectParser();
                 var metadata = new Metadata();
                 var parseContext = new ParseContext();
-                var handler = GetTransformerHandler(outputStream);
 
                 //use the base class type for the key or parts of Tika won't find a usable parser
                 parseContext.set(typeof(Parser), parser);
 
                 using (var inputStream = streamFactory(metadata))
                 {
+                    var handler = new SecureContentHandler(GetTransformerHandler(outputStream), TikaInputStream.cast(inputStream));
+
                     try
                     {
                         parser.parse(inputStream, handler, metadata, parseContext);
                     }
                     finally
                     {
-                        inputStream.close();
+                        org.apache.commons.io.IOUtils.closeQuietly(inputStream);
                     }
                 }
 

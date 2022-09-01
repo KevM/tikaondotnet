@@ -39,7 +39,7 @@ namespace TikaOnDotNet.Tests
         {
             var textExtractionResult = _cut.Extract("files/file_author.pdf", CreateCustomResult);
 
-            textExtractionResult.Metadata["meta:author"].Should().ContainInOrder("Bernal, M. A.", "deAlmeida, C. E.", "Incerti, S.", "Champion, C.", "Ivanchenko, V.", "Francis, Z.");
+            textExtractionResult.Metadata["dc:creator"].Should().ContainInOrder("Bernal, M. A.", "deAlmeida, C. E.", "Incerti, S.", "Champion, C.", "Ivanchenko, V.", "Francis, Z.");
         }
     }
 }
