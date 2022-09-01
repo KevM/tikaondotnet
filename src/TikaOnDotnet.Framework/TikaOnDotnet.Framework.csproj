@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net462</TargetFramework>
-        <!--<TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>-->
         <Version>2.4.1</Version>
     </PropertyGroup>
 
@@ -18,6 +17,13 @@
             <TargetPath>tika.framework.dll</TargetPath>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </ContentWithTargetPath>
+
+        <!--<ContentWithTargetPath Include="$(OutDir)TikaOnDotNet.dll">
+            <TargetPath>TikaOnDotNet.dll</TargetPath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ContentWithTargetPath>-->
+        <!--<ExcludeFromPackageFiles Include="$(OutDir)TikaOnDotnet.Framework.dll">
+        </ExcludeFromPackageFiles>-->
     </ItemGroup>
 
 

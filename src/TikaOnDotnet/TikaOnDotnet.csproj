@@ -23,12 +23,12 @@
         <ItemGroup>
             <FilesToClean2 Include="..\..\localNuget\*.nupkg" />
         </ItemGroup>
-        <Message Importance="high" Text="Cleaing Nuget Packages" />
+        <Message Importance="high" Text="Cleaning Nuget Packages" />
         <Delete Files="@(FilesToClean)" />
         <Delete Files="@(FilesToClean2)" />
     </Target>
 
-    <Target Name="CopyNugetPkg" AfterTargets="AfterBuild">
+    <Target Name="CopyNugetPkg" AfterTargets="Pack">
         <ItemGroup>
             <FileToCopy Include="$(OutDir)\..\*.nupkg" />
         </ItemGroup>
@@ -36,14 +36,21 @@
         <Copy SourceFiles="@(FileToCopy)" DestinationFolder="..\..\localNuget" ContinueOnError="true" />
     </Target>
 
+    <Target Name="Rejigger" BeforeTargets="Pack">
+        <Message Importance="high" Text="Rejiggering things...." />
+        <Delete Files="lib\*\TikaOnDotnet.dll" />
+    </Target>
+
     <ItemGroup>
         <PackageReference Include="IKVM" Version="8.2.1" />
+        <ExcludeFromPackageFiles Include="TikaOnDotNet.dll">
+        </ExcludeFromPackageFiles>
     </ItemGroup>
     
     <ItemGroup >
         <ProjectReference Include="..\TikaOnDotnet.Framework\TikaOnDotnet.Framework.csproj" Condition="$(TargetFramework.StartsWith('net4'))" >
             <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>contentFiles</IncludeAssets>
+            <IncludeAssets>all</IncludeAssets>
         </ProjectReference>
         <Content Include="$(OutputDir)bin\$(Configuration)\*\tika.framework.dll">
             <Pack>true</Pack>
@@ -54,7 +61,7 @@
     <ItemGroup >
         <ProjectReference Include="..\TikaOnDotNet.Core\TikaOnDotnet.Core.csproj" Condition="$(TargetFramework.StartsWith('net')) AND ( $([System.Text.RegularExpressions.Regex]::Match($(TargetFramework), `[1-9|.]\d*`)) &lt;= 400.0 OR $(TargetFramework.StartsWith('netcoreapp')) )" >
             <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>contentFiles</IncludeAssets>
+            <IncludeAssets>all</IncludeAssets>
         </ProjectReference>
         <Content Include="$(OutputDir)bin\$(Configuration)\*\tika.core.dll">
             <Pack>true</Pack>

@@ -5,10 +5,33 @@
     <TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="TikaOnDotnet">
-      <Version>2.4.1</Version>
-    </PackageReference>
+
+  <!--<ItemGroup>
+    <Reference Include="tika.core">
+      <HintPath>..\TikaOnDotNet.Core\bin\Debug\netcoreapp3.1\tika.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IKVM" Version="8.2.1" />
+  </ItemGroup>
+
+  --><!--<ItemGroup>
+    <ProjectReference Include="..\TikaOnDotnet\TikaOnDotnet.csproj" />
+  </ItemGroup>-->
+
+    <ItemGroup>
+        <PackageReference Include="IKVM" Version="8.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <IkvmReference Include="..\tika-app-*.jar">
+            <AssemblyName>tika.core</AssemblyName>
+        </IkvmReference>
+        <ContentWithTargetPath Include="$(OutDir)tika.core.dll">
+            <TargetPath>tika.core.dll</TargetPath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ContentWithTargetPath>
+    </ItemGroup>
 
 </Project>

@@ -47,30 +47,32 @@ namespace TikaOnDotNet.TextExtraction
 
         public TExtractionResult Extract<TExtractionResult>(byte[] data, Func<string, Metadata, TExtractionResult> extractionResultAssembler)
         {
-            return Extract(metadata => TikaInputStream.get(data, metadata), extractionResultAssembler);
+            //TODO add metadata argument to GET?
+            return Extract(metadata => TikaInputStream.get(data), extractionResultAssembler);
         }
 
-        public TextExtractionResult Extract(Uri uri)
-        {
-            return Extract(uri, LegacyResultAssembler);
-        }
+        //public TextExtractionResult Extract(Uri uri)
+        //{
+        //    return Extract(uri, LegacyResultAssembler);
+        //}
 
-        public TExtractionResult Extract<TExtractionResult>(
-            Uri uri,
-            Func<string, Metadata, TExtractionResult> extractionResultAssembler
-        )
-        {
-            return Extract(UrlStreamFactory, extractionResultAssembler);
+        //public TExtractionResult Extract<TExtractionResult>(
+        //    Uri uri,
+        //    Func<string, Metadata, TExtractionResult> extractionResultAssembler
+        //)
+        //{
+        //    return Extract(UrlStreamFactory, extractionResultAssembler);
 
-            InputStream UrlStreamFactory(Metadata metadata)
-            {
-                metadata.add("Uri", uri.ToString());
+        //    InputStream UrlStreamFactory(Metadata metadata)
+        //    {
+        //        metadata.add("Uri", uri.ToString());
 
-                var pageBytes = new WebClient().DownloadData(uri);
+        //        var pageBytes = new WebClient().DownloadData(uri);
 
-                return TikaInputStream.get(pageBytes, metadata);
-            }
-        }
+        //        //TODO add metadata argument to GET?
+        //        return TikaInputStream.get(pageBytes);
+        //    }
+        //}
 
         public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
         {

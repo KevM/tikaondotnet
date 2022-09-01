@@ -25,7 +25,7 @@ namespace TikaOnDotNet.TextExtraction
         /// </summary>
         /// <param name="uri">Url to download and </param>
         /// <exception cref="TextExtractionException"></exception>
-        TextExtractionResult Extract(Uri uri);
+        //TextExtractionResult Extract(Uri uri);
 
         /// <summary>
         ///     Extract the text from the given inputstreams and returns it as an <see cref="TextExtractionResult" /> object. 

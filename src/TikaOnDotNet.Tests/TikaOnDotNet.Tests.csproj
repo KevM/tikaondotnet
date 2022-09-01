@@ -13,12 +13,24 @@
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="IKVM" Version="8.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TikaOnDotnet.TextExtractor\TikaOnDotnet.TextExtractor.csproj" />
+    <ProjectReference Include="..\TikaOnDotnet.TextExtraction\TikaOnDotnet.TextExtraction.csproj" />
   </ItemGroup>
 
+    <ItemGroup>
+        <IkvmReference Include="..\tika-app-*.jar">
+            <AssemblyName>tika.core</AssemblyName>
+        </IkvmReference>
+        <ContentWithTargetPath Include="$(OutDir)tika.core.dll">
+            <TargetPath>tika.core.dll</TargetPath>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ContentWithTargetPath>
+    </ItemGroup>
+
+    
   <ItemGroup>
     <None Update="files\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
