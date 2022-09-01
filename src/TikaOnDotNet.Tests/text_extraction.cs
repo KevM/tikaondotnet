@@ -24,21 +24,20 @@ namespace TikaOnDotNet.Tests
         {
             const string fileName = "files/doesnotexist.mp3";
 
-
             Action act = () => _cut.Extract(fileName);
             act.Should().Throw<TextExtractionException>()
                 .Which.Message.Should().Contain(fileName);
         }
 
-        //[Test]
-        //public void non_existing_uri_should_fail_with_exception()
-        //{
-        //    const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
+        [Test]
+        public void non_existing_uri_should_fail_with_exception()
+        {
+            const string uri = "http://example.com/does/not/really/exist/mp3/repo/zzzarble.mp3";
 
-        //    Action act = () => _cut.Extract(new Uri(uri));
+            Action act = () => _cut.Extract(new Uri(uri));
 
-        //    act.Should().Throw<TextExtractionException>();
-        //}
+            act.Should().Throw<TextExtractionException>();
+        }
 
         [Test]
         public void should_extract_mp4()
@@ -181,15 +180,15 @@ namespace TikaOnDotNet.Tests
             textExtractionResult.Text.Should().Contain("Use the force duke");
         }
 
-        //[Test]
-        //public void should_extract_from_uri()
-        //{
-        //    const string url = "http://google.com/";
-        //    var textExtractionResult = _cut.Extract(new Uri(url));
+        [Test]
+        public void should_extract_from_uri()
+        {
+            const string url = "http://google.com/";
+            var textExtractionResult = _cut.Extract(new Uri(url));
 
-        //    textExtractionResult.Text.Should().Contain("Google");
-        //    textExtractionResult.Metadata["Uri"].Should().Be(url);
-        //}
+            textExtractionResult.Text.Should().Contain("Google");
+            textExtractionResult.Metadata["Uri"].Should().Be(url);
+        }
 
         [Test]
         public void should_extract_msg()
@@ -200,15 +199,15 @@ namespace TikaOnDotNet.Tests
             textExtractionResult.Metadata["dc:subject"].Should().Be("This is the subject");
         }
 
-        //[Test]
-        //public void should_extract_uri_contents()
-        //{
-        //    const string url = "https://en.wikipedia.org/wiki/Apache_Tika";
+        [Test]
+        public void should_extract_uri_contents()
+        {
+            const string url = "https://en.wikipedia.org/wiki/Apache_Tika";
+            
+            var textExtractionResult = _cut.Extract(new Uri(url));
 
-        //    var textExtractionResult = _cut.Extract(new Uri(url));
-
-        //    textExtractionResult.Text.Should().Contain("Apache Tika is a content detection and analysis framework");
-        //    textExtractionResult.Metadata["Uri"].Should().Be(url);
-        //}
+            textExtractionResult.Text.Should().Contain("Apache Tika is a content detection and analysis framework");
+            textExtractionResult.Metadata["Uri"].Should().Be(url);
+        }
     }
 }

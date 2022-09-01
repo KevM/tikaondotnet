@@ -47,32 +47,30 @@ namespace TikaOnDotNet.TextExtraction
 
         public TExtractionResult Extract<TExtractionResult>(byte[] data, Func<string, Metadata, TExtractionResult> extractionResultAssembler)
         {
-            //TODO add metadata argument to GET?
-            return Extract(metadata => TikaInputStream.get(data), extractionResultAssembler);
+            return Extract(metadata => TikaInputStream.get(data, metadata), extractionResultAssembler);
         }
 
-        //public TextExtractionResult Extract(Uri uri)
-        //{
-        //    return Extract(uri, LegacyResultAssembler);
-        //}
+        public TextExtractionResult Extract(Uri uri)
+        {
+            return Extract(uri, LegacyResultAssembler);
+        }
 
-        //public TExtractionResult Extract<TExtractionResult>(
-        //    Uri uri,
-        //    Func<string, Metadata, TExtractionResult> extractionResultAssembler
-        //)
-        //{
-        //    return Extract(UrlStreamFactory, extractionResultAssembler);
+        public TExtractionResult Extract<TExtractionResult>(
+            Uri uri,
+            Func<string, Metadata, TExtractionResult> extractionResultAssembler
+        )
+        {
+            return Extract(UrlStreamFactory, extractionResultAssembler);
 
-        //    InputStream UrlStreamFactory(Metadata metadata)
-        //    {
-        //        metadata.add("Uri", uri.ToString());
+            InputStream UrlStreamFactory(Metadata metadata)
+            {
+                metadata.add("Uri", uri.ToString());
 
-        //        var pageBytes = new WebClient().DownloadData(uri);
+                var pageBytes = new WebClient().DownloadData(uri);
 
-        //        //TODO add metadata argument to GET?
-        //        return TikaInputStream.get(pageBytes);
-        //    }
-        //}
+                return TikaInputStream.get(pageBytes, metadata);
+            }
+        }
 
         public TextExtractionResult Extract(Func<Metadata, InputStream> streamFactory)
         {
